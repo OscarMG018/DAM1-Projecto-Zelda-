@@ -144,43 +144,47 @@ def TryShakeTree():
 def ShakeTree():
     if not TryShakeTree()[0]:
         return TryShakeTree()[1]
+    messages = []
     r = random.random()
     if Inventario.GetEquipedWeapon() == None:
         if r < 0.1:
             r = random.random()
             if r < 0.5:
                 Inventario.AddItem("Wood Sword",1)
-                return "You got a Wood sword"
+                return ["You got a Wood sword"]
             else:
                 Inventario.AddItem("Wood Shield",1)
-                return "You got a Wood shield"
+                return ["You got a Wood shield"]
         elif r < 0.5:
             Inventario.AddItem("Vegetable",1,category="Food")
-            return "You got an apple"
+            return ["You got an apple"]
         else:
-            return "The Tree didn't give you anythng"
+            return ["The Tree didn't give you anythng"]
     else:
         player = Jugabilidad.GetPlayer()
         px = player["x"]
         py = player["y"]
         tree = Jugabilidad.AdjacentEntity(py,px,"Tree")
         tree["hits"] += 1
-        Inventario.UseWeapon()
+        message = Inventario.UseWeapon()
+        if message != None:
+            messages.append(message)
         if tree["hits"] >= 5:
             tree["hits"] = 0
             tree["name"] = "Broken Tree"
             tree["regen"] = 10
         if r < 0.2:
             Inventario.AddItem("Wood Sword",1)
-            return "You got a Wood sword"
+            messages.append("You got a Wood sword")
         elif r < 0.4:
             Inventario.AddItem("Wood Shield",1)
-            return "You got a Wood shield"
+            messages.append("You got a Wood shield")
         elif r < 0.8:
             Inventario.AddItem("Vegetable",1,category="Food")
-            return "You got an apple"
+            messages.append("You got an apple")
         else:
-            return "The Tree didn't give you anythng"
+            messages.append("The Tree didn't give you anythng")
+        return messages
 
 #Gespa
 
@@ -217,11 +221,9 @@ def ActionTime():
         RecloseChest()
     #Blood Moon
     Combate.BloodMoon += 1
-    ActiveSave = Saves.ActiveSave
     if Combate.BloodMoon >= 25:
         Combate.BloodMoon = 0
         Jugabilidad.RespawnEnemies()
-        Saves.SaveFiles[ActiveSave]["BloodMoonAppearences"] += 1
     Inventario.BloodMoon += 1
     if Inventario.BloodMoon >= 25:
         Inventario.BloodMoon = 0
