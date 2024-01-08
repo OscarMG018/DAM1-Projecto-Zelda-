@@ -27,3 +27,37 @@ def main_menu():
     else:
         print("* Continue, New Game, Help, About, Exit " + ("* " * 20))
         return ["continue", "new game", "help", "about", "exit"]
+
+def help_menu():
+    print(
+"""* Help, main menu * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+* Type 'continue' to continue a saved game                                    *
+* Type 'new game' to start a new game                                         *
+* Type 'about' to see information about the game                              *
+* Type 'exit' to exit the game                                                *
+*                                                                             *
+*                                                                             *
+* Type 'back' now to go back to the 'Main menu'                               *
+*                                                                             *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+""")
+    return "back"
+
+def about_menu():
+    print(
+"""* About * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*         Game developed by ‘Team 2, The hometown bugs’ :                     *
+*                                                                             *
+*                                                                             *
+*              Allan Turing                                                   *
+*              Steve Jobs                                                     *
+*              Linus Torvalds                                                 *
+*                                                                             *
+*         Type 'back' now to go back to the 'Main menu'                       *
+*                                                                             *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+""")
+    return "back"
