@@ -1,7 +1,7 @@
 CREATE TABLE game {
     GameId INT AUTO_INCREMENT PRIMARY KEY,
     UserName VARCHAR(255) NOT NULL,
-    DateStartede DATE,
+    DateStarted DATE,
     LastSaved DATE,
     PlayerMaxLife INT,
     PlayerCurrentLife INT,
@@ -14,7 +14,7 @@ CREATE Table food {
     GameId INT NOT NULL,
     FoodName VARCHAR(30) Values("Vegetable","Fish","Meat","Salad","Pescatarian","Roasted"),
     FoodQuantity INT,
-    TimesObtaines INT,
+    TimesObtained INT,
     TimesComsumed INT,
     PRIMARY KEY(GameId, FoodName),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
@@ -25,7 +25,7 @@ CREATE Table weapons {
     WeaponName VARCHAR(30) Values("Sword","Shield","Wood Sword","Wood Shield"),
     WeaponQuantity INT,
     WeaponDurability INT
-    TimesObtaines INT,
+    TimesObtained INT,
     TimesUsed INT,
     PRIMARY KEY(GameId, WeaponName)
     FOREIGN KEY(GameId) REFERENCES game(GameId)
