@@ -126,12 +126,15 @@ def root():
                     new_prompt = input("> ")
                     if new_prompt not in available_prompts:
                         if not new_prompt:
-                            prompts_list.append("> Welcome to the game, Link")                            
+                            prompts_list.append("> Welcome to the game, Link")                          
                         elif not (new_prompt.replace(" ", "")).isalnum():
                             prompts_list.append("> " + '"' + new_prompt + '"' + " is not a valid name")
                         else:
-                            user_name = new_prompt
-                            prompts_list.append("> Welcome to the game, " + new_prompt)
+                            if len(new_prompt) < 3 or len(new_prompt) > 10:
+                                prompts_list.append("> " + '"' + new_prompt + '"' + " is not a valid name")
+                            else:
+                                user_name = new_prompt
+                                prompts_list.append("> Welcome to the game, " + new_prompt)
                     else:
                         prompts_list.append("> " + new_prompt)
                         if new_prompt == "help":
