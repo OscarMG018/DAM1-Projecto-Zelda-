@@ -1,3 +1,4 @@
+import copy
 
 mapName = "map1"
 previusLocation = "Gerudo"
@@ -555,4 +556,3 @@ def RegenGanon():
 
     # Update the maps dictionary with the new entities list
     maps["Castle"]["entities"] = current_castle_entities
- 
