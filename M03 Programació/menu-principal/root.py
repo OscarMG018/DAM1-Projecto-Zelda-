@@ -28,6 +28,40 @@ def main_menu():
         print("* Continue, New Game, Help, About, Exit " + ("* " * 20))
         return ["continue", "new game", "help", "about", "exit"]
 
+def new_game_menu_help():
+    print(
+"""* Help, new game  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+*          When asked, type your name and press enter                         *
+*          if 'Link' is fine for you, just press enter                        *
+*                                                                             *
+*          Name must be between 3 and 10 characters long and only             *
+*          letters, numbers and spaces are allowed                            *
+*                                                                             *
+*          Type 'back' now to go back to 'Set your name'                      *
+*                                                                             *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+""")
+    return ["back"]
+
+def new_game_menu():
+    print(
+"""* New game  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*          Set your name ?                                                    *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*          Type 'back' now to go back to the 'Main menu'                      *
+*                                                                             *
+* Back, Help  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+""")
+    return ["back", "help"]
+
 def help_menu():
     print(
 """* Help, main menu * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -61,3 +95,96 @@ def about_menu():
 * Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
     return "back"
+
+def root():
+    global exit_game
+    while not exit_game:
+        clear_screen()
+        if len(prompts_list) > 8:
+            del prompts_list[0]
+        available_prompts = main_menu()
+        print("\n## Last Prompts ##")
+        for prompt in prompts_list:
+            print(prompt)
+        print("- - - - -\nWhat to do now?")
+        new_prompt = input("> ").lower()
+        if new_prompt not in available_prompts:
+            prompts_list.append("> " + "Invalid Action")
+        else:
+            prompts_list.append("> " + new_prompt)
+
+            if new_prompt == "new game":
+                while True:
+                    clear_screen()
+                    if len(prompts_list) > 8:
+                        del prompts_list[0]
+                    available_prompts = new_game_menu()
+                    print("\n## Last Prompts ##")
+                    for prompt in prompts_list:
+                        print(prompt)
+                    print("- - - - -\nWhat's your name (Link)?")
+                    new_prompt = input("> ")
+                    if new_prompt not in available_prompts:
+                        if not new_prompt:
+                            prompts_list.append("> Welcome to the game, Link")                            
+                        elif not (new_prompt.replace(" ", "")).isalnum():
+                            prompts_list.append("> " + '"' + new_prompt + '"' + " is not a valid name")
+                        else:
+                            user_name = new_prompt
+                            prompts_list.append("> Welcome to the game, " + new_prompt)
+                    else:
+                        prompts_list.append("> " + new_prompt)
+                        if new_prompt == "help":
+                            while True:
+                                clear_screen()
+                                if len(prompts_list) > 8:
+                                    del prompts_list[0]
+                                available_prompts = new_game_menu_help()
+                                print("\n## Last Prompts ##")
+                                for prompt in prompts_list:
+                                    print(prompt)
+                                print("- - - - -\nWhat to do now?")
+                                new_prompt = input("> ").lower()
+                                if new_prompt not in available_prompts:
+                                    prompts_list.append("> " + "Invalid Action")
+                                else:
+                                    prompts_list.append("> " + new_prompt)
+                                    break
+                        else:
+                            break
+
+            if new_prompt == "help":
+                while True:
+                    clear_screen()
+                    if len(prompts_list) > 8:
+                        del prompts_list[0]
+                    available_prompts = help_menu()
+                    print("\n## Last Prompts ##")
+                    for prompt in prompts_list:
+                        print(prompt)
+                    print("- - - - -\nWhat to do now?")
+                    new_prompt = input("> ").lower()
+                    if new_prompt not in available_prompts:
+                        prompts_list.append("> " + "Invalid Action")
+                    else:
+                        prompts_list.append("> " + new_prompt)
+                        break
+                
+            elif new_prompt == "about":
+                while True:
+                    clear_screen()
+                    if len(prompts_list) > 8:
+                        del prompts_list[0]
+                    available_prompts = about_menu()
+                    print("\n## Last Prompts ##")
+                    for prompt in prompts_list:
+                        print(prompt)
+                    print("- - - - -\nWhat to do now?")
+                    new_prompt = input("> ").lower()
+                    if new_prompt not in available_prompts:
+                        prompts_list.append("> " + "Invalid Action")
+                    else:
+                        prompts_list.append("> " + new_prompt)
+                        break
+
+root()
