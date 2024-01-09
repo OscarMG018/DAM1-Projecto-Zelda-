@@ -86,15 +86,101 @@ def SaveToDB(number):
     for location in Saves[number]["MapInformation"]:
         for enemy in location["Enemies"]:
             ExecuteQuerry(f"UPDATE enemies SET EnemyLife = {enemy['life']}, PosX = {enemy['x']}, PosY = {enemy['y']} WHERE GameId = {number} and EnemyId = {enemy['EnemyNumber']} and Loacation = '{location}'")
-        for chest in location["Chests"]:
-            ExecuteQuerry(f"UPDATE chests SET Opened = {chest['opened']} WHERE GameId = {number} and PosX = {chest['x']} and PosY = {chest['y']} and Loacation = '{location}'")
+        for i,chest in enumerate(location["Chests"]):
+            ExecuteQuerry(f"UPDATE chests SET Opened = {chest['opened']} WHERE GameId = {number} and ChestId = {i} and Loacation = '{location}'")
 
 def DeleteSaveFromDB(number):
-    return
+    ExecuteQuerry(f"DELETE FROM game WHERE GameId = {number}")
+    ExecuteQuerry(f"DELETE FROM food WHERE GameId = {number}")
+    ExecuteQuerry(f"DELETE FROM weapons WHERE GameId = {number}")
+    ExecuteQuerry(f"DELETE FROM Sanctuaries WHERE GameId = {number}")
+    ExecuteQuerry(f"DELETE FROM enemies WHERE GameId = {number}")
+    ExecuteQuerry(f"DELETE FROM chests WHERE GameId = {number}")
 
 def LoadFromDB():
-    return
+    global Saves
+    Saves = {}
+    for game in ExecuteQuerry("SELECT * FROM game"):
+        Saves[game[0]] = {
+            "DateStarted" : game[2],
+            "SaveDate" : game[3],
+            "PlayerName" : game[1],
+            "LastLocation" : game[8],
+            "PlayerLife" : game[5],
+            "PlayerMaxLife" : game[4],
+            "BloodMoon" : game[6],
+            "BloodMoonAppearences" : game[7],
+            "SanctuariesOpened" : [],
+            "Inventario" : {},
+            "FoodObtained" : {},
+            "FoodComsumed" : {},
+            "Inventario Armas" : {},
+            "ArmasObteined" : {},
+            "ArmasUsed" : {},
+            "MapInformation" : {
+            "Hyrule" : {
+                "Enemies" : [
+                    {"x" : 35, "y" : 4, "life" : 9, "EnemyNumber" : 0},
+                    {"x" : 20, "y" : 8, "life" : 1, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 46, "y" : 8,"opened" : False},
+                ]
+            },
+            "Death mountain" : {
+                "Enemies" : [
+                    {"x" : 11, "y" : 3, "life" : 2, "EnemyNumber" : 0},
+                    {"x" : 50, "y" : 2, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 35, "y" : 7,"opened" : False}
+                ]
+            },
+            "Gerudo" : {
+                "Enemies" : [
+                    {"x" : 2, "y" : 3, "life" : 1, "EnemyNumber" : 0},
+                    {"x" : 37, "y" : 5, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 7, "y" : 8, "opened" : False},
+                    {"x" : 51, "y" : 0, "opened" : False}
+                ]
+            },
+            "Necluda" : {
+                "Enemies" : [
+                    {"x" : 9, "y" : 1, "life" : 1, "EnemyNumber" : 0},
+                    {"x" : 37, "y" : 5, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 21, "y" : 0, "opened" : False},
+                    {"x" : 22, "y" : 8, "opened" : False},
+                    {"x" : 50, "y" : 1, "opened" : False}           
+                ]
+            }
+        }
+        }
+    
+    for food in ExecuteQuerry("SELECT * FROM food"):
+        Saves[food[0]]["Inventario"][food[1]] = food[2]
+        Saves[food[0]]["FoodObtained"][food[1]] = food[3]
+        Saves[food[0]]["FoodComsumed"][food[1]] = food[4]
+    
+    for weapon in ExecuteQuerry("SELECT * FROM weapons"):
+        Saves[weapon[0]]["Inventario Armas"][weapon[1]] = [weapon[2], weapon[3], weapon[4]]
+        Saves[weapon[0]]["ArmasObteined"][weapon[1]] = weapon[5]
+        Saves[weapon[0]]["ArmasUsed"][weapon[1]] = weapon[6]
+    
+    for sanctuary in ExecuteQuerry("SELECT * FROM Sanctuaries order by SanctuaryId asc"):
+        Saves[sanctuary[0]]["SanctuariesOpened"].append(sanctuary[2])"
 
+    for enemy in ExecuteQuerry("SELECT * FROM enemies order by EnemyId asc"):
+        Saves[enemy[0]]["MapInformation"][enemy[1]]["Enemies"][enemy[2]]["life"] = enemy[3]
+        Saves[enemy[0]]["MapInformation"][enemy[1]]["Enemies"][enemy[2]]["x"] = enemy[4]
+        Saves[enemy[0]]["MapInformation"][enemy[1]]["Enemies"][enemy[2]]["y"] = enemy[5]
+    
+    for chest in ExecuteQuerry("SELECT * FROM chests order by ChestId asc"):
+        Saves[chest[0]]["MapInformation"][chest[1]]["Chests"][chest[2]]["opened"] = chest[3]
+    
 def NewSave(PlayerName):
     return {
         "DateStarted" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),

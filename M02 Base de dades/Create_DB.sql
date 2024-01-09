@@ -55,12 +55,15 @@ CREATE Table Enemies {
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 }
 
-CREATE Table Chests {
+DROP TABLE Chests
+
+CREATE Table Chests (
     GameId INT NOT NULL,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
-    PosX INT,
-    PoxY INT,
+    ChestId INT,
     Opened BOOLEAN,
-    PRIMARY KEY(GameId, Loacation, PosX, PoxY)
+    PRIMARY KEY(GameId, Loacation, ChestId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-}
+)
+
+SELECT * FROM chests order by PosX asc, PosY asc
