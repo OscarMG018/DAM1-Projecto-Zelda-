@@ -1,3 +1,6 @@
+import Guardado
+import copy
+
 inventario = {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0}
 inventario_armas = {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]}
 
@@ -84,4 +87,18 @@ def AddItem(nombre, cantidad):
     if nombre in ["Wood Sword", "Wood Shield" , "Sword", "Shield"]:
         for x in range(cantidad):
             inventario_armas[nombre][1] += 1
-                    
+
+def InvenroryInit(invetoryInfo=None):
+    global inventario, inventario_armas
+    if invetoryInfo != None:
+        inventario = copy.deepcopy(invetoryInfo[0])
+        inventario_armas = copy.deepcopy(invetoryInfo[1])
+    else :
+        inventario = {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0}
+        inventario_armas = {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]}
+
+
+def SaveInventory(number):
+    global inventario_armas, inventario
+    Guardado.Saves[number]["Inventario"] = copy.deepcopy(inventario)
+    Guardado.Saves[number]["Inventario Armas"] = copy.deepcopy(inventario_armas)

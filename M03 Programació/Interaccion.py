@@ -3,6 +3,7 @@ import random
 import Inventario
 import Combate
 import Guardado
+from datetime import datetime
 
 #Pesca
 
@@ -224,6 +225,7 @@ def ActionTime():
     Combate.BloodMoon += 1
     if Combate.BloodMoon >= 25:
         Combate.BloodMoon = 0
+        Combate.BloodMoonAppearances += 1
         Jugabilidad.RespawnEnemies()
     Inventario.BloodMoon += 1
     if Inventario.BloodMoon >= 25:
@@ -252,9 +254,9 @@ def test():
 test()
 
 def SaveData():
-    ActiveSave = Saves.ActiveSave
+    ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)
     Jugabilidad.SaveMapInfo(ActiveSave)
-    Saves.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    Saves.SaveToFile()
+    Guardado.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    Guardado.SaveToFile() #Cambiar por Guardado.SaveToDB() cuando este lista
 
