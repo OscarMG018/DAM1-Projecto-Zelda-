@@ -23,7 +23,7 @@ def Fishing():
         return TryFishing()[1]
     p = random.random()
     if p < 0.2:
-        Inventario.AddItem("Fish", 1,category="Food")
+        Inventario.AddItem("Fish", 1)
         fished = True
         return "You Get A Fish"
     return"You don't Get A Fish"
@@ -94,7 +94,7 @@ def OpenChest():
     px = Jugabilidad.GetEntityByIndex(playerIndex)["x"]
     py = Jugabilidad.GetEntityByIndex(playerIndex)["y"]
     chest = Jugabilidad.AdjacentEntity(py,px,"Closed Chest")
-    Inventario.AddItem(chest["item"])
+    Inventario.AddItem(chest["item"],1)
     chest["name"] = "Open Chest"
     chest["symbol"] = "W"
     return f"You got a {chest['item']}"
@@ -116,7 +116,7 @@ def TryOpenSanctuary():
         return False, "There isn't a sanctuary here"
     elif Jugabilidad.OpenSanctuaris[sanc["SanctuaryNumber"]] == True:
         return False, "You already opened this sanctuary"
-    return True
+    return True,None
 
 def OpenSanctuary():
     if not TryOpenSanctuary()[0]:
@@ -142,8 +142,8 @@ def TryShakeTree():
     return True,None
 
 def ShakeTree():
-    if not TryShakeTree()[0]:
-        return TryShakeTree()[1]
+    #if not TryShakeTree()[0]:
+        #return TryShakeTree()[1]
     messages = []
     r = random.random()
     if Inventario.GetEquipedWeapon() == None:
@@ -156,7 +156,7 @@ def ShakeTree():
                 Inventario.AddItem("Wood Shield",1)
                 return ["You got a Wood shield"]
         elif r < 0.5:
-            Inventario.AddItem("Vegetable",1,category="Food")
+            Inventario.AddItem("Vegetable",1)
             return ["You got an apple"]
         else:
             return ["The Tree didn't give you anythng"]
@@ -180,7 +180,7 @@ def ShakeTree():
             Inventario.AddItem("Wood Shield",1)
             messages.append("You got a Wood shield")
         elif r < 0.8:
-            Inventario.AddItem("Vegetable",1,category="Food")
+            Inventario.AddItem("Vegetable",1)
             messages.append("You got an apple")
         else:
             messages.append("The Tree didn't give you anythng")
@@ -199,11 +199,11 @@ def TryCutGrass():
     return True,None
 
 def CutGrass():
-    if not TryCutGrass()[0]:
-        return TryCutGrass()[1] 
+    #if not TryCutGrass()[0]:
+        #return TryCutGrass()[1] 
     r = random.random()
-    if r < 0.1:
-        Inventario.AddItem("Meat",category="Food")
+    if r < 1:
+        Inventario.AddItem("Meat",1)
         return "You got a lizard"
 
 #Time and saving
@@ -227,3 +227,33 @@ def ActionTime():
     Inventario.BloodMoon += 1
     if Inventario.BloodMoon >= 25:
         Inventario.BloodMoon = 0
+
+def test():
+    Jugabilidad.InitMap()
+    Jugabilidad.LoadMap("Hyrule")
+    while(True):
+        print(Jugabilidad.MapToStr())
+        print(Inventario.inventario_armas)
+        print(Inventario.inventario)
+        print(fished)
+        action = input().split(" ")
+        if action[0] == "fishing":
+            print(Fishing())
+        if action[0] == "go":
+            Jugabilidad.MovePlayerBy(int(action[1]),int(action[2]))
+        if action[0] == "goto":
+            Jugabilidad.MovePlayerNearEntity("symbol",action[1])
+        if action[0] == "open":
+            if action[1] == "chest":
+                print(OpenChest())
+            elif action[1] == "sanctuary":
+                print(OpenSanctuary())
+test()
+
+def SaveData():
+    ActiveSave = Saves.ActiveSave
+    Inventario.SaveInventory(ActiveSave)
+    Jugabilidad.SaveMapInfo(ActiveSave)
+    Saves.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    Saves.SaveToFile()
+

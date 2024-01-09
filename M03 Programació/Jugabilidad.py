@@ -1,4 +1,7 @@
 import copy
+import random
+from collections import deque
+import Guardado
 
 mapName = "map1"
 previusLocation = "Gerudo"
@@ -393,9 +396,8 @@ def InitMap(MapInfo=None):
     maps = copy.deepcopy(OriginalMaps)
     if MapInfo != None:
         for mapName,info in MapInfo.items():
-            LoadMap(mapName)
             enemiesSaved = info["Enemies"]
-            for enemy in GetAllEntiiesWithName("Enemy"):
+            for enemy in GetAllEntiiesWithName("Enemy",location=mapName):
                 enemySaved = next((e for e in enemiesSaved if e["EnemyNumber"] == enemy["EnemyNumber"]), None)
                 if enemySaved == None:
                     raise ValueError("Error: Could not Initialize Map, Enemy in map has no conterpart in SaveFile ")
@@ -407,11 +409,11 @@ def InitMap(MapInfo=None):
                     enemy["y"] = enemySaved["y"]
             
             chestsSaved = info["Chests"]
-            for chest in GetAllEntiiesWithName("Closed Chest"):
+            for chest in GetAllEntiiesWithName("Closed Chest",location=mapName):
                 chestSaved = next((c for c in chestsSaved if c["x"] == chest["x"] and c["y"] == chest["y"]), None) 
                 if chestSaved == None:
                     raise ValueError("Error: Could not Initialize Map, Chest in map has no conterpart in SaveFile ")
-                if chestSaved["name"] == "Open Chest":
+                if chestSaved["opened"]:
                     chest["name"] = "Open Chest"
                     chest["symbol"] = "W"
                 
@@ -432,10 +434,10 @@ def MovePlayerBy(y,x): #Para Arriba Abajo Derecha Izquierda
     for i in range(abs(y)):
         px = player["x"]
         py = player["y"]
-        if not ValidPosition(py + y//abs(y), px) or IsBlocked(py + y//abs(y), px):
+        if not ValidPosition(py - y//abs(y), px) or IsBlocked(py - y//abs(y), px):
             return "You can't go there, is not a valid position'"
         else:
-            MoveEntityBy(playerIndex,y//abs(y),0)  
+            MoveEntityBy(playerIndex,-y//abs(y),0)  
     for i in range(abs(x)):
         px = player["x"]
         py = player["y"]
@@ -556,3 +558,30 @@ def RegenGanon():
 
     # Update the maps dictionary with the new entities list
     maps["Castle"]["entities"] = current_castle_entities
+
+def SaveMapInfo(number):
+    global maps, mapName, OriginalMaps
+    Guardado.Saves[number]["LastLocation"] = mapName
+    Guardado.Saves[number]["SanctuariesOpened"] = copy.deepcopy(OpenSanctuaris)
+    
+    for MapName,location in Guardado.Saves[number]["MapInformation"].items():
+        MapEnemies = GetAllEntiiesWithName("Enemy",location=MapName)
+        for SavedEnemy in location["Enemies"]:
+            MapEnemy = next((e for e in MapEnemies if e["EnemyNumber"] == SavedEnemy["EnemyNumber"]), None)
+            if MapEnemy != None:
+                SavedEnemy["life"] = MapEnemy["life"]
+                SavedEnemy["x"] = MapEnemy["x"]
+                SavedEnemy["y"] = MapEnemy["y"]
+            else:
+                SavedEnemy["life"] = 0
+        MapChests = GetAllEntiiesWithName("Closed Chest",location=MapName)
+        MapChests += GetAllEntiiesWithName("Open Chest",location=MapName)
+        for SavedChest in location["Chests"]:
+            MapChest = next((c for c in MapChests if c["x"] == SavedChest["x"] and c["y"] == SavedChest["y"]), None)
+            if MapChest != None:
+                if MapChest["name"] == "Closed Chest":
+                    SavedChest["opened"] = False
+                else:
+                    SavedChest["opened"] = True
+            else:
+                raise ValueError(f"There is a chest in the map that is not in the saveFile: {MapChests} {MapChest} {MapName} {SavedChest}")
