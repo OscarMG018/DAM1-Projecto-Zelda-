@@ -1,6 +1,7 @@
 from datetime import datetime
 import json
 import os
+import copy
 
 ActiveSave = 0
 
@@ -9,16 +10,14 @@ Saves = [
 ]
 
 def SaveToFile():
-    #Writes SaveFiles List to a file named saves.json
     with open("saves.json", "w") as f:
-        json.dump(SaveFiles, f)
+        json.dump(Saves, f)
 
 def LoadFromFile():
-    #Reads the saves.json file and loads the SaveFiles List
     if os.path.isfile("saves.json"):
         with open("saves.json", "r") as f:
-            global SaveFiles
-            SaveFiles = json.load(f)
+            global Saves
+            Saves = json.load(f)
 
 def SaveToDB():
     return
@@ -41,7 +40,7 @@ def NewSave(PlayerName):
         "BloodMoonAppearences" : 0,
         "SanctuariesOpened" : [False,False,False,False,False,False,False],
         "Inventario" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
-        "InventarioArmas" : {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]},
+        "Inventario Armas" : {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]},
         "MapInformation" : {
             "Hyrule" : {
                 "Enemies" : [
@@ -84,3 +83,12 @@ def NewSave(PlayerName):
             }
         }
     }
+
+def GetMapInfo(number):
+    return [copy.deepcopy(Saves[number]["MapInformation"]),Saves[number]["LastLocation"],copy.deepcopy(Saves[number]["SanctuariesOpened"])]
+
+def GetInventoryInfo(number):
+    return [copy.deepcopy(Saves[number]["Inventario"]),copy.deepcopy(Saves[number]["Inventario Armas"])]
+
+def GetCombateInfo(number):
+    return [Saves[number]["PlayerLife"],Saves[number]["PlayerMaxLife"],Saves[number]["BloodMoon"],Saves[number]["BloodMoonAppearences"]]

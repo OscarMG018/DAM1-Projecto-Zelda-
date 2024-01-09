@@ -4,7 +4,7 @@ from collections import deque
 import Guardado
 
 mapName = "map1"
-previusLocation = "Gerudo"
+previusLocation = "Hyrule"
 
 OpenSanctuaris = [False,False,False,False,False,False,False]
 
@@ -395,7 +395,9 @@ def InitMap(MapInfo=None):
     global maps
     maps = copy.deepcopy(OriginalMaps)
     if MapInfo != None:
-        for mapName,info in MapInfo.items():
+        mapName = MapInfo[1]
+        OpenSanctuaris = MapInfo[2]
+        for mapName,info in MapInfo[0].items():
             enemiesSaved = info["Enemies"]
             for enemy in GetAllEntiiesWithName("Enemy",location=mapName):
                 enemySaved = next((e for e in enemiesSaved if e["EnemyNumber"] == enemy["EnemyNumber"]), None)
@@ -416,6 +418,7 @@ def InitMap(MapInfo=None):
                 if chestSaved["opened"]:
                     chest["name"] = "Open Chest"
                     chest["symbol"] = "W"
+        
                 
 """-------------Jugador-----------"""
 
