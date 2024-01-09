@@ -12,7 +12,7 @@ CREATE TABLE game (
     BloodMoon INT,
     BloodMoonAppearances INT,
     LastRegion ENUM("Hyrule","Death mountain","Gerudo","Necluda","Castle")
-)
+);
 
 CREATE Table food (
     GameId INT NOT NULL,
@@ -22,13 +22,14 @@ CREATE Table food (
     TimesComsumed INT,
     PRIMARY KEY(GameId, FoodName),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
+);
 
 CREATE Table weapons (
     GameId INT NOT NULL,
     WeaponName ENUM("Sword","Shield","Wood Sword","Wood Shield"),
     WeaponQuantity INT,
     WeaponDurability INT
+    Equiped BOOLEAN,
     TimesObtained INT,
     TimesUsed INT,
     PRIMARY KEY(GameId, WeaponName)
@@ -45,18 +46,21 @@ CREATE Table Sanctuaries {
 
 CREATE Table Enemies {
     GameId INT NOT NULL,
+    Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
     EnemyId INT,
     EnemyLife INT,
     PosX INT,
     PoxY INT,
-    PRIMARY KEY(GameId, EnemyId)
+    PRIMARY KEY(GameId, Loacation, EnemyId)
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 }
 
 CREATE Table Chests {
     GameId INT NOT NULL,
-    ChestId INT NOT NULL,
+    Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
+    PosX INT,
+    PoxY INT,
     Opened BOOLEAN,
-    PRIMARY KEY(GameId, ChestId)
+    PRIMARY KEY(GameId, Loacation, PosX, PoxY)
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 }
