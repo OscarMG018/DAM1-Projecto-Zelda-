@@ -2,6 +2,7 @@ import Jugabilidad
 import random
 import Inventario
 import Combate
+import Guardado
 
 #Pesca
 
