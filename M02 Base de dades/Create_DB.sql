@@ -1,4 +1,6 @@
 -- Active: 1698162559588@@127.0.0.1@3306@projectodb
+
+DROP DATABASE IF EXISTS ProjectoDB;
 CREATE DATABASE ProjectoDB;
 USE ProjectoDB;
 
@@ -28,42 +30,38 @@ CREATE Table weapons (
     GameId INT NOT NULL,
     WeaponName ENUM("Sword","Shield","Wood Sword","Wood Shield"),
     WeaponQuantity INT,
-    WeaponDurability INT
+    WeaponDurability INT,
     Equiped BOOLEAN,
     TimesObtained INT,
     TimesUsed INT,
-    PRIMARY KEY(GameId, WeaponName)
+    PRIMARY KEY(GameId, WeaponName),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
 
-CREATE Table Sanctuaries {
+CREATE Table Sanctuaries (
     GameId INT NOT NULL,
     SanctuaryId INT,
     Opened BOOLEAN,
-    PRIMARY KEY(GameId, SanctuaryId)
+    PRIMARY KEY(GameId, SanctuaryId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-}
+)
 
-CREATE Table Enemies {
+CREATE Table Enemies (
     GameId INT NOT NULL,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
     EnemyId INT,
     EnemyLife INT,
     PosX INT,
     PoxY INT,
-    PRIMARY KEY(GameId, Loacation, EnemyId)
+    PRIMARY KEY(GameId, Loacation, EnemyId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-}
-
-DROP TABLE Chests
+)
 
 CREATE Table Chests (
     GameId INT NOT NULL,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
-    ChestId INT,
+    ChestId INT,NOT NULL
     Opened BOOLEAN,
     PRIMARY KEY(GameId, Loacation, ChestId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
-
-SELECT * FROM chests order by PosX asc, PosY asc

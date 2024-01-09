@@ -15,7 +15,6 @@ ActiveSave = 0
 Saves = {
 
 }
-    
 
 def SaveToFile():
     with open("saves.json", "w") as f:
@@ -158,7 +157,7 @@ def LoadFromDB():
                 ]
             }
         }
-        }
+    }
     
     for food in ExecuteQuerry("SELECT * FROM food"):
         Saves[food[0]]["Inventario"][food[1]] = food[2]
@@ -171,7 +170,7 @@ def LoadFromDB():
         Saves[weapon[0]]["ArmasUsed"][weapon[1]] = weapon[6]
     
     for sanctuary in ExecuteQuerry("SELECT * FROM Sanctuaries order by SanctuaryId asc"):
-        Saves[sanctuary[0]]["SanctuariesOpened"].append(sanctuary[2])"
+        Saves[sanctuary[0]]["SanctuariesOpened"].append(sanctuary[2])
 
     for enemy in ExecuteQuerry("SELECT * FROM enemies order by EnemyId asc"):
         Saves[enemy[0]]["MapInformation"][enemy[1]]["Enemies"][enemy[2]]["life"] = enemy[3]
