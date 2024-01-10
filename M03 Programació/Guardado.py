@@ -9,7 +9,6 @@ DBuser = 'your_username'
 DBpassword = 'your_password'
 DBdatabase = 'your_database_name'
 
-
 ActiveSave = 0
 
 Saves = {
@@ -180,6 +179,7 @@ def LoadFromDB():
     for chest in ExecuteQuerry("SELECT * FROM chests order by ChestId asc"):
         Saves[chest[0]]["MapInformation"][chest[1]]["Chests"][chest[2]]["opened"] = chest[3]
     
+
 def NewSave(PlayerName):
     return {
         "DateStarted" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
@@ -249,8 +249,8 @@ def GetInventoryInfo(number):
 def GetCombateInfo(number):
     return [Saves[number]["PlayerLife"],Saves[number]["PlayerMaxLife"],Saves[number]["BloodMoon"],Saves[number]["BloodMoonAppearences"]]
 
-def RealNumeberList():
-    dic = {}
-    for i in range(len(Saves.keys())):
-        dic[i] = Saves.keys()[i]
-    return dic
+def SavesGameIdList():
+    return Saves.items()
+
+def GetNewGameId():
+    return max(Saves.keys()) + 1

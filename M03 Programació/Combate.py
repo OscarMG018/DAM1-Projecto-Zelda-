@@ -5,7 +5,7 @@ PlayerMaxLife = 3
 BloodMoon = 0
 BloodMoonAppearences = 0
 
-def CombateInit(CombateInfo=None):
+def InitCombate(CombateInfo=None):
     global PlayerLife, PlayerMaxLife, BloodMoon, BloodMoonAppearences
     if CombateInfo != None:
         PlayerLife = CombateInfo[0]
