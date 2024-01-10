@@ -253,4 +253,6 @@ def SavesGameIdList():
     return Saves.items()
 
 def GetNewGameId():
+    if len(Saves.keys()) == 0:
+        return 1
     return max(Saves.keys()) + 1
