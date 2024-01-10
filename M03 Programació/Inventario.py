@@ -86,7 +86,21 @@ def AddItem(nombre, cantidad):
             inventario[nombre] += 1
     if nombre in ["Wood Sword", "Wood Shield" , "Sword", "Shield"]:
         for x in range(cantidad):
-            inventario_armas[nombre][1] += 1
+            inventario_armas[nombre][1] += 1          
+
+def GetItem(nombre):
+    global inventario_armas, inventario
+    if nombre in ["Vegetable", "Fish", "Meat", "Salad", "Pescatarian", "Roasted"]:
+        return inventario[nombre]
+    if nombre in ["Wood Sword", "Wood Shield" , "Sword", "Shield"]:
+        return inventario_armas[nombre]
+
+def RemoveItem(nombre, cantidad):
+    global inventario_armas, inventario
+    if nombre in ["Vegetable", "Fish", "Meat", "Salad", "Pescatarian", "Roasted"]:
+        inventario[nombre] -= cantidad
+    if nombre in ["Wood Sword", "Wood Shield" , "Sword", "Shield"]:
+        inventario_armas[nombre][1] -= cantidad
 
 def InvenroryInit(invetoryInfo=None):
     global inventario, inventario_armas
@@ -97,8 +111,8 @@ def InvenroryInit(invetoryInfo=None):
         inventario = {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0}
         inventario_armas = {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]}
 
-
 def SaveInventory(number):
     global inventario_armas, inventario
     Guardado.Saves[number]["Inventario"] = copy.deepcopy(inventario)
     Guardado.Saves[number]["Inventario Armas"] = copy.deepcopy(inventario_armas)
+

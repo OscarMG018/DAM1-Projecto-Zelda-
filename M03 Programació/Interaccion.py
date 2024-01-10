@@ -1,7 +1,7 @@
 import Jugabilidad
 import random
 import Inventario
-
+import Combate
 
 #Pesca
 
@@ -60,7 +60,7 @@ def TryCook(name):
         return False, "This recipe doesn't exist"
     insuficientIngredients = []
     for ingridient in CookingIngredients[name]:
-        if Inventario.GetItem(ingridient[0],category="Food") < ingridient[1]:
+        if Inventario.GetItem(ingridient[0]) < ingridient[1]:
             insuficientIngredients.append(ingridient[0])
     if len(insuficientIngredients) > 0:
         return False, "You don't have enough "+" and ".join(insuficientIngredients)
@@ -70,8 +70,8 @@ def Cook(name):
     if not TryCook(name)[0]:
         return TryCook(name)[1]
     for ingridient in CookingIngredients[name]:
-        Inventario.RemoveItem(ingridient[0],ingridient[1],category="Food")
-    Inventario.AddItem(name,1,category="Food")
+        Inventario.RemoveItem(ingridient[0],ingridient[1])
+    Inventario.AddItem(name,1)
     return f"You cooked a {name}"
 
 #Cofres
@@ -126,7 +126,7 @@ def OpenSanctuary():
     py = player["y"]
     sanc = Jugabilidad.AdjacentEntity(py,px,"Sanctuary")
     Jugabilidad.OpenSanctuaris[sanc["SanctuaryNumber"]] = True
-    Inventario.PlayerMaxLife += 1
+    Combate.PlayerMaxLife += 1
     return "You opened the sanctuary"
 
 #Tree
@@ -142,8 +142,8 @@ def TryShakeTree():
     return True,None
 
 def ShakeTree():
-    #if not TryShakeTree()[0]:
-        #return TryShakeTree()[1]
+    if not TryShakeTree()[0]:
+        return TryShakeTree()[1]
     messages = []
     r = random.random()
     if Inventario.GetEquipedWeapon() == None:
@@ -205,34 +205,4 @@ def CutGrass():
     if r < 1:
         Inventario.AddItem("Meat",1)
         return "You got a lizard"
-
-#Time and saving
-
-def ActionTime():
-    #Broken trees regen -=1
-    btrees = Jugabilidad.GetAllEntiiesWithName("Broken Tree")
-    for tree in btrees:
-        tree["regen"] -= 1
-        if tree["regen"] <= 0:
-            tree["name"] = "Tree"
-            del tree["regen"]
-    #Reclose ches if condition
-    if len(Jugabilidad.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
-        RecloseChest()
-    #Blood Moon
-    Combate.BloodMoon += 1
-    if Combate.BloodMoon >= 25:
-        Combate.BloodMoon = 0
-        Combate.BloodMoonAppearances += 1
-        Jugabilidad.RespawnEnemies()
-    Inventario.BloodMoon += 1
-    if Inventario.BloodMoon >= 25:
-        Inventario.BloodMoon = 0
-
-def SaveData():
-    ActiveSave = Guardado.ActiveSave
-    Inventario.SaveInventory(ActiveSave)
-    Jugabilidad.SaveMapInfo(ActiveSave)
-    Guardado.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    Guardado.SaveToFile() #Cambiar por Guardado.SaveToDB() cuando este lista
 

@@ -125,9 +125,10 @@ def parse_input(input):
     return command, args
 
 
-def InitializeNewGame(PlayerName):
+def InitializeNewGame(playerName):
+    global PlayerName
     #Consigue un Guardado base
-    save = Guardado.NewSave(PlayerName)
+    save = Guardado.NewSave(playerName)
     #Consigue una GameId para el Guardado
     GameId = Guardado.GetNewGameId()
     #Guarda el Guardado en el diccionario local y en la base de datos
@@ -137,14 +138,17 @@ def InitializeNewGame(PlayerName):
     Inventario.InvenroryInit()
     Jugabilidad.InitMap()
     Combate.InitCombate()
+    PlayerName = PlayerName
     Guardado.ActiveSave = GameId
     return GameId
 
 def LoadSavedGame(GameId):
+    global PlayerName
     Inventario.InvenroryInit(invetoryInfo=Guardado.GetInventoryInfo(GameId))
     Jugabilidad.InitMap(MapInfo=Guardado.GetMapInfo(GameId))
     Combate.InitCombate(CombateInfo=Guardado.GetCombateInfo(GameId))
     Guardado.ActiveSave = GameId
+    PlayerName = Guardado.Saves[GameId]["PlayerName"]
     return Guardado.Saves[GameId]["LastLocation"]
 
 
@@ -281,6 +285,77 @@ def saved_games_menu_help():
 *                                                                             *
 * Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
 
+def InventoryHelp():
+    return """* Help, inventory * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*       Type 'show inventory main' to show the main inventory                 *
+*       (main, weapons, Food)                                                 *
+*       Type 'eat X' to eat X, where X is a Food item                         *
+*       Type 'Cook X' to Cook X, where X is a Food item                       *
+*       Type 'equip X' to equip X, where X is a weapon                        *
+*       Type 'unequip X' to unequip X, where X is a weapon                    *
+*       Type 'back' now to go back to the 'Game'                              *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+
+def InventoryMain():
+    result = " * * * * Inventory *" + "\n"
+    result += "                   *" + "\n"
+    result += f" {PlayerName}" + f"♥ {Combate.PlayerLife}/{Combate.PlayerMaxLife} *".rjust(19-len(PlayerName)," ") + "\n"
+    result += " Blood Moon in " + f"{25-Combate.BloodMoon} *".rjust(5," ") + "\n"
+    result += "                   *" + "\n"
+    result += " Equipment         *" + "\n"
+    result += f"{Inventario.GetEquipedWeapon()} *".rjust(20," ") + "\n"
+    result += f"{Inventario.GetEquipedWeapon()} *".rjust(20," ") + "\n"
+    result += "                   *" + "\n"
+    food = Inventario.GetItem("Vegetable")+Inventario.GetItem("Salad")+Inventario.GetItem("Pescatarian")+Inventario.GetItem("Roasted")
+    result += " Food" + f"{food} *".rjust(15," ") + "\n"
+    weapons = Inventario.GetItem("Sword")[1]+Inventario.GetItem("Wood Sword")[1]+Inventario.GetItem("Shield")[1]+Inventario.GetItem("Wood Shield")[1]
+    result += " Weapons" + f"{weapons} *".rjust(12," ") + "\n"
+    result += " * * * * * * * * * *" + "\n"
+    return result
+
+def InventoryWeapons():
+    result = " * * * * * Weapons *" + "\n"
+    result += "                   *" + "\n"
+    result += "                   *" + "\n"
+    result += "Wood Sword" +f"{Inventario.GetItem('Wood Sword')[0]}/{Inventario.GetItem('Wood Sword')[1]} *".rjust(10," ") + "\n"
+    if Inventario.GetEquipedWeapon() == "Wood Sword":
+        result += "  (equiped)        *" + "\n"
+    else:
+        result += "                   *" + "\n"
+    result += "Sword" +f"{Inventario.GetItem('Sword')[0]}/{Inventario.GetItem('Sword')[1]} *".rjust(15," ") + "\n"
+    if Inventario.GetEquipedWeapon() == "Sword":
+        result += "  (equiped)        *" + "\n"
+    else:
+        result += "                   *" + "\n"
+    result += "Wood Shield" +f"{Inventario.GetItem('Wood Shield')[0]}/{Inventario.GetItem('Wood Shield')[1]} *".rjust(9," ") + "\n"
+    if Inventario.GetEquipedWeapon() == "Wood Shield":
+        result += "  (equiped)        *" + "\n"
+    else:
+        result += "                   *" + "\n"
+    result += "Shield" +f"{Inventario.GetItem('Shield')[0]}/{Inventario.GetItem('Shield')[1]} *".rjust(14," ") + "\n"
+    if Inventario.GetEquipedWeapon() == "Shield":
+        result += "  (equiped)        *" + "\n"
+    else:
+        result += "                   *" + "\n"
+    result += " * * * * * * * * * *" + "\n"
+    return result
+
+def InventoryFood():
+    result = " * * * * * *  Food *" + "\n"
+    result += "                   *" + "\n"
+    result += "                   *" + "\n"
+    result += " Vegetable" +f"{Inventario.GetItem('Vegetable')} *".rjust(10," ") + "\n"
+    result += " Fish" +f"{Inventario.GetItem('Fish')} *".rjust(15," ") + "\n"
+    result += " Meat" +f"{Inventario.GetItem('Meat')} *".rjust(15," ") + "\n"
+    result += "                   *" + "\n"
+    result += " Salad" +f"{Inventario.GetItem('Salad')} *".rjust(14," ") + "\n"
+    result += " Pescatarian" +f"{Inventario.GetItem('Pescatarian')} *".rjust(8," ") + "\n"
+    result += " Roasted" +f"{Inventario.GetItem('Roasted')} *".rjust(12," ") + "\n"
+    result += "                   *" + "\n"
+    result += " * * * * * * * * * *" + "\n"
+    return result
+
+
 def MainMenuAction(action):
     if action == "new game":
         AddToPropmts(action)
@@ -400,6 +475,8 @@ def SavedGamesMenuAction(command,args):
     if command == "play":
         if len(args) == 0 or len(args) > 1:
             AddToPropmts("Invalid action")
+        elif not args[0].isdigit():
+            AddToPropmts("Invalid action")
         else:
             index = Guardado.GetSavedGameId(int(args[0]))
             AddToPropmts(str(index))
@@ -411,6 +488,8 @@ def SavedGamesMenuAction(command,args):
                 return "back"
     elif command == "erase":
         if len(args) == 0 or len(args) > 1:
+            AddToPropmts("Invalid action")
+        elif not args[0].isdigit():
             AddToPropmts("Invalid action")
         else:
             index = Guardado.GetSavedGameId(int(args[0]))
@@ -473,33 +552,234 @@ def LegendPlotMenu(PlayerName):
     InitializeNewGame(PlayerName)
     MapMenu("Hyrule")
 
+mapConnections = {
+    "Hyrule" : ["Gerudo","Death mountain","Castle"],
+    "Gerudo" : ["Hyrule","Necluda","Castle"],
+    "Death mountain" : ["Hyrule","Necluda","Castle"],
+    "Necluda" : ["Gerudo","Death mountain","Castle"],
+    "Castle" : []
+}
 
-def ExecuteMapAction(action):
-    action = action.split(" ")
-    if action[0] == "fishing":
-        print(Interaccion.Fishing())
-    if action[0] == "go":
-        Jugabilidad.MovePlayerBy(int(action[1]),int(action[2]))
-    if action[0] == "goto":
-        Jugabilidad.MovePlayerNearEntity("symbol",action[1])
-    if action[0] == "open":
-        if action[1] == "chest":
-            print(Interaccion.OpenChest())
-        elif action[1] == "sanctuary":
-            print(Interaccion.OpenSanctuary())
+def WorldMap():
+    result = "* Map * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    result += "*                                                         *" + "\n"
+    result += "*  Hyrule       " + "S0" + "?"*(not Jugabilidad.OpenSanctuaris[0]) + " "* Jugabilidad.OpenSanctuaris[0] +" "*23+"Death Mountain  *" + "\n"
+    result += "*"+" "*30 + "S2" + "?"*(not Jugabilidad.OpenSanctuaris[2]) + " "* Jugabilidad.OpenSanctuaris[2] + " "*24+"*" + "\n"
+    result += "*"+" "*8 + "S1" + "?"*(not Jugabilidad.OpenSanctuaris[1]) + " "* Jugabilidad.OpenSanctuaris[1] +" "*39 + "S3" + "?"*(not Jugabilidad.OpenSanctuaris[3]) + " "* Jugabilidad.OpenSanctuaris[3] + " "*4+ "*" +"\n"
+    result += "*                                                         *" + "\n"
+    result += "*"+"Castle".center(57," ") +"*"+"\n"
+    result += "*                                                         *" + "\n"
+    result += "*" +" "*17 + "S4" + "?"*(not Jugabilidad.OpenSanctuaris[4]) + " "* Jugabilidad.OpenSanctuaris[4]+" "*32 + "S5" + "?"*(not Jugabilidad.OpenSanctuaris[5]) + " "* Jugabilidad.OpenSanctuaris[5] +"  *" + "\n"
+    result += "*  Gerudo" + " "*31 + "S6" + "?"*(not Jugabilidad.OpenSanctuaris[6]) + " "* Jugabilidad.OpenSanctuaris[6] + " "*6 + "Necluda  *" + "\n"
+    result += "*                                                         *" + "\n"
+    result += "* Back  * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    return result
+
+def WorldMapMenu():
+    while(True):
+        clear_screen()
+        print(WorldMap())
+        print("\n## Last Prompts ##")
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        action = input("> ").lower()
+        if action == "back":
+            break
+        else:
+            AddToPropmts("Invalid Action")
+
+def InventoryHelpMenu():
+    while(True):
+        clear_screen()
+        print(InventoryHelp())
+        action = input("type Back to go back:  ")
+        if action == "Back":
+            break
+
+def GetInventory():
+    global invetoryToShow
+    if invetoryToShow == "main":
+        return InventoryMain()
+    elif invetoryToShow == "weapons":
+        return InventoryWeapons()
+    elif invetoryToShow == "food":
+        return InventoryFood()
+    else:
+        return "Error"
+
+def ExecuteMapAction(command,args):
+    command = command.lower()
+    if command == "go":
+        if args[0].isdigit():
+            if len(args) != 2:
+                AddToPropmts("Invalid action")
+            number = int(args[0])
+            direction = args[1].lower()
+            if direction == "up":
+                message = Jugabilidad.MovePlayerBy(1*number, 0)
+                if message != None:
+                    AddToPropmts(message)
+                ActionTime()
+            elif direction == "down":
+                message = Jugabilidad.MovePlayerBy(-1*number, 0)
+                if message != None:
+                    AddToPropmts(message)
+                ActionTime()
+            elif direction == "left":
+                message = Jugabilidad.MovePlayerBy(0, -1*number)
+                if message != None:
+                    AddToPropmts(message)
+                ActionTime()
+            elif direction == "right":
+                message = Jugabilidad.MovePlayerBy(0, 1*number)
+                if message != None:
+                    AddToPropmts(message)
+                ActionTime()
+            else:
+                AddToPropmts("That is not a direction")
+            if Jugabilidad.mapName == "Castle" and Jugabilidad.AdjacentEntity(Jugabilidad.GetPlayer()["y"],Jugabilidad.GetPlayer()["x"],"Ganon"):
+                Inventario.LoseLife()
+        elif args[0].lower() == "by" and args[1].lower() == "the":
+            if args[2].lower() == "water":
+                message = Jugabilidad.MovePlayerNearTerrain("~")
+                if message == "You can't go to ~ from here":
+                    AddToPropmts(message)
+                    ActionTime()
+                elif message != "":
+                    AddToPropmts(message)
+            else:
+                if len(args[2]) == 1:
+                    message = Jugabilidad.MovePlayerNearEntity("symbol",args[2])
+                    if message == f"You can't go to {args[2]} from here":
+                        AddToPropmts(message)
+                        ActionTime()
+                    elif message != "":
+                        AddToPropmts(message)
+                elif args[2][0] == "S":
+                    message = Jugabilidad.MovePlayerNearEntity("SanctuaryNumber",int(args[2][1:]))
+                    if message == f"You can't go to {args[2][1:]} from here":
+                        AddToPropmts(f"You can't go to {args[2]} from here")
+                        ActionTime()
+                    elif message != "":
+                        AddToPropmts(message)
+                else:
+                    AddToPropmts("That is not in this location")
+        elif args[0] == "to":
+            mapname = (" ".join(args[1:])).capitalize()
+            " ".capitalize()
+            if Jugabilidad.mapName == mapname:
+                AddToPropmts("You are already in that location")
+
+            elif Jugabilidad.maps.get(mapname) == None:
+                AddToPropmts("That is not a location")
+
+            elif Jugabilidad.mapName == "Castle":
+                AddToPropmts("To exit the castle type \"Back\"")
+
+            elif mapname not in mapConnections[Jugabilidad.mapName]:
+                AddToPropmts("You can't go to that location from here")
+
+            else:
+                Jugabilidad.LoadMap(mapname)
+                message = Interaccion.DecideFoxVisibility()
+                AddToPropmts(f"You are now in {mapname}")
+                Interaccion.fished = False
+                if message != None:
+                    AddToPropmts(message)
+                SaveData()
+        else:
+            AddToPropmts("Invalid action")
+    elif command == "fish":
+        if len(args) != 0:
+            AddToPropmts("Invalid action")
+        message = Interaccion.Fishing()
+        AddToPropmts(message)   
+        if message == "You Get A Fish" or message == "You don't Get A Fish":
+            SaveData()
+    elif command == "open":
+        if len(args) != 1:
+            AddToPropmts("Invalid action")
+        if args[0].lower() == "chest":
+            message = Interaccion.OpenChest()
+            AddToPropmts(message)
+            if message[0] == "Y":
+                SaveData()
+        elif args[0].lower() == "sanctuary":
+            message = Interaccion.OpenSanctuary()
+            if message[4] != "o":
+                AddToPropmts(message)
+            SaveData()
+    elif command == "show":
+        if len(args) > 2:
+            AddToPropmts("Invalid action")
+        if args[0].lower() == "inventory":
+            if args[1].lower() in ["main","weapons","food"]:
+                global invetoryToShow
+                invetoryToShow = args[1]
+            elif args[1].lower() == "help":
+                InventoryHelpMenu()
+            else:
+                AddToPropmts("Invalid action")
+        elif args[0].lower() == "map":
+            WorldMapMenu()
+        else:
+            AddToPropmts("Invalid action")
+    elif command == "exit":
+        if len(args) != 0:
+            AddToPropmts("Invalid action")
+            return "Invalid action"
+        return "back"
+    elif command == "cook":
+        if len(args) != 1:
+            AddToPropmts("Invalid action")
+        message = Interaccion.Cook(args[0].capitalize())
+        if message != f"You cooked a {args[0].capitalize()}":
+            AddToPropmts(message)
+        SaveData()
+             
+    elif command == "attack":
+        player = Jugabilidad.GetPlayer()
+        px = player["x"]
+        py = player["y"]
+        if Jugabilidad.AdjacentEntity(py,px,"Tree") != None or Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
+            message = Interaccion.ShakeTree()
+        elif Jugabilidad.TerrainAt(py,px) != " ":
+            message = Interaccion.CutGrass()
+    elif command == "equip":
+        return
+    elif command == "unequip":
+        return
+    elif command == "eat":
+        return
+    elif command == "cheat":
+        return
+    else:
+        AddToPropmts("Invalid action")
+
+invetoryToShow = "main"
 
 def MapMenu(LastLocation):
+    global invetoryToShow
+    invetoryToShow = "main"
     Jugabilidad.LoadMap(LastLocation)
     Interaccion.DecideFoxVisibility()
     while(True):
         clear_screen()
-        print(WithFrame(Jugabilidad.MapToStr(),[[Jugabilidad.mapName,1],["Back",2]]))
+        mapstr = Jugabilidad.MapToStr()
+        menus = [[Jugabilidad.mapName,1],["Exit",2]]
+        mapstr = WithFrame(mapstr,Menus=menus)
+        inventorystr = GetInventory()
+        UI = concathorizontal(mapstr,inventorystr)
+        print(UI)
         print("\n## Last Prompts ##")
         for prompt in prompts_list:
             print(prompt)
         print("- - - - -\nWhat do you want to do next?")
-        new_prompt = input("> ").lower()
-        ExecuteMapAction(new_prompt)
+        action = input("> ")
+        command,args = parse_input(action)
+        if ExecuteMapAction(command,args) == "back":
+            break 
 
 def ActionTime():
     #Broken trees regen -=1
@@ -523,10 +803,9 @@ def SaveData():
     ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)
     Jugabilidad.SaveMapInfo(ActiveSave)
-    Guardado.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    Guardado.SaveToFile() #Cambiar por Guardado.SaveToDB() cuando este lista
+    Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
-
+#Guardado.LoadFromDB()
 MainMenu()
 
 
