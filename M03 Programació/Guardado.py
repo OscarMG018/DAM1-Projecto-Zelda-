@@ -13,7 +13,122 @@ DBdatabase = 'your_database_name'
 ActiveSave = 0
 
 Saves = {
-
+    1 : {
+        "DateStarted" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "SaveDate" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "PlayerName" : "Link",
+        "LastLocation" : "Hyrule",
+        "PlayerLife" : 3,
+        "PlayerMaxLife" : 3,
+        "BloodMoon" : 0,
+        "BloodMoonAppearences" : 0,
+        "SanctuariesOpened" : [False,False,False,False,False,False,False],
+        "Inventario" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "FoodObtained" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "FoodComsumed" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "Inventario Armas" : {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]},
+        "ArmasObteined" : {"Wood Sword" : 0, "Sword" : 0, "Wood Shield": 0, "Shield" :0},
+        "ArmasUsed" : {"Wood Sword" : 0, "Sword" : 0, "Wood Shield": 0, "Shield" :0},
+        "MapInformation" : {
+            "Hyrule" : {
+                "Enemies" : [
+                    {"x" : 35, "y" : 4, "life" : 2, "EnemyNumber" : 0},
+                    {"x" : 20, "y" : 8, "life" : 1, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 46, "y" : 8,"opened" : False},
+                ]
+            },
+            "Death mountain" : {
+                "Enemies" : [
+                    {"x" : 11, "y" : 3, "life" : 2, "EnemyNumber" : 0},
+                    {"x" : 50, "y" : 2, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 35, "y" : 7,"opened" : False}
+                ]
+            },
+            "Gerudo" : {
+                "Enemies" : [
+                    {"x" : 2, "y" : 3, "life" : 1, "EnemyNumber" : 0},
+                    {"x" : 37, "y" : 5, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 7, "y" : 8, "opened" : False},
+                    {"x" : 51, "y" : 0, "opened" : False}
+                ]
+            },
+            "Necluda" : {
+                "Enemies" : [
+                    {"x" : 9, "y" : 1, "life" : 1, "EnemyNumber" : 0},
+                    {"x" : 37, "y" : 5, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 21, "y" : 0, "opened" : False},
+                    {"x" : 22, "y" : 8, "opened" : False},
+                    {"x" : 50, "y" : 1, "opened" : False}           
+                ]
+            }
+        }
+    },
+    3 : {
+        "DateStarted" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "SaveDate" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "PlayerName" : "Link",
+        "LastLocation" : "Hyrule",
+        "PlayerLife" : 3,
+        "PlayerMaxLife" : 3,
+        "BloodMoon" : 0,
+        "BloodMoonAppearences" : 0,
+        "SanctuariesOpened" : [False,False,False,False,False,False,False],
+        "Inventario" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "FoodObtained" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "FoodComsumed" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "Inventario Armas" : {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]},
+        "ArmasObteined" : {"Wood Sword" : 0, "Sword" : 0, "Wood Shield": 0, "Shield" :0},
+        "ArmasUsed" : {"Wood Sword" : 0, "Sword" : 0, "Wood Shield": 0, "Shield" :0},
+        "MapInformation" : {
+            "Hyrule" : {
+                "Enemies" : [
+                    {"x" : 35, "y" : 4, "life" : 3, "EnemyNumber" : 0},
+                    {"x" : 20, "y" : 8, "life" : 1, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 46, "y" : 8,"opened" : False},
+                ]
+            },
+            "Death mountain" : {
+                "Enemies" : [
+                    {"x" : 11, "y" : 3, "life" : 2, "EnemyNumber" : 0},
+                    {"x" : 50, "y" : 2, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 35, "y" : 7,"opened" : False}
+                ]
+            },
+            "Gerudo" : {
+                "Enemies" : [
+                    {"x" : 2, "y" : 3, "life" : 1, "EnemyNumber" : 0},
+                    {"x" : 37, "y" : 5, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 7, "y" : 8, "opened" : False},
+                    {"x" : 51, "y" : 0, "opened" : False}
+                ]
+            },
+            "Necluda" : {
+                "Enemies" : [
+                    {"x" : 9, "y" : 1, "life" : 1, "EnemyNumber" : 0},
+                    {"x" : 37, "y" : 5, "life" : 2, "EnemyNumber" : 1}
+                ],
+                "Chests" : [
+                    {"x" : 21, "y" : 0, "opened" : False},
+                    {"x" : 22, "y" : 8, "opened" : False},
+                    {"x" : 50, "y" : 1, "opened" : False}           
+                ]
+            }
+        }
+    }
 }
 
 def SaveToFile():
@@ -249,8 +364,10 @@ def GetInventoryInfo(number):
 def GetCombateInfo(number):
     return [Saves[number]["PlayerLife"],Saves[number]["PlayerMaxLife"],Saves[number]["BloodMoon"],Saves[number]["BloodMoonAppearences"]]
 
-def RealNumeberList():
-    dic = {}
-    for i in range(len(Saves.keys())):
-        dic[i] = Saves.keys()[i]
-    return dic
+def GetSavedGameId(n):
+    return list(Saves.keys())[n]
+
+def GetNewGameId():
+    if len(Saves.keys()) == 0:
+        return 1
+    return max(Saves.keys()) + 1
