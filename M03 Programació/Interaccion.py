@@ -229,28 +229,6 @@ def ActionTime():
     if Inventario.BloodMoon >= 25:
         Inventario.BloodMoon = 0
 
-def test():
-    Jugabilidad.InitMap()
-    Jugabilidad.LoadMap("Hyrule")
-    while(True):
-        print(Jugabilidad.MapToStr())
-        print(Inventario.inventario_armas)
-        print(Inventario.inventario)
-        print(fished)
-        action = input().split(" ")
-        if action[0] == "fishing":
-            print(Fishing())
-        if action[0] == "go":
-            Jugabilidad.MovePlayerBy(int(action[1]),int(action[2]))
-        if action[0] == "goto":
-            Jugabilidad.MovePlayerNearEntity("symbol",action[1])
-        if action[0] == "open":
-            if action[1] == "chest":
-                print(OpenChest())
-            elif action[1] == "sanctuary":
-                print(OpenSanctuary())
-test()
-
 def SaveData():
     ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)

@@ -9,7 +9,6 @@ DBuser = 'your_username'
 DBpassword = 'your_password'
 DBdatabase = 'your_database_name'
 
-
 ActiveSave = 0
 
 Saves = {
@@ -295,6 +294,7 @@ def LoadFromDB():
     for chest in ExecuteQuerry("SELECT * FROM chests order by ChestId asc"):
         Saves[chest[0]]["MapInformation"][chest[1]]["Chests"][chest[2]]["opened"] = chest[3]
     
+
 def NewSave(PlayerName):
     return {
         "DateStarted" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
