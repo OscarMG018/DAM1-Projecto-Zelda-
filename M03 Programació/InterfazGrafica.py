@@ -3,7 +3,6 @@ import Inventario
 import Combate
 import Jugabilidad
 import os
-<<<<<<< Updated upstream
 import Interaccion
 from menuprincipal.ascii_draws_chosen import draw_chosen
 
@@ -102,9 +101,6 @@ def WithFrame(content,Menus=[],skipLeft=False,skipRight=False):
     return top + "\n" + middle + "\n" + bottom
 
 
-=======
-from ascii_draws_chosen import draw_chosen
->>>>>>> Stashed changes
 
 def InitializeNewGame(PlayerName):
     #Consigue un Guardado base
@@ -126,12 +122,7 @@ def LoadSavedGame(GameId):
     Jugabilidad.InitMap(MapInfo=Guardado.GetMapInfo(GameId))
     Combate.InitCombate(CombateInfo=Guardado.GetCombateInfo(GameId))
     Guardado.ActiveSave = GameId
-<<<<<<< Updated upstream
     return Guardado.Saves[GameId]["LastLocation"]
-=======
-
-
->>>>>>> Stashed changes
 
 # Sabremos si hay saved_game comprobando en la BD
 saved_game = False
@@ -246,51 +237,7 @@ def root():
             prompts_list.append("> " + new_prompt)
 
             if new_prompt == "new game":
-<<<<<<< Updated upstream
                 new_prompt = NewGameMenu()
-=======
-                while True:
-                    clear_screen()
-                    if len(prompts_list) > 8:
-                        del prompts_list[0]
-                    available_prompts = new_game_menu()
-                    print("\n## Last Prompts ##")
-                    for prompt in prompts_list:
-                        print(prompt)
-                    print("- - - - -\nWhat's your name (Link)?")
-                    new_prompt = input("> ")
-                    if new_prompt not in available_prompts:
-                        if not new_prompt:
-                            prompts_list.append("> Welcome to the game, Link")                          
-                        elif not (new_prompt.replace(" ", "")).isalnum():
-                            prompts_list.append("> " + '"' + new_prompt + '"' + " is not a valid name")
-                        else:
-                            if len(new_prompt) < 3 or len(new_prompt) > 10:
-                                prompts_list.append("> " + '"' + new_prompt + '"' + " is not a valid name")
-                            else:
-                                user_name = new_prompt
-                                prompts_list.append("> Welcome to the game, " + new_prompt)
-                    else:
-                        prompts_list.append("> " + new_prompt)
-                        if new_prompt == "help":
-                            while True:
-                                clear_screen()
-                                if len(prompts_list) > 8:
-                                    del prompts_list[0]
-                                available_prompts = new_game_menu_help()
-                                print("\n## Last Prompts ##")
-                                for prompt in prompts_list:
-                                    print(prompt)
-                                print("- - - - -\nWhat to do now?")
-                                new_prompt = input("> ").lower()
-                                if new_prompt not in available_prompts:
-                                    prompts_list.append("> " + "Invalid Action")
-                                else:
-                                    prompts_list.append("> " + new_prompt)
-                                    break
-                        else:
-                            break
->>>>>>> Stashed changes
 
             if new_prompt == "help":
                 while True:
@@ -326,7 +273,6 @@ def root():
                         prompts_list.append("> " + new_prompt)
                         break
 
-<<<<<<< Updated upstream
 def NewGameMenu():
     while True:
         clear_screen()
@@ -462,6 +408,4 @@ def MapMenu(LastLocation):
         ExecuteMapAction(new_prompt)
 
 #Guardado.LoadFromDB()
-=======
->>>>>>> Stashed changes
 root()
