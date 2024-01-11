@@ -470,7 +470,7 @@ def MovePlayerNearEntity(EntityProperty,EntityValue): #
         radius += 1
     pos = random.choice(posiblePositions)
     MoveEntityTo(playerIndex,pos[0],pos[1])
-    return f"You can't go to {EntityValue} from here"*(radius-2 != 0)
+    return f"You can't go to {EntityValue} from here"*(radius-1 != 0)
 
 def MovePlayerNearTerrain(terrain):
     playerIndex = GetPlayerIndex()
@@ -492,7 +492,7 @@ def MovePlayerNearTerrain(terrain):
         radius += 1
     pos = random.choice(posiblePositions)
     MoveEntityTo(playerIndex,pos[0],pos[1])
-    return f"You can't go to {terrain} from here"*(radius-2 != 0)
+    return f"You can't go to {terrain} from here"*(radius-1 != 0)
 
 """-------------Enemy-----------"""
 

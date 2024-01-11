@@ -4,10 +4,10 @@ import os
 import copy
 import mysql.connector
 
-DBhost = 'your_host'
-DBuser = 'your_username'
-DBpassword = 'your_password'
-DBdatabase = 'your_database_name'
+DBhost = 'localhost'
+DBuser = 'root'
+DBpassword = '123456'
+DBdatabase = 'custprod'
 
 ActiveSave = 0
 
@@ -371,3 +371,12 @@ def GetNewGameId():
     if len(Saves.keys()) == 0:
         return 1
     return max(Saves.keys()) + 1
+
+def DBConnectionTest():
+    try:
+        ExecuteQuerry("SELECT * FROM customers")
+        return True
+    except Exception as e:
+        print(e)
+        return False
+print(DBConnectionTest())

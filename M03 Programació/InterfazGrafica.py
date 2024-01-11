@@ -8,6 +8,8 @@ import Interaccion
 from menuprincipal.ascii_draws_chosen import draw_chosen
 from datetime import datetime
 
+PlayerName = ""
+
 #Funciones de utilidad
 def clear_screen():
     if platform.system() == "Windows":
@@ -138,7 +140,7 @@ def InitializeNewGame(playerName):
     Inventario.InvenroryInit()
     Jugabilidad.InitMap()
     Combate.InitCombate()
-    PlayerName = PlayerName
+    PlayerName = playerName
     Guardado.ActiveSave = GameId
     return GameId
 
@@ -609,6 +611,9 @@ def GetInventory():
         return "Error"
 
 def ExecuteMapAction(command,args):
+    if command == None:
+        AddToPropmts("Invalid action")
+        return
     command = command.lower()
     if command == "go":
         if args[0].isdigit():
@@ -648,6 +653,8 @@ def ExecuteMapAction(command,args):
                     ActionTime()
                 elif message != "":
                     AddToPropmts(message)
+                else:
+                    ActionTime()
             else:
                 if len(args[2]) == 1:
                     message = Jugabilidad.MovePlayerNearEntity("symbol",args[2])
@@ -656,6 +663,8 @@ def ExecuteMapAction(command,args):
                         ActionTime()
                     elif message != "":
                         AddToPropmts(message)
+                    else:
+                        ActionTime()
                 elif args[2][0] == "S":
                     message = Jugabilidad.MovePlayerNearEntity("SanctuaryNumber",int(args[2][1:]))
                     if message == f"You can't go to {args[2][1:]} from here":
@@ -663,6 +672,8 @@ def ExecuteMapAction(command,args):
                         ActionTime()
                     elif message != "":
                         AddToPropmts(message)
+                    else:
+                        ActionTime()
                 else:
                     AddToPropmts("That is not in this location")
         elif args[0] == "to":
@@ -687,6 +698,7 @@ def ExecuteMapAction(command,args):
                 Interaccion.fished = False
                 if message != None:
                     AddToPropmts(message)
+                ActionTime()
                 SaveData()
         else:
             AddToPropmts("Invalid action")
@@ -697,6 +709,7 @@ def ExecuteMapAction(command,args):
         AddToPropmts(message)   
         if message == "You Get A Fish" or message == "You don't Get A Fish":
             SaveData()
+            ActionTime()
     elif command == "open":
         if len(args) != 1:
             AddToPropmts("Invalid action")
@@ -705,11 +718,14 @@ def ExecuteMapAction(command,args):
             AddToPropmts(message)
             if message[0] == "Y":
                 SaveData()
+                ActionTime()
         elif args[0].lower() == "sanctuary":
             message = Interaccion.OpenSanctuary()
             if message[4] != "o":
                 AddToPropmts(message)
-            SaveData()
+            else:
+                SaveData()
+                ActionTime()
     elif command == "show":
         if len(args) > 2:
             AddToPropmts("Invalid action")
@@ -725,19 +741,15 @@ def ExecuteMapAction(command,args):
             WorldMapMenu()
         else:
             AddToPropmts("Invalid action")
-    elif command == "exit":
-        if len(args) != 0:
-            AddToPropmts("Invalid action")
-            return "Invalid action"
-        return "back"
     elif command == "cook":
         if len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         message = Interaccion.Cook(args[0].capitalize())
         if message != f"You cooked a {args[0].capitalize()}":
             AddToPropmts(message)
-        SaveData()
-             
+            ActionTime()
+            SaveData()            
     elif command == "attack":
         player = Jugabilidad.GetPlayer()
         px = player["x"]
@@ -747,13 +759,29 @@ def ExecuteMapAction(command,args):
         elif Jugabilidad.TerrainAt(py,px) != " ":
             message = Interaccion.CutGrass()
     elif command == "equip":
-        return
+        message,time = Inventario.equip_weapon(command + " " + (" ".join(args).title()))
+        if time:
+            ActionTime()
     elif command == "unequip":
         return
     elif command == "eat":
         return
     elif command == "cheat":
         return
+    elif command == "back":
+        if Jugabilidad.mapName == "Castle":
+            if len(args) != 0:
+                AddToPropmts("Invalid action")
+            else:
+                Jugabilidad.LoadMap(Jugabilidad.previusLocation)
+                ActionTime()
+                SaveData()
+        else:
+            AddToPropmts("Invalid action")
+    elif command == "exit":
+        if len(args) != 0:
+            AddToPropmts("Invalid action")
+        return "back"
     else:
         AddToPropmts("Invalid action")
 
