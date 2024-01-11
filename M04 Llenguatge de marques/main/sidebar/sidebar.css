@@ -78,7 +78,7 @@ body {
     flex-flow: column;
     width: 100%;
     height: 100vh;
-    background-color: #da565b;
+    background: url(img/background_diagram.jpg); 
     gap: 5px;
     clip-path: circle(30px at 35px 35px);
     position: fixed;
