@@ -763,7 +763,7 @@ def ExecuteMapAction(command,args):
                 SaveData()
             elif messages[0] == "The Tree didn't give you anythng":
                 ActionTime()
-        elif Jugabilidad.TerrainAt(py,px) != " ":
+        elif Jugabilidad.TerrainAt(py,px) == " ":
             message = Interaccion.CutGrass()
             AddToPropmts(message)
             if message == "You got a lizard":
@@ -771,6 +771,7 @@ def ExecuteMapAction(command,args):
                 SaveData()
     elif command == "equip":
         message,time = Inventario.equip_weapon(command + " " + (" ".join(args).title()))
+        AddToPropmts(message)
         if time:
             ActionTime()
     elif command == "unequip":

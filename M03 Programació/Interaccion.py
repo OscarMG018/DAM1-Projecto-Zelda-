@@ -202,7 +202,7 @@ def CutGrass():
     if not TryCutGrass()[0]:
         return TryCutGrass()[1] 
     r = random.random()
-    if r < 1:
+    if r < 0.1:
         Inventario.AddItem("Meat",1)
         return "You got a lizard"
 

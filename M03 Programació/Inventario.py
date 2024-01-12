@@ -83,11 +83,13 @@ def UseWeapon():
 def AddItem(nombre, cantidad):
     global inventario_armas, inventario
     if nombre in ["Vegetable", "Fish", "Meat", "Salad", "Pescatarian", "Roasted"]:
-        for x in range(cantidad):
-            inventario[nombre] += 1
-    if nombre in ["Wood Sword", "Wood Shield" , "Sword", "Shield"]:
-        for x in range(cantidad):
-            inventario_armas[nombre][1] += 1          
+        inventario[nombre] += cantidad
+    if nombre in ["Wood Sword", "Wood Shield"]:
+        inventario_armas[nombre][1] += cantidad
+        inventario_armas[nombre][0] = 5       
+    if nombre in ["Sword", "Shield"]:
+        inventario_armas[nombre][1] += cantidad
+        inventario_armas[nombre][0] = 9
 
 def GetItem(nombre):
     global inventario_armas, inventario
@@ -116,3 +118,5 @@ def SaveInventory(number):
     global inventario_armas, inventario
     Guardado.Saves[number]["Inventario"] = copy.deepcopy(inventario)
     Guardado.Saves[number]["Inventario Armas"] = copy.deepcopy(inventario_armas)
+
+print(equip_weapon("equip" + " " + (" ".join(["sword"]).title())))
