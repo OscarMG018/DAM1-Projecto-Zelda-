@@ -4,10 +4,10 @@ import os
 import copy
 import mysql.connector
 
-DBhost = 'localhost'
+DBhost = '10.0.0.4'
 DBuser = 'root'
-DBpassword = '123456'
-DBdatabase = 'custprod'
+DBpassword = 'root'
+DBdatabase = 'Projecto'
 
 ActiveSave = 0
 
@@ -379,4 +379,3 @@ def DBConnectionTest():
     except Exception as e:
         print(e)
         return False
-print(DBConnectionTest())

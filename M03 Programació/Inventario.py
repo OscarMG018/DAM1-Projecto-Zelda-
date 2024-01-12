@@ -2,7 +2,7 @@ import Guardado
 import copy
 
 inventario = {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0}
-inventario_armas = {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]}
+inventario_armas = {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 1, False], "Shield":[0, 1, False]}
 
 
 #opcion = input(str("Introduce una opcion de inventario: "))
@@ -15,8 +15,8 @@ def equip_weapon(opcion):
             if opcion_split[1] == "Sword":
                 if inventario_armas["Sword"][1] > 0:
                     if inventario_armas["Sword"][2] == False:
-                        inventario_armas["Wood Sword"][2] == False
-                        inventario_armas["Sword"][2] == True
+                        inventario_armas["Wood Sword"][2] = False
+                        inventario_armas["Sword"][2] = True
                         return "Se ha equipado Sword",True
                     else:
                         return "Ya tienes Sword equipada",False
@@ -27,8 +27,8 @@ def equip_weapon(opcion):
             elif opcion_split[1] == "Shield":
                 if inventario_armas["Shield"][1] > 0:
                     if inventario_armas["Shield"][2] == False:
-                        inventario_armas["Wood Shield"][2] == False
-                        inventario_armas["Shield"][2] == True
+                        inventario_armas["Wood Shield"][2] = False
+                        inventario_armas["Shield"][2] = True
                         return "Se ha equipado Shield",True
                     else:
                         return "Ya tienes Shield equipado",False
@@ -40,8 +40,8 @@ def equip_weapon(opcion):
                 if opcion_split[2] == "Sword":
                     if inventario_armas["Wood Sword"][1] > 0:
                         if inventario_armas["Wood Sword"][2] == False:
-                            inventario_armas["Sword"][2] == False
-                            inventario_armas["Wood Sword"][2] == True
+                            inventario_armas["Sword"][2] = False
+                            inventario_armas["Wood Sword"][2] = True
                             return "Se ha equipado Wood Sword",True
                         else:
                             return "Ya tienes Wood Sword equipada",False
@@ -52,8 +52,8 @@ def equip_weapon(opcion):
                 elif opcion_split[2] == "Shield":
                     if inventario_armas["Wood Shield"][1] > 0:
                         if inventario_armas["Wood Shield"][2] == False:
-                            inventario_armas["Shield"][2] == False
-                            inventario_armas["Wood Shield"][2] == True
+                            inventario_armas["Shield"][2] = False
+                            inventario_armas["Wood Shield"][2] = True
                             return "Se ha equipado Wood Shield",True
                         else:
                             return "Ya tienes Wood Shield equipada",False

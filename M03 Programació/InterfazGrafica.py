@@ -755,9 +755,20 @@ def ExecuteMapAction(command,args):
         px = player["x"]
         py = player["y"]
         if Jugabilidad.AdjacentEntity(py,px,"Tree") != None or Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
-            message = Interaccion.ShakeTree()
+            messages = Interaccion.ShakeTree()
+            for message in messages:
+                AddToPropmts(message)
+            if messages[0][0] == "Y":
+                ActionTime()
+                SaveData()
+            elif messages[0] == "The Tree didn't give you anythng":
+                ActionTime()
         elif Jugabilidad.TerrainAt(py,px) != " ":
             message = Interaccion.CutGrass()
+            AddToPropmts(message)
+            if message == "You got a lizard":
+                ActionTime()
+                SaveData()
     elif command == "equip":
         message,time = Inventario.equip_weapon(command + " " + (" ".join(args).title()))
         if time:

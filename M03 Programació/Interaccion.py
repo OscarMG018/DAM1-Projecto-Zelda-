@@ -137,8 +137,8 @@ def TryShakeTree():
     py = player["y"]
     if Jugabilidad.AdjacentEntity(py,px,"Tree") == None:
         if Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
-            return False, "The tree is not ready yet"
-        return False, "There isn't a tree here"
+            return False, ["The tree is not ready yet"]
+        return False, ["There isn't a tree here"]
     return True,None
 
 def ShakeTree():
@@ -166,9 +166,6 @@ def ShakeTree():
         py = player["y"]
         tree = Jugabilidad.AdjacentEntity(py,px,"Tree")
         tree["hits"] += 1
-        message = Inventario.UseWeapon()
-        if message != None:
-            messages.append(message)
         if tree["hits"] >= 5:
             tree["hits"] = 0
             tree["name"] = "Broken Tree"
@@ -184,6 +181,9 @@ def ShakeTree():
             messages.append("You got an apple")
         else:
             messages.append("The Tree didn't give you anythng")
+        message = Inventario.UseWeapon()
+        if message != None:
+            messages.append(message)
         return messages
 
 #Gespa
@@ -199,8 +199,8 @@ def TryCutGrass():
     return True,None
 
 def CutGrass():
-    #if not TryCutGrass()[0]:
-        #return TryCutGrass()[1] 
+    if not TryCutGrass()[0]:
+        return TryCutGrass()[1] 
     r = random.random()
     if r < 1:
         Inventario.AddItem("Meat",1)
