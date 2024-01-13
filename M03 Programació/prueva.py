@@ -9,9 +9,9 @@ ssh_config = {
 
 mysql_config = {
    'user': 'root',
-   'password': 'root',
-   'host': '10.0.0.4',
-   'database': 'Projecto',
+   'password': '123456',
+   'host': 'localhost',
+   'database': 'custprod',
    'port': 3306,
 }
 
