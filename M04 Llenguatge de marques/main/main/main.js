@@ -155,13 +155,6 @@
                         self.coreState.mouse = getMousePosition(self.coreState.canvasElement, e);
                     });
     
-                    function clamp(value) {
-                        var min = arguments.length <= 1 || arguments[1] === undefined ? -10 : arguments[1];
-                        var max = arguments.length <= 2 || arguments[2] === undefined ? 10 : arguments[2];
-    
-                        return Math.min(Math.max(value, min), max);
-                    }
-    
                     window.addEventListener('wheel', function (e) {
                         console.log(self.coreState.mouse.z);
     
@@ -234,15 +227,15 @@
     },{}],3:[function(require,module,exports){
     'use strict';
     
-    var _core = require('js/core');
+    var _core = require('./js/core');
     
-    var _shader = require('js/shader');
+    var _shader = require('./js/shader');
     
-    var _buffer = require('js/buffer');
+    var _buffer = require('./js/buffer');
     
-    var _texture = require('js/texture');
+    var _texture = require('./js/texture');
     
-    var _math = require('js/math');
+    var _math = require('./js/math');
     
     var math = _interopRequireWildcard(_math);
     
@@ -298,12 +291,12 @@
         });
     
         core.setResizeCallback(function () {
-            core.sharedState.proj = math.orthoMatrix(0, core.coreState.canvasElement.width, core.coreState.canvasElement.height, 0, -1, 1);
+            core.sharedState.proj = math.orthoMatrix(1, core.coreState.canvasElement.width, core.coreState.canvasElement.height, 0, -1, 1);
         });
     
         core.setUpdateCallback(function () {
             var gl = core.coreState.canvasContext;
-    
+
             core.sharedState.defaultProgram.setUniform3f(gl, "u_pos", [core.coreState.mouse.x, core.coreState.mouse.y, core.coreState.mouse.z]);
         });
     
@@ -329,7 +322,7 @@
         });
     }
     
-    },{"js/buffer":1,"js/core":2,"js/math":4,"js/shader":5,"js/texture":6}],4:[function(require,module,exports){
+    },{"./js/buffer":1,"./js/core":2,"./js/math":4,"./js/shader":5,"./js/texture":6}],4:[function(require,module,exports){
     "use strict";
     
     Object.defineProperty(exports, "__esModule", {
@@ -347,7 +340,7 @@
     }
     
     function matrix() {
-        return [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0];
+        return [1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.0];
     }
     
     function matrixMultiply(a, b) {
@@ -446,7 +439,7 @@
     
     var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
     
-    var _tools = require("js/tools");
+    var _tools = require("./js/tools");
     
     var tools = _interopRequireWildcard(_tools);
     
@@ -610,7 +603,7 @@
         return ShaderProgram;
     }();
     
-    },{"js/tools":7}],6:[function(require,module,exports){
+    },{"./js/tools":7}],6:[function(require,module,exports){
     "use strict";
     
     Object.defineProperty(exports, "__esModule", {

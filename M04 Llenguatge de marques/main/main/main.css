@@ -1,11 +1,8 @@
 /* Background */
 
-
-html {
+body {
     margin: 0;
-    background-color: #000;
 }
-
 
 .fullsize {
     position: absolute;
@@ -17,15 +14,16 @@ html {
 }
 
 .recurso-utilizado img {
-        height: 0;
+    height: 0;
+    position: absolute;
 }
 
 /* Hero */
 
 #hero {
+    margin-top: 0px;
     display: flex;
     height: 100vh;
-    background-color: rgb(206, 206, 206);
 }
 
 #promo {
