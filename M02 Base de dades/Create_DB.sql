@@ -4,11 +4,12 @@ DROP DATABASE IF EXISTS ProjectoDB;
 CREATE DATABASE ProjectoDB;
 USE ProjectoDB;
 
+DROP TABLE IF EXISTS game;
 CREATE TABLE game (
     GameId INT AUTO_INCREMENT PRIMARY KEY,
     UserName VARCHAR(255) NOT NULL,
-    DateStarted DATE,
-    LastSaved DATE,
+    DateStarted DATETIME,
+    LastSaved DATETIME,
     PlayerMaxLife INT,
     PlayerCurrentLife INT,
     BloodMoon INT,
@@ -60,8 +61,32 @@ CREATE Table Enemies (
 CREATE Table Chests (
     GameId INT NOT NULL,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
-    ChestId INT,NOT NULL
+    ChestId INT NOT NULL,
     Opened BOOLEAN,
     PRIMARY KEY(GameId, Loacation, ChestId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
+
+DELETE FROM enemies;
+DELETE FROM food;
+DELETE FROM weapons;
+DELETE FROM sanctuaries;
+DELETE FROM chests;
+DELETE FROM game;
+
+DELETE FROM enemies WHERE `GameId` = 2;
+DELETE FROM food WHERE `GameId` = 2;
+DELETE FROM weapons WHERE `GameId` = 2;
+DELETE FROM sanctuaries WHERE `GameId` = 2;
+DELETE FROM chests WHERE `GameId` = 2;
+DELETE FROM game WHERE `GameId` = 2;
+
+SELECT * From game;
+SELECT * FROM food;
+SELECT * FROM weapons;
+SELECT * FROM Sanctuaries;
+SELECT * FROM Enemies;
+SELECT * FROM Chests;
+
+UPDATE enemies SET `PoxY` = 2  WHERE `GameId` = 1 AND `Loacation` = "Hyrule" AND `EnemyId` = 1;
+

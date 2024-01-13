@@ -227,10 +227,16 @@ def MoveEntityBy(entityIndex,moveY,moveX):
         entities[entityIndex]["x"] = x
         return True
 
-def RemoveEntity(entityIndex):
-    if entityIndex >= len(entities) or entityIndex < 0:
-        raise IndexError("Attempted to remove an entity out of range")
-    entities.pop(entityIndex)
+def RemoveEntity(entityIndex,location=None):
+    if location != None:
+        if entityIndex >= len(maps[location]["entities"]) or entityIndex < 0:
+            raise IndexError("Attempted to remove an entity out of range in an unloaded map")
+        maps[location]["entities"].pop(entityIndex)
+        return
+    else:
+        if entityIndex >= len(entities) or entityIndex < 0:
+            raise IndexError("Attempted to remove an entity out of range")
+        entities.pop(entityIndex)
 
 def AddEntity(entity):
     if "x" not in entity or "y" not in entity:
@@ -243,10 +249,16 @@ def AddEntity(entity):
         raise ValueError("Attempted to add an entity on a blocked tile")
     entities.append(entity)
 
-def GetIndexOfEntity(entity):
-    if entity in entities:
-        return entities.index(entity)
+def GetIndexOfEntity(entity,location=None):
+    if location == None:
+        for i in range(len(entities)):
+            if entities[i] == entity:
+                return i
+        return -1
     else:
+        for i in range(len(maps[location]["entities"])):
+            if maps[location]["entities"][i] == entity:
+                return i
         return -1
 
 def GetIndexByPosition(y,x):
@@ -392,7 +404,7 @@ def MapToStr():
 #print(MapToStr())
 
 def InitMap(MapInfo=None):
-    global maps
+    global maps, OpenSanctuaris
     maps = copy.deepcopy(OriginalMaps)
     if MapInfo != None:
         mapName = MapInfo[1]
@@ -404,7 +416,7 @@ def InitMap(MapInfo=None):
                 if enemySaved == None:
                     raise ValueError("Error: Could not Initialize Map, Enemy in map has no conterpart in SaveFile ")
                 if enemySaved["life"] == 0:
-                    RemoveEntity(GetIndexOfEntity(enemy))
+                    RemoveEntity(GetIndexOfEntity(enemy,location=mapName),location=mapName)
                 else:
                     enemy["life"] = enemySaved["life"]
                     enemy["x"] = enemySaved["x"]

@@ -118,5 +118,3 @@ def SaveInventory(number):
     global inventario_armas, inventario
     Guardado.Saves[number]["Inventario"] = copy.deepcopy(inventario)
     Guardado.Saves[number]["Inventario Armas"] = copy.deepcopy(inventario_armas)
-
-print(equip_weapon("equip" + " " + (" ".join(["sword"]).title())))

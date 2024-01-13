@@ -135,7 +135,7 @@ def InitializeNewGame(playerName):
     GameId = Guardado.GetNewGameId()
     #Guarda el Guardado en el diccionario local y en la base de datos
     Guardado.Saves[GameId] = save
-    #Guardado.NewDBSave(PlayerName, GameId)
+    Guardado.NewDBSave(playerName, GameId)
     #Inicializa los sistemas de juego
     Inventario.InvenroryInit()
     Jugabilidad.InitMap()
@@ -497,8 +497,10 @@ def SavedGamesMenuAction(command,args):
             index = Guardado.GetSavedGameId(int(args[0]))
             if Guardado.Saves.get(index) == None:
                 AddToPropmts("Invalid action")
-            #else:
-                #TODO Erase saved game
+            else:
+                AddToPropmts(str(index))
+                Guardado.DeleteSaveFromDB(index)
+                del Guardado.Saves[index]
     elif command == "help":
         SavedGamesMenuHelp()
     elif command == "back":
@@ -507,8 +509,8 @@ def SavedGamesMenuAction(command,args):
         AddToPropmts("Invalid action")
 
 def SavedGamesMenu():
-    while(True):
-        clear_screen()
+    while(len(Guardado.Saves) > 0):
+        #clear_screen()
         saved_games_menu()
         print("\n## Last Prompts ##")
         for p in prompts_list:
@@ -805,7 +807,8 @@ def MapMenu(LastLocation):
     Jugabilidad.LoadMap(LastLocation)
     Interaccion.DecideFoxVisibility()
     while(True):
-        clear_screen()
+        #clear_screen()
+        print(Guardado.Saves)
         mapstr = Jugabilidad.MapToStr()
         menus = [[Jugabilidad.mapName,1],["Exit",2]]
         mapstr = WithFrame(mapstr,Menus=menus)
@@ -844,6 +847,7 @@ def SaveData():
     Inventario.SaveInventory(ActiveSave)
     Jugabilidad.SaveMapInfo(ActiveSave)
     Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    #Guardado.SaveToDB(ActiveSave)
 
-#Guardado.LoadFromDB()
+Guardado.LoadFromDB()
 MainMenu()
