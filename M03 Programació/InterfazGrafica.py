@@ -767,8 +767,9 @@ def ExecuteMapAction(command,args):
                 ActionTime()
         elif Jugabilidad.TerrainAt(py,px) == " ":
             message = Interaccion.CutGrass()
-            AddToPropmts(message)
-            if message == "You got a lizard":
+            if message != None:
+                AddToPropmts(message)
+            if message != "No Weapon Equiped":
                 ActionTime()
                 SaveData()
     elif command == "equip":
@@ -846,8 +847,9 @@ def SaveData():
     ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)
     Jugabilidad.SaveMapInfo(ActiveSave)
-    Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    #Guardado.SaveToDB(ActiveSave)
+    Combate.SaveCombate(ActiveSave)
+    Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    Guardado.SaveToDB(ActiveSave)
 
 Guardado.LoadFromDB()
 MainMenu()

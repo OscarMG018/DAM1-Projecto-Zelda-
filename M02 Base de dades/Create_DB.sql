@@ -16,13 +16,13 @@ CREATE TABLE game (
     BloodMoonAppearances INT,
     LastRegion ENUM("Hyrule","Death mountain","Gerudo","Necluda","Castle")
 );
-
+DROP TABLE IF EXISTS food;
 CREATE Table food (
     GameId INT NOT NULL,
     FoodName ENUM("Vegetable","Fish","Meat","Salad","Pescatarian","Roasted"),
     FoodQuantity INT,
     TimesObtained INT,
-    TimesComsumed INT,
+    TimesConsumed INT,
     PRIMARY KEY(GameId, FoodName),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 );
@@ -47,13 +47,14 @@ CREATE Table Sanctuaries (
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
 
+DROP TABLE IF EXISTS enemies;
 CREATE Table Enemies (
     GameId INT NOT NULL,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
     EnemyId INT,
     EnemyLife INT,
     PosX INT,
-    PoxY INT,
+    PosY INT,
     PRIMARY KEY(GameId, Loacation, EnemyId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
@@ -88,5 +89,7 @@ SELECT * FROM Sanctuaries;
 SELECT * FROM Enemies;
 SELECT * FROM Chests;
 
-UPDATE enemies SET `PoxY` = 2  WHERE `GameId` = 1 AND `Loacation` = "Hyrule" AND `EnemyId` = 1;
+UPDATE enemies SET `PosX` = 2  WHERE `GameId` = 1 AND `Loacation` = "Hyrule" AND `EnemyId` = 1;
+
+DELETE FROM game WHERE GameId = 3
 

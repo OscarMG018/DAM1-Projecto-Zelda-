@@ -71,33 +71,33 @@ def NewDBSave(PlayerName,number):
             ExecuteQuerry(f"INSERT INTO chests VALUES ({number},'{locationName}',{id},{chest['opened']})")
 
 def SaveToDB(number):
-    ExecuteQuerry(f"UPDATE game SET DateStarted = '{Saves[number]['DateStarted']}', LastSaved = '{Saves[number]['SaveDate']}', UserName = '{Saves[number]['PlayerName']}', LastRegion = '{Saves[number]['LastLocation']}', PlayerCurrentLife = {Saves[number]['PlayerLife']}, PlayerMaxLife = {Saves[number]['PlayerMaxLife']}, BloodMoon = {Saves[number]['BloodMoon']}, BloodMoonAppearences = {Saves[number]['BloodMoonAppearences']} WHERE GameId = {number}")
+    ExecuteQuerry(f"UPDATE game SET LastSaved = '{Saves[number]['SaveDate']}', UserName = '{Saves[number]['PlayerName']}', LastRegion = '{Saves[number]['LastLocation']}', PlayerCurrentLife = {Saves[number]['PlayerLife']}, PlayerMaxLife = {Saves[number]['PlayerMaxLife']}, BloodMoon = {Saves[number]['BloodMoon']}, BloodMoonAppearances = {Saves[number]['BloodMoonAppearances']} WHERE GameId = {number}")
 
-    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Vegetable']},TimesObtained = {Saves[number]['FoodObtained']['Vegetable']},TimesConsumed = {Saves[number]['FoodComsumed']['Vegetable']}  WHERE GameId = {number} and FoodName = 'Vegetables'")
-    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Fish']},TimesObtained = {Saves[number]['FoodObtained']['Fish']},TimesConsumed = {Saves[number]['FoodComsumed']['Fish']}  WHERE GameId = {number} and FoodName = 'Fish'")
-    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Meat']},TimesObtained = {Saves[number]['FoodObtained']['Meat']},TimesConsumed = {Saves[number]['FoodComsumed']['Meat']}  WHERE GameId = {number} and FoodName = 'Meat'")
-    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Salad']},TimesObtained = {Saves[number]['FoodObtained']['Salad']},TimesConsumed = {Saves[number]['FoodComsumed']['Salad']}  WHERE GameId = {number} and FoodName = 'Salad'")
-    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Pescatarian']},TimesObtained = {Saves[number]['FoodObtained']['Pescatarian']},TimesConsumed = {Saves[number]['FoodComsumed']['Pescatarian']}  WHERE GameId = {number} and FoodName = 'Pescatarian'")
-    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Roasted']},TimesObtained = {Saves[number]['FoodObtained']['Roasted']},TimesConsumed = {Saves[number]['FoodComsumed']['Roasted']}  WHERE GameId = {number} and FoodName = 'Roasted'")
+    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Vegetable']},TimesObtained = {Saves[number]['FoodObtained']['Vegetable']},TimesConsumed = {Saves[number]['FoodConsumed']['Vegetable']}  WHERE GameId = {number} and FoodName = 'Vegetables'")
+    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Fish']},TimesObtained = {Saves[number]['FoodObtained']['Fish']},TimesConsumed = {Saves[number]['FoodConsumed']['Fish']}  WHERE GameId = {number} and FoodName = 'Fish'")
+    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Meat']},TimesObtained = {Saves[number]['FoodObtained']['Meat']},TimesConsumed = {Saves[number]['FoodConsumed']['Meat']}  WHERE GameId = {number} and FoodName = 'Meat'")
+    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Salad']},TimesObtained = {Saves[number]['FoodObtained']['Salad']},TimesConsumed = {Saves[number]['FoodConsumed']['Salad']}  WHERE GameId = {number} and FoodName = 'Salad'")
+    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Pescatarian']},TimesObtained = {Saves[number]['FoodObtained']['Pescatarian']},TimesConsumed = {Saves[number]['FoodConsumed']['Pescatarian']}  WHERE GameId = {number} and FoodName = 'Pescatarian'")
+    ExecuteQuerry(f"UPDATE food SET FoodQuantity = {Saves[number]['Inventario']['Roasted']},TimesObtained = {Saves[number]['FoodObtained']['Roasted']},TimesConsumed = {Saves[number]['FoodConsumed']['Roasted']}  WHERE GameId = {number} and FoodName = 'Roasted'")
 
-    ExecuteQuerry(f"UPDATE weapons SET WeaponsQuantity = {Saves[number]['Inventario Armas']['Sword'][0]},TimesObtained = {Saves[number]['ArmasObteined']['Sword']},TimesUsed = {Saves[number]['ArmasUsed']['Sword']}  WHERE GameId = {number} and WeaponName = 'Sword'")
-    ExecuteQuerry(f"UPDATE weapons SET WeaponsQuantity = {Saves[number]['Inventario Armas']['Shield'][0]},TimesObtained = {Saves[number]['ArmasObteined']['Shield']},TimesUsed = {Saves[number]['ArmasUsed']['Shield']}  WHERE GameId = {number} and WeaponName = 'Shield'")
-    ExecuteQuerry(f"UPDATE weapons SET WeaponsQuantity = {Saves[number]['Inventario Armas']['Wood Sword'][0]},TimesObtained = {Saves[number]['ArmasObteined']['Wood Sword']},TimesUsed = {Saves[number]['ArmasUsed']['Wood Sword']}  WHERE GameId = {number} and WeaponName = 'Wood Sword'")
-    ExecuteQuerry(f"UPDATE weapons SET WeaponsQuantity = {Saves[number]['Inventario Armas']['Wood Shield'][0]},TimesObtained = {Saves[number]['ArmasObteined']['Wood Shield']},TimesUsed = {Saves[number]['ArmasUsed']['Wood Shield']}  WHERE GameId = {number} and WeaponName = 'Wood Shield'")
+    ExecuteQuerry(f"UPDATE weapons SET Equiped = {Saves[number]['Inventario Armas']['Sword'][2]}, WeaponDurability = {Saves[number]['Inventario Armas']['Sword'][0]}, WeaponQuantity = {Saves[number]['Inventario Armas']['Sword'][1]},TimesObtained = {Saves[number]['ArmasObteined']['Sword']},TimesUsed = {Saves[number]['ArmasUsed']['Sword']}  WHERE GameId = {number} and WeaponName = 'Sword'")
+    ExecuteQuerry(f"UPDATE weapons SET Equiped = {Saves[number]['Inventario Armas']['Shield'][2]}, WeaponDurability = {Saves[number]['Inventario Armas']['Shield'][0]}, WeaponQuantity = {Saves[number]['Inventario Armas']['Shield'][1]},TimesObtained = {Saves[number]['ArmasObteined']['Shield']},TimesUsed = {Saves[number]['ArmasUsed']['Shield']}  WHERE GameId = {number} and WeaponName = 'Shield'")
+    ExecuteQuerry(f"UPDATE weapons SET Equiped = {Saves[number]['Inventario Armas']['Wood Sword'][2]}, WeaponDurability = {Saves[number]['Inventario Armas']['Wood Sword'][0]}, WeaponQuantity = {Saves[number]['Inventario Armas']['Wood Sword'][1]},TimesObtained = {Saves[number]['ArmasObteined']['Wood Sword']},TimesUsed = {Saves[number]['ArmasUsed']['Wood Sword']}  WHERE GameId = {number} and WeaponName = 'Wood Sword'")
+    ExecuteQuerry(f"UPDATE weapons SET Equiped = {Saves[number]['Inventario Armas']['Wood Shield'][2]}, WeaponDurability = {Saves[number]['Inventario Armas']['Wood Shield'][0]}, WeaponQuantity = {Saves[number]['Inventario Armas']['Wood Shield'][1]},TimesObtained = {Saves[number]['ArmasObteined']['Wood Shield']},TimesUsed = {Saves[number]['ArmasUsed']['Wood Shield']}  WHERE GameId = {number} and WeaponName = 'Wood Shield'")
 
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][0]} WHERE GameId = {number} and SanctuaryId = 0")
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][1]} WHERE GameId = {number} and SanctuaryId = 1")
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][2]} WHERE GameId = {number} and SanctuaryId = 2")
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][3]} WHERE GameId = {number} and SanctuaryId = 3")
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][4]} WHERE GameId = {number} and SanctuaryId = 4")
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][5]} WHERE GameId = {number} and SanctuaryId = 5")
-    ExecuteQuerry(f"UPDATE Sanctuaries SET SanctuaryOpened = {Saves[number]['SanctuariesOpened'][6]} WHERE GameId = {number} and SanctuaryId = 6")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][0]} WHERE GameId = {number} and SanctuaryId = 0")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][1]} WHERE GameId = {number} and SanctuaryId = 1")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][2]} WHERE GameId = {number} and SanctuaryId = 2")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][3]} WHERE GameId = {number} and SanctuaryId = 3")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][4]} WHERE GameId = {number} and SanctuaryId = 4")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][5]} WHERE GameId = {number} and SanctuaryId = 5")
+    ExecuteQuerry(f"UPDATE Sanctuaries SET Opened = {Saves[number]['SanctuariesOpened'][6]} WHERE GameId = {number} and SanctuaryId = 6")
 
-    for location in Saves[number]["MapInformation"]:
-        for enemy in location["Enemies"]:
-            ExecuteQuerry(f"UPDATE enemies SET EnemyLife = {enemy['life']}, PosX = {enemy['x']}, PosY = {enemy['y']} WHERE GameId = {number} and EnemyId = {enemy['EnemyNumber']} and Loacation = '{location}'")
-        for i,chest in enumerate(location["Chests"]):
-            ExecuteQuerry(f"UPDATE chests SET Opened = {chest['opened']} WHERE GameId = {number} and ChestId = {i} and Loacation = '{location}'")
+    for locationName,locationvalue in Saves[number]["MapInformation"].items():
+        for enemy in locationvalue["Enemies"]:
+            ExecuteQuerry(f"UPDATE enemies SET EnemyLife = {enemy['life']}, PosX = {enemy['x']}, PosY = {enemy['y']} WHERE GameId = {number} and EnemyId = {enemy['EnemyNumber']} and Loacation = '{locationName}'")
+        for i,chest in enumerate(locationvalue["Chests"]):
+            ExecuteQuerry(f"UPDATE chests SET Opened = {chest['opened']} WHERE GameId = {number} and ChestId = {i} and Loacation = '{locationName}'")
 
 def DeleteSaveFromDB(number):
     try:
@@ -122,11 +122,11 @@ def LoadFromDB():
             "PlayerLife" : game[5],
             "PlayerMaxLife" : game[4],
             "BloodMoon" : game[6],
-            "BloodMoonAppearences" : game[7],
+            "BloodMoonAppearances" : game[7],
             "SanctuariesOpened" : [],
             "Inventario" : {},
             "FoodObtained" : {},
-            "FoodComsumed" : {},
+            "FoodConsumed" : {},
             "Inventario Armas" : {},
             "ArmasObteined" : {},
             "ArmasUsed" : {},
@@ -176,7 +176,7 @@ def LoadFromDB():
     for food in ExecuteQuerry("SELECT * FROM food"):
         Saves[food[0]]["Inventario"][food[1]] = food[2]
         Saves[food[0]]["FoodObtained"][food[1]] = food[3]
-        Saves[food[0]]["FoodComsumed"][food[1]] = food[4]
+        Saves[food[0]]["FoodConsumed"][food[1]] = food[4]
     
     for weapon in ExecuteQuerry("SELECT * FROM weapons"):
         if weapon[4] == 1:
@@ -205,18 +205,18 @@ def LoadFromDB():
     
 def NewSave(PlayerName):
     return {
-        "DateStarted" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
-        "SaveDate" : datetime.now().strftime("%d/%m/%Y %H:%M:%S"),
+        "DateStarted" : datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        "SaveDate" : datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
         "PlayerName" : PlayerName,
         "LastLocation" : "Hyrule",
         "PlayerLife" : 3,
         "PlayerMaxLife" : 3,
         "BloodMoon" : 0,
-        "BloodMoonAppearences" : 0,
+        "BloodMoonAppearances" : 0,
         "SanctuariesOpened" : [False,False,False,False,False,False,False],
         "Inventario" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
         "FoodObtained" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
-        "FoodComsumed" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
+        "FoodConsumed" : {"Vegetable": 0, "Fish": 0, "Meat": 0, "Salad": 0, "Pescatarian": 0, "Roasted": 0},
         "Inventario Armas" : {"Wood Sword":[0, 0, False], "Sword": [0, 0, False], "Wood Shield":[0, 0, False], "Shield":[0, 0, False]},
         "ArmasObteined" : {"Wood Sword" : 0, "Sword" : 0, "Wood Shield": 0, "Shield" :0},
         "ArmasUsed" : {"Wood Sword" : 0, "Sword" : 0, "Wood Shield": 0, "Shield" :0},
@@ -270,7 +270,7 @@ def GetInventoryInfo(number):
     return [copy.deepcopy(Saves[number]["Inventario"]),copy.deepcopy(Saves[number]["Inventario Armas"])]
 
 def GetCombateInfo(number):
-    return [Saves[number]["PlayerLife"],Saves[number]["PlayerMaxLife"],Saves[number]["BloodMoon"],Saves[number]["BloodMoonAppearences"]]
+    return [Saves[number]["PlayerLife"],Saves[number]["PlayerMaxLife"],Saves[number]["BloodMoon"],Saves[number]["BloodMoonAppearances"]]
 
 def GetSavedGameId(n):
     return list(Saves.keys())[n]
