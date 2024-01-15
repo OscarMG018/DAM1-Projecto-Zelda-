@@ -306,7 +306,7 @@ def InventoryMain():
     result += "                   *" + "\n"
     result += " Equipment         *" + "\n"
     result += f"{Inventario.GetEquipedWeapon()} *".rjust(20," ") + "\n"
-    result += f"{Inventario.GetEquipedWeapon()} *".rjust(20," ") + "\n"
+    result += f"{Inventario.GetEquipedShield()} *".rjust(20," ") + "\n"
     result += "                   *" + "\n"
     food = Inventario.GetItem("Vegetable")+Inventario.GetItem("Salad")+Inventario.GetItem("Pescatarian")+Inventario.GetItem("Roasted")
     result += " Food" + f"{food} *".rjust(15," ") + "\n"
@@ -357,6 +357,33 @@ def InventoryFood():
     result += " * * * * * * * * * *" + "\n"
     return result
 
+def GameOver():
+ return """* Link death * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*       Game Over.                                                            *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+
+def ZeldaSaved():
+    return """* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*       Congratulations, Link has saved Princess Zelda.                       *
+*       Thanks for playing!                                                   *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def MainMenuAction(action):
     if action == "new game":
@@ -564,6 +591,8 @@ mapConnections = {
     "Castle" : []
 }
 
+
+
 def WorldMap():
     result = "* Map * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "*                                                         *" + "\n"
@@ -645,8 +674,9 @@ def ExecuteMapAction(command,args):
                 ActionTime()
             else:
                 AddToPropmts("That is not a direction")
-            if Jugabilidad.mapName == "Castle" and Jugabilidad.AdjacentEntity(Jugabilidad.GetPlayer()["y"],Jugabilidad.GetPlayer()["x"],"Ganon"):
-                Inventario.LoseLife()
+            if Jugabilidad.mapName == "Castle" and Combate.InFrontOfGanon():
+                AddToPropmts("Ganon's presence hurts you")
+                Combate.PlayerLife -= 1
         elif args[0].lower() == "by" and args[1].lower() == "the":
             if args[2].lower() == "water":
                 message = Jugabilidad.MovePlayerNearTerrain("~")
@@ -765,6 +795,16 @@ def ExecuteMapAction(command,args):
                 SaveData()
             elif messages[0] == "The Tree didn't give you anythng":
                 ActionTime()
+        elif Jugabilidad.AdjacentEntity(py,px,"Ganon") != None:
+            messages = Combate.attackGanon()
+            for message in messages:
+                AddToPropmts(message)
+            if len(messages) > 1:
+                ActionTime()
+                SaveData()
+            elif messages[0] != "No hay armas equipadas para atacar." or messages[0] != "Ganon is out of range":
+                ActionTime()
+                SaveData()
         elif Jugabilidad.TerrainAt(py,px) == " ":
             message = Interaccion.CutGrass()
             if message != None:
@@ -773,12 +813,30 @@ def ExecuteMapAction(command,args):
                 ActionTime()
                 SaveData()
     elif command == "equip":
-        message,time = Inventario.equip_weapon(command + " " + (" ".join(args).title()))
+        if len(args) != 1:
+            AddToPropmts("Invalid action")
+        if "sword" in args[0].lower():
+            message = Inventario.equip_weapon(args[0].title())
+        elif "shield" in args[0].lower():
+            message = Inventario.equip_shield(args[0].title())
+        else:
+            AddToPropmts("Invalid action")
+            return
         AddToPropmts(message)
-        if time:
+        if message == f"You have equipped '{args[0].title()}'":
             ActionTime()
+            SaveData()
     elif command == "unequip":
-        return
+        if len(args) != 1:
+            AddToPropmts("Invalid action")
+        if "sword" in args[0].lower() or "shield" in args[0].lower():
+            message = Inventario.unequip_item(args[0].title())
+            AddToPropmts(message)
+            if message == f"You have unequipped '{args[0].title()}'":
+                ActionTime()
+                SaveData()
+        else:
+            AddToPropmts("Invalid action")
     elif command == "eat":
         return
     elif command == "cheat":
@@ -809,7 +867,6 @@ def MapMenu(LastLocation):
     Interaccion.DecideFoxVisibility()
     while(True):
         clear_screen()
-        print(Guardado.Saves)
         mapstr = Jugabilidad.MapToStr()
         menus = [[Jugabilidad.mapName,1],["Exit",2]]
         mapstr = WithFrame(mapstr,Menus=menus)
@@ -824,6 +881,28 @@ def MapMenu(LastLocation):
         command,args = parse_input(action)
         if ExecuteMapAction(command,args) == "back":
             break 
+        if Combate.PlayerLife <= 0:
+            GameOverMenu()
+            break
+
+
+
+def GameOverMenu():
+    while(True):
+        clear_screen()
+        GameOver()
+        print("\n## Last Prompts ##")
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        action = input("> ").lower()
+        if action == "back":
+            AddToPropmts(action)
+            LegendPlotMenu(action)
+            break
+        else:
+            AddToPropmts("Invalid Action")
+
 
 def ActionTime():
     #Broken trees regen -=1

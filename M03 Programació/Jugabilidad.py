@@ -3,7 +3,7 @@ import random
 from collections import deque
 import Guardado
 
-mapName = "map1"
+mapName = "Hyrule"
 previusLocation = "Hyrule"
 
 OpenSanctuaris = [False,False,False,False,False,False,False]
