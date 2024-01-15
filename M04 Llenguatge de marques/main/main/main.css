@@ -37,18 +37,15 @@ body {
     mask: url(img/The_Legend_of_Zelda_-_Breath_of_the_Wild.svg);
     mask-repeat: no-repeat;
     mask-position: center;
-    opacity: 0.5;
+    opacity: 0.25;
 }
 
 #promo {
     position: relative;
     display: flex;
     flex-direction: column;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
     width: 39%;
-    height: auto;
+    height: 93vh;
     margin: 3.5vh;
     margin-left: 10%;
     align-items: center;
@@ -62,7 +59,6 @@ body {
     text-align: center;
     align-items: end;
     margin-bottom: 15px;
-
 }
 
 #titulo p {
@@ -79,7 +75,7 @@ iam {
     filter: drop-shadow(0 0 5px #000000) drop-shadow(0 0 15px #cacaca);    
 }
 
-span {
+p span {
     font-weight: 700;
     position: relative;
     color: rgba(0, 0, 0, 0.0);
@@ -97,7 +93,7 @@ span {
     }
 }
 
-span::before {
+p span::before {
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -140,12 +136,10 @@ span::before {
     align-items: center;
     border-radius: 40px;
     border: 5px solid #46321f;
-    box-shadow: 0 0 25px #46321f;
 }
 
 #media {
-    content: "";
-    background-color: rgba(0, 255, 255, 0.61);
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 39%;
@@ -156,3 +150,130 @@ span::before {
     align-items: center;
     justify-content: center;
 }
+
+.hexagon {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+}
+
+#linea_sup, #linea_mid, #linea_bot {
+    position: relative;
+    display: flex;
+}
+
+.hex-bord {
+    background: url(img/pattern-runes-green.png);
+    width: 12vw;
+    height: 12vw;
+    mask: url(img/hexagon.svg);
+    mask-position: center;
+    mask-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+.hex-imag {
+    background: url(https://img.asmedia.epimg.net/resizer/SdPLT5TQmRZkdX_otWUKWEDOHZY=/1472x828/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/UN7EWUQBDJCKXFY347M7APJBRI.jpg);
+    background-size: cover;
+    background-position: center;
+    width: 85%;
+    height: 85%;
+    mask: url(img/hexagon.svg);
+    mask-position: center;
+    mask-size: contain;
+}
+
+#buttons_hero {
+    height: 5vw;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    gap: 5%;
+}
+
+.button_h {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2vw;
+    position: relative;
+    color: #24584D;
+    font-weight: 700;
+    background: #24584D;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    align-items: center;
+    justify-content: start;
+    width: 25%;
+    padding: 0.5em;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 20px;
+}
+
+.button_h:hover {
+    background: var(--clr);
+    color: var(--clr);
+    letter-spacing: 0.2em;
+    box-shadow: 0 0 10px var(--clr);
+    
+}
+
+.button_h::before {
+    content: "";
+    position: absolute;
+    inset: 0.3vw;
+    background: #ffffff ;
+    border-radius: 15px;}
+
+.button_h span  {
+    position: relative;
+}
+
+.button_h i {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.button_h i::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 70%;
+    width: 2vw;
+    height: 0.4vw;
+    background: #fff;
+    transform: translate(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+
+.button_h:hover i::before {
+    width: 2vw;
+    left: 30%;
+}
+
+.button_h i::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 30%;
+    width: 2vw;
+    height: 0.4vw;
+    background: #fff;
+    transform: translate(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+
+.button_h:hover i::after {
+    width: 2vw;
+    left: 70%;
+}
+
+
