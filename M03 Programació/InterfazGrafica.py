@@ -510,7 +510,7 @@ def SavedGamesMenuAction(command,args):
 
 def SavedGamesMenu():
     while(len(Guardado.Saves) > 0):
-        #clear_screen()
+        clear_screen()
         saved_games_menu()
         print("\n## Last Prompts ##")
         for p in prompts_list:
@@ -808,7 +808,7 @@ def MapMenu(LastLocation):
     Jugabilidad.LoadMap(LastLocation)
     Interaccion.DecideFoxVisibility()
     while(True):
-        #clear_screen()
+        clear_screen()
         print(Guardado.Saves)
         mapstr = Jugabilidad.MapToStr()
         menus = [[Jugabilidad.mapName,1],["Exit",2]]
