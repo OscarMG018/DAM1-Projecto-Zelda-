@@ -66,4 +66,6 @@ def ExecuteQuerry(querry):
         mysql_disconnect()
         close_ssh_tunnel()
 
-def run
+def run(querry):
+    ExecuteQuerry(querry)
+
