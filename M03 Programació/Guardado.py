@@ -273,7 +273,10 @@ def GetCombateInfo(number):
     return [Saves[number]["PlayerLife"],Saves[number]["PlayerMaxLife"],Saves[number]["BloodMoon"],Saves[number]["BloodMoonAppearances"]]
 
 def GetSavedGameId(n):
-    return list(Saves.keys())[n]
+    copia = copy.deepcopy(list(Saves.items()))
+    copia.sort(key=lambda x: x[1]["SaveDate"], reverse=True)
+    return copia[n][0]
+
 
 def GetNewGameId():
     if len(Saves.keys()) == 0:

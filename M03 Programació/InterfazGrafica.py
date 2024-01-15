@@ -7,6 +7,7 @@ import os
 import Interaccion
 from menuprincipal.ascii_draws_chosen import draw_chosen
 from datetime import datetime
+import copy
 
 PlayerName = ""
 
@@ -264,9 +265,12 @@ def Legend():
 * Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def saved_games_menu():
+
     result = "* Saved games * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n"
     result += "*                                                                             *\n"
-    for i, save in enumerate(Guardado.Saves.values()):
+    copia = copy.deepcopy(list(Guardado.Saves.values()))
+    copia.sort(key=lambda x: x["SaveDate"], reverse=True)
+    for i, save in enumerate(copia):
         result += f'*  {i}: {save["SaveDate"]} - {save["PlayerName"]}, {save["LastLocation"]}'.ljust(72)+f'♥ {save["PlayerLife"]}/{save["PlayerMaxLife"]} *\n'
     for i in range(len(Guardado.Saves),9):
         result += "*                                                                             *\n"
