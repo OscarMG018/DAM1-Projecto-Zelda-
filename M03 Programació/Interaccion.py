@@ -31,20 +31,20 @@ def Fishing():
 #Fox
 
 def DecideFoxVisibility():
+    foxlist = Jugabilidad.GetAllEntiiesWithName("Fox",location=None)
+    if len(foxlist) > 0:
+        Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(foxlist[0]))
     if random.random() <= 0.5:
         if Jugabilidad.mapName == "Hyrule":
             Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 50, "y" : 8})
         if Jugabilidad.mapName == "Death mountain":
-            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 36, "y" : 1})
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 29, "y" : 1})
         if Jugabilidad.mapName == "Gerudo":
             Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 47, "y" : 7})
         if Jugabilidad.mapName == "Necluda":
             Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6})
         return "You see a Fox"
     else:
-        foxlist = Jugabilidad.GetAllEntiiesWithName("Fox",location=None)
-        if len(foxlist) > 0:
-            Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(foxlist[0]))
         return "You don't see a Fox"
 
 #Cocinar
