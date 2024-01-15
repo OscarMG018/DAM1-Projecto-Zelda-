@@ -14,7 +14,6 @@ database_name = 'Projecto'
 localhost = '127.0.0.1'
 
 # Comando SQL que deseas ejecutar
-sql_query = 'SELECT * FROM food'
 def open_ssh_tunnel(verbose=False):
     if verbose:
         sshtunnel.DEFAULT_LOGLEVEL = logging.DEBUG
@@ -40,7 +39,10 @@ def mysql_connect():
     )
 
 def run_query(sql):
-    return pd.read_sql_query(sql, connection)
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        result = [list(row) for row in cursor.fetchall()]
+    return result
 
 def mysql_disconnect():
     connection.close()
@@ -48,11 +50,13 @@ def mysql_disconnect():
 def close_ssh_tunnel():
     tunnel.close
 
-open_ssh_tunnel()
-mysql_connect()
-df = run_query("SELECT * FROM food")
-df.head()
-print(df)
-mysql_disconnect()
-close_ssh_tunnel()
+try:
+    open_ssh_tunnel()
+    mysql_connect()
+    result_list = run_query("SELECT * FROM game")
+    print("Tipo de Resultado:", type(result_list))
+    print(result_list)
+finally:
+    mysql_disconnect()
+    close_ssh_tunnel()
 
