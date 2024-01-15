@@ -367,11 +367,6 @@ def MapToStr():
                         mapstr += "T" + str(entity["regen"])
                     else:
                         mapstr += entity["symbol"] 
-                elif entity["name"] == "Fox":
-                    if entity["visible"]:
-                        mapstr += entity["symbol"]
-                    else:
-                        mapstr += map[y][x]
                 elif entity["name"] == "Sanctuary":
                     if OpenSanctuaris[entity["SanctuaryNumber"]]:
                         if ValidPosition(y,x+1) and GetEntityByPosition(y,x+1) == None:
