@@ -165,9 +165,9 @@ def main_menu():
 
     # Comprobar si hay una partida guardada e imprimir opciones del menú según
     if len(Guardado.Saves) == 0:
-        print("* New Game, Help, About, Exit " + ("* " * 25))
+        print("* New Game, BDdata, Help, About, Exit " + ("* " * 25))
     else:
-        print("* Continue, New Game, Help, About, Exit " + ("* " * 20))
+        print("* Continue, New Game, BDdata, Help, About, Exit " + ("* " * 20))
 
 def new_game_menu_help():
     print(
@@ -265,7 +265,6 @@ def Legend():
 * Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def saved_games_menu():
-
     result = "* Saved games * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n"
     result += "*                                                                             *\n"
     copia = copy.deepcopy(list(Guardado.Saves.values()))
@@ -376,7 +375,7 @@ def GameOver():
 * Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def ZeldaSaved():
-    return """* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    return """* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * *a * * * *
 *                                                                             *
 *                                                                             *
 *                                                                             *
@@ -389,10 +388,42 @@ def ZeldaSaved():
 *                                                                             *
 * Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
+
+def dbdata_help():
+    result = "* DBdara, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    result += "* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *"
+    print(result)
+
+def dbdata_players():
+    result = "* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    result += "*                                                                             *\n"
+    for saveId, save in Guardado.Saves.items():
+        result += f"* {save['PlayerName']}" + f"{save['SaveDate']}".rjust(75-len(save["PlayerName"])," ") +" *" + "\n"
+    for i in range(len(Guardado.Saves),9):
+        result += "*                                                                             *\n"
+    result += "*                                                                             *\n"
+    result += "* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *"
+    print(result)
+    
+def dbdata_player_activity():
+    result = "* DBdara, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+
+def dbdata_weapons():
+    result = "* DBdara, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+
+def dbdata_food():
+    result = "* DBdara, Food * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+
+def dbdata_blood_moons():
+    result = "* DBdara, Blood Moons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+
 def MainMenuAction(action):
     if action == "new game":
         AddToPropmts(action)
         NewGameMenu()
+    elif action == "dbdata":
+        AddToPropmts(action)
+        DBdataMenu()
     elif action == "help":
         AddToPropmts(action)
         HelpMenu()
@@ -426,6 +457,34 @@ def MainMenu():
         action = input("> ").lower()
         if MainMenuAction(action) == "Exit":
             break
+
+def DBdataMenu():
+    datashowing = "help"
+    while(True):
+        clear_screen()
+        if datashowing == "help":
+            dbdata_help()
+        elif datashowing == "players":
+            dbdata_players()
+        elif datashowing == "player activity":
+            dbdata_player_activity()
+        elif datashowing == "weapons":
+            dbdata_weapons()
+        elif datashowing == "food":
+            dbdata_food()
+        elif datashowing == "blood moons":
+            dbdata_blood_moons()
+        print("\n## Last Prompts ##")
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        action = input("> ").lower()
+        if action == "back":
+            AddToPropmts(action)
+            break
+        elif action in ["help","players","player activity","weapons","food","blood moons"]:
+            AddToPropmts(action)
+            datashowing = action
 
 def HelpMenu():
     while(True):
@@ -660,7 +719,7 @@ def ActionsAvailables():
         if Interaccion.TryCutGrass()[0] or Interaccion.TryCutTree()[0] or Combate.TryAttackGanon():
             actions.insert(1,["Attack",2])
     else:
-        if Combate.tryattack()[0] or Interaccion.TryCutGrass()[0] or Interaccion.TryCutTree()[0]:
+        if Combate.tryattack()[0] or Interaccion.TryCutGrass()[0] or Interaccion.TryShakeTree()[0]:
             actions.insert(1,["Attack",2])
         if Inventario.GetItem("Vegetable")+Inventario.GetItem("Salad")+Inventario.GetItem("Pescatarian")+Inventario.GetItem("Roasted") > 0:
             actions.append(["Eat",2])
@@ -883,7 +942,13 @@ def ExecuteMapAction(command,args):
         else:
             AddToPropmts("Invalid action")
     elif command == "eat":
-        return
+        if len(args) != 1:
+            AddToPropmts("Invalid action")
+        message = Interaccion.Eat(args[0].capitalize())
+        AddToPropmts(message)
+        if message == f"You ate a {args[0].capitalize()}":
+            ActionTime()
+            SaveData()
     elif command == "cheat":
         return
     elif command == "back":
@@ -892,6 +957,8 @@ def ExecuteMapAction(command,args):
                 AddToPropmts("Invalid action")
             else:
                 Jugabilidad.LoadMap(Jugabilidad.previusLocation)
+                message = Interaccion.DecideFoxVisibility()
+                AddToPropmts(message)
                 ActionTime()
                 SaveData()
         else:
@@ -909,7 +976,8 @@ def MapMenu(LastLocation):
     global invetoryToShow
     invetoryToShow = "main"
     Jugabilidad.LoadMap(LastLocation)
-    Interaccion.DecideFoxVisibility()
+    message = Interaccion.DecideFoxVisibility()
+    AddToPropmts(message)
     while(True):
         clear_screen()
         mapstr = Jugabilidad.MapToStr()

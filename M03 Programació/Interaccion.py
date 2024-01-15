@@ -212,7 +212,9 @@ def CutGrass():
         return "You got a lizard"
 
 def TryEat(food_type):
-    if Inventario[food_type] != 0:
+    if food_type not in ["Vegetable","Salad","Pescatarian","Roasted"]:
+        return False, f"{food_type} isn't comestible"
+    if Inventario.inventario[food_type] != 0:
         if Combate.PlayerLife != Combate.PlayerMaxLife:
             return True, None
         else:
@@ -221,14 +223,17 @@ def TryEat(food_type):
         return False, f"You don't have '{food_type}' to eat"
 
 def Eat(food_type):
-    if food_type == "vegetable":
-        PlayerLife += 1
-    if food_type == "salad":
-        PlayerLife += 2
-    if food_type == "pescatarian":
-        PlayerLife += 3
-    if food_type == "roasted":
-        PlayerLife += 4
-    Inventario[food_type] -= 1
-    if PlayerLife > Combate.PlayerMaxLife:
-            PlayerLife = Combate.PlayerMaxLife
+    if not TryEat(food_type)[0]:
+        return TryEat(food_type)[1]
+    if food_type == "Vegetable":
+        Combate.PlayerLife += 1
+    if food_type == "Salad":
+        Combate.PlayerLife += 2
+    if food_type == "Pescatarian":
+        Combate.PlayerLife += 3
+    if food_type == "Roasted":
+        Combate.PlayerLife += 4
+    Inventario.inventario[food_type] -= 1
+    if Combate.PlayerLife > Combate.PlayerMaxLife:
+        Combate.PlayerLife = Combate.PlayerMaxLife
+    return f"You ate a {food_type.capitalize()}"
