@@ -68,6 +68,20 @@ def UseWeapon():
         if inventario_armas[equiped_weapon][1] == 0:
             inventario_armas[equiped_weapon[2]] = False
         return f"{equiped_weapon} has been broken, you have {inventario_armas[equiped_weapon][1]} left"
+    
+def UseShield():
+    global inventario_armas
+    equiped_shield = GetEquipedShield()
+    inventario_armas[equiped_shield][0] -= 1
+    if inventario_armas[equiped_shield][0] == 0:
+        inventario_armas[equiped_shield][1] -= 1
+        if equiped_shield == "Shield":
+            inventario_armas[equiped_shield[0]] = 9
+        else:
+            inventario_armas[equiped_shield[0]] = 5
+        if inventario_armas[equiped_shield][1] == 0:
+            inventario_armas[equiped_shield[2]] = False
+        return f"{equiped_shield} has been broken, you have {inventario_armas[equiped_shield][1]} left"
 
 def AddItem(nombre, cantidad):
     global inventario_armas, inventario

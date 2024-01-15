@@ -591,8 +591,6 @@ mapConnections = {
     "Castle" : []
 }
 
-
-
 def WorldMap():
     result = "* Map * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "*                                                         *" + "\n"
@@ -795,6 +793,16 @@ def ExecuteMapAction(command,args):
                 SaveData()
             elif messages[0] == "The Tree didn't give you anythng":
                 ActionTime()
+        elif Jugabilidad.AdjacentEntity(py,px,"Fox") != None or Jugabilidad.AdjacentEntity(py,px,"Enemy") != None:
+            if len(args) != 0:
+                AddToPropmts("Invalid action")
+                return
+            messages = Combate.attack()
+            for message in messages:
+                AddToPropmts(message)
+            if not(len(messages) == 1 and messages[0] == "No hay entidades cercanas para atacar."):
+                ActionTime()
+                SaveData()
         elif Jugabilidad.AdjacentEntity(py,px,"Ganon") != None:
             messages = Combate.attackGanon()
             for message in messages:
@@ -885,8 +893,6 @@ def MapMenu(LastLocation):
             GameOverMenu()
             break
 
-
-
 def GameOverMenu():
     while(True):
         clear_screen()
@@ -898,7 +904,8 @@ def GameOverMenu():
         action = input("> ").lower()
         if action == "back":
             AddToPropmts(action)
-            LegendPlotMenu(action)
+            Combate.PlayerLife = Combate.PlayerMaxLife
+            SaveData()
             break
         else:
             AddToPropmts("Invalid Action")

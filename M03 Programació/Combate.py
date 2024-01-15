@@ -12,56 +12,59 @@ BloodMoonAppearances = 0
 
 def tryattack():
     player = Jugabilidad.GetPlayer()
-
-    for dy in [-1, 0, 1]:
-        for dx in [-1, 0, 1]:
-            if dy == 0 and dx == 0:
-                continue
-
-            y, x = player["y"] + dy, player["x"] + dx
-            if Jugabilidad.ValidPosition(y, x):
-                entity = Jugabilidad.GetEntityByPosition(y, x)
-                if entity and entity["name"] in ["Enemy", "Fox"]:
-                    return True, Jugabilidad.GetIndexOfEntity(entity)
-
-    return False, -1
+    enemy = Jugabilidad.AdjacentEntity(player["y"],player["x"],"Enemy")
+    fox = Jugabilidad.AdjacentEntity(player["y"],player["x"],"Fox")
+    if enemy != None:
+        return True, Jugabilidad.GetIndexOfEntity(enemy)
+    elif (fox != None and fox["visible"]):
+        return True, Jugabilidad.GetIndexOfEntity(fox)
+    return False
 
 def attack():
+    global PlayerLife
     success, entityIndex = tryattack()
-
     if not success:
-        return "No hay entidades cercanas para atacar."
+        return ["No hay entidades cercanas para atacar."]
 
-    weapon_equipped = GetEquipedWeapon()
-    shield_equipped = GetEquipedShield()
-
+    weapon_equipped = Inventario.GetEquipedWeapon()
+    shield_equipped = Inventario.GetEquipedShield()
 
     if weapon_equipped is None:
-        return "No hay armas equipadas para atacar."
+        return ["No hay armas equipadas para atacar."]
 
-    player = GetPlayer()
-    entity = GetEntityByIndex(entityIndex)
-
-    weapon_stats = inventario_armas[weapon_equipped]
+    player = Jugabilidad.GetPlayer()
+    entity = Jugabilidad.GetEntityByIndex(entityIndex)
 
     if entity["name"] == "Enemy":
+        messages = []
+        if shield_equipped in ["Shield", "Wood Shield"]:
+            PlayerLife -= 0  # No damage to player if shield is equipped
+            message = Inventario.UseShield()
+            if message != None:
+                messages.append(message)
+        else:
+            PlayerLife -= 1
+
         # Attack enemy
         entity["life"] -= 1
-        if ahield_equipped in ["Shield", "Wood Shield"]:
-            player["vida"] -= 0  # No damage to player if shield is equipped
-        else:
-            player["vida"] -= 1
-
+        message = Inventario.UseWeapon()
+        if message != None:
+            messages.append(message)
         if entity["life"] <= 0:
-            RemoveEntity(entityIndex)
-            return f"Atacaste al enemigo con {weapon_equipped}. ¡Enemigo eliminado!"
+            Jugabilidad.RemoveEntity(entityIndex)
+            messages.append(f"Atacaste al enemigo con {weapon_equipped}. ¡Enemigo eliminado!")
         else:
-            return f"Atacaste al enemigo con {weapon_equipped}. Vida restante del enemigo: {entity['life']}."
+            messages.append(f"Atacaste al enemigo con {weapon_equipped}. Vida restante del enemigo: {entity['life']}.")
+        return messages
 
     elif entity["name"] == "Fox":
         # Attack fox
-        RemoveEntity(entityIndex)
-        return f"Atacaste al zorro con {weapon_equipped}. ¡Zorro eliminado!"
+        Jugabilidad.RemoveEntity(entityIndex)
+        message = [Inventario.UseWeapon()]
+        Inventario.AddItem("Meat",1)
+        if len(message) > 0:
+            return [f"Atacaste al zorro con {weapon_equipped}. ¡Zorro eliminado!"] + message
+        return [f"Atacaste al zorro con {weapon_equipped}. ¡Zorro eliminado!"]
     
 
 frases = [
