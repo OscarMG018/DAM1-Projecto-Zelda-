@@ -31,18 +31,14 @@ def Fishing():
 #Fox
 
 def DecideFoxVisibility():
-    foxlist = Jugabilidad.GetAllEntiiesWithName("Fox")
-    if len(foxlist) == 0:
-        return
-    fox = foxlist[0]
-    if random.random() < 0.5:
+    if random.random() <= 0.5:
         Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6})
         return "You see a Fox"
     else:
-        fox = Jugabilidad.GetAllEntiiesWithName("Fox",location=None)
-        if len(fox) > 0:
-            Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(fox[0]))
-    return "You don't see a Fox"
+        foxlist = Jugabilidad.GetAllEntiiesWithName("Fox",location=None)
+        if len(foxlist) > 0:
+            Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(foxlist[0]))
+        return "You don't see a Fox"
 
 #Cocinar
 
