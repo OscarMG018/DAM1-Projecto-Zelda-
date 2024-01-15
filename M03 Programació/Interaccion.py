@@ -39,7 +39,7 @@ def DecideFoxVisibility():
         Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6})
         return "You see a Fox"
     else:
-        fox = Jugabilidad.GetAllEntiiesWithName("Fox",location=None):
+        fox = Jugabilidad.GetAllEntiiesWithName("Fox",location=None)
         if len(fox) > 0:
             Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(fox[0]))
     return "You don't see a Fox"
