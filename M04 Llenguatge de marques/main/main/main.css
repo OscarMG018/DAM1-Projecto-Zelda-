@@ -6,8 +6,6 @@ body {
 
 .fullsize {
     position: absolute;
-    right: 0;
-    top: 0;
     width: 100%;
     height: 100%;
     z-index: -1;
@@ -18,7 +16,7 @@ body {
     position: absolute;
 }
 
-/* Hero */
+                                                            /* ----- HERO ----- */
 
 #hero {
     display: flex;
@@ -52,13 +50,15 @@ body {
     justify-content: center;
 } 
 
+                                                            /* --- TITULO --- */
+
 #titulo {
     display: flex;
     height: auto;
     width: 100%;
     text-align: center;
     align-items: end;
-    margin-bottom: 15px;
+    margin-bottom: 1.5vh;
 }
 
 #titulo p {
@@ -79,8 +79,8 @@ p span {
     font-weight: 700;
     position: relative;
     color: rgba(0, 0, 0, 0.0);
-    animation: displayText 15s infinite;
-    animation-delay: calc(-3s * var(--i));
+    animation: displayText 25s infinite;
+    animation-delay: calc(-5s * var(--i));
     margin: 0;
 }
 
@@ -101,9 +101,9 @@ p span::before {
     width: 100%;
     color: #46321f;
     overflow: hidden;
-    border-right: 4px solid #000000;
+    border-right: 0.33vw solid #46321f;
     filter: drop-shadow(0 0 5px #ffffff) drop-shadow(0 0 20px #bb9f85);
-    animation: animate 3s linear infinite;
+    animation: animate 5s linear infinite;
     text-shadow: 2.5px 2.5px #b9a18a;
 }
 
@@ -117,77 +117,41 @@ p span::before {
     }
 }
 
-#sub-titulo p{
+                                                            /* --- SUB-TITULO --- */
+
+.texto-animado {
     font-family: 'Poppins', sans-serif;
     font-size: 1.3vw;
-    margin: 30px;
+    margin: 1%;
     color:white;
     text-shadow: 2px 2px black;
-}
-
-#sub-titulo {
+    padding: 3%;
     z-index: 1;
-    display: flex;
-    height: auto;
+    height: 9.5vw;
     width: 99%;
     text-align: center;
     background: url(img/pattern-runes-green.png);
     justify-items: center;
     align-items: center;
-    border-radius: 40px;
-    border: 5px solid #46321f;
+    border-radius: 3vh;
+    border: 1.5vh solid #46321f;
 }
 
-#media {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 39%;
-    height: auto;
-    margin: 3.5vh;
-    margin-left: 2%;
-    margin-right: 10%;
-    align-items: center;
-    justify-content: center;
-}
+.texto-animado span {
+    opacity: 0;
+    animation: aparecer 0.33s forwards;
+  }
 
-.hexagon {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: center;
-    justify-items: center;
-}
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 
-#linea_sup, #linea_mid, #linea_bot {
-    position: relative;
-    display: flex;
-}
-
-.hex-bord {
-    background: url(img/pattern-runes-green.png);
-    width: 12vw;
-    height: 12vw;
-    mask: url(img/hexagon.svg);
-    mask-position: center;
-    mask-size: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 1vw;
-    margin-right: 1vw;
-}
-
-.hex-imag {
-    background: url(https://img.asmedia.epimg.net/resizer/SdPLT5TQmRZkdX_otWUKWEDOHZY=/1472x828/cloudfront-eu-central-1.images.arcpublishing.com/diarioas/UN7EWUQBDJCKXFY347M7APJBRI.jpg);
-    background-size: cover;
-    background-position: center;
-    width: 85%;
-    height: 85%;
-    mask: url(img/hexagon.svg);
-    mask-position: center;
-    mask-size: contain;
-}
+                                                            /* --- BOTONES --- */
 
 #buttons_hero {
     height: 5vw;
@@ -202,9 +166,9 @@ p span::before {
     font-family: 'Poppins', sans-serif;
     font-size: 1.2vw;
     position: relative;
-    color: #24584D;
+    color: #46321f;
     font-weight: 700;
-    background: #24584D;
+    background: #46321f;
     text-decoration: none;
     text-transform: uppercase;
     text-align: center;
@@ -214,7 +178,7 @@ p span::before {
     padding: 0.5em;
     cursor: pointer;
     transition: 0.3s;
-    border-radius: 20px;
+    border-radius: 1vw;
 }
 
 .button_h:hover {
@@ -222,15 +186,15 @@ p span::before {
     color: var(--clr);
     letter-spacing: 0.2em;
     box-shadow: 0 0 10px var(--clr);
-    
 }
 
 .button_h::before {
     content: "";
     position: absolute;
-    inset: 0.3vw;
+    inset: 0.4vw;
     background: #ffffff ;
-    border-radius: 15px;}
+    border-radius: 0.65vw;
+}
 
 .button_h span  {
     position: relative;
@@ -276,4 +240,121 @@ p span::before {
     left: 70%;
 }
 
+                                                            /* --- IMAGENES --- */
+
+#media {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 39%;
+    height: auto;
+    margin: 3.5vh;
+    margin-left: 2%;
+    margin-right: 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+.hexagon {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-items: center;
+}
+
+#linea_sup, #linea_mid, #linea_bot {
+    position: relative;
+    display: flex;
+    height: 33%;
+}
+
+.hex-bord {
+    background: url(img/pattern-runes-green.png);
+    width: 12.1vw;
+    height: 12.1vw;
+    mask: url(img/hexagon.svg);
+    mask-position: center;
+    mask-size: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.hex-imag {
+    width: 85%;
+    height: 85%;
+    mask: url(img/hexagon2.svg);
+    mask-position: center;
+    mask-size: contain;
+}
+
+.hex-mask {
+    position: relative;
+    width: 85%;
+    height: 85%;
+    overflow: hidden;
+    mask: url(img/hexagon.svg);
+    mask-position: center;
+    mask-size: contain;
+  }
+
+.hex-video {
+    width: 100%; /* Aumenta el tamaño para asegurar que cubra completamente el área del hexágono */
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover; /* Ajusta el tamaño del video para cubrir el contenedor */
+    
+  }
+
+.hex-bord:hover {
+    transform: scale(1.3);
+}
+
+                                                    /*--- OVERLAY IMAGENES ---*/
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  .modal-content {
+    margin: auto;
+    max-width: 65%;
+    max-height: 65%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .close {
+    color: #fff;
+    position: absolute;
+    top: 2vh;
+    right: 2vw;
+    font-size: 2.5vw;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close:hover {
+    color: #bbb;
+  }
+  
+  
 

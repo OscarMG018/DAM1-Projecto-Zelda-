@@ -21,10 +21,6 @@
 
     <a class="recurso-utilizado"><img id="tile" src="img/tile.png"></a>
     <a class="recurso-utilizado"><img id="ntile" src="img/ntile.png"></a>
-       
-    <canvas id="canvasElement" class="fullsize">
-        <p>Su navegador no soporta canvas</p>
-    </canvas>
 
     <script id="default_vsh" type="x-shader/x-vertex">
         uniform mat4 u_mv;
@@ -87,51 +83,64 @@
                         <span style="--i:4;" data-text="Awesome.">Awesome.</span>
                     </p>
                 </div>
-                <div id="sub-titulo">
-                    <p> "Princess Zelda has been captured by Ganon. He has taken over the Guardians and filled Hyrule with monsters.
-                        But a young man named 'Link' has just awakened and must reclaim the Guardians to defeat Ganon and save Hyrule."</p>
-                </div>
+                
+                <div class="texto-animado" id="sub-titulo"></div>
+
                 <div id="buttons_hero">
-                    <a href="#" class="button_h" style="--clr:#46321f"><span>Tutorial</span><i></i></a>
-                    <a href="#" class="button_h" style="--clr:#46321f"><span>About us</span><i></i></a>
-                    <a href="#" class="button_h" style="--clr:#46321f"><span>...</span><i></i></a>
+                    <a href="#" class="button_h" style="--clr:#24584D"><span>Tutorial</span><i></i></a>
+                    <a href="#" class="button_h" style="--clr:#24584D"><span>About us</span><i></i></a>
+                    <a href="#" class="button_h" style="--clr:#24584D"><span>...</span><i></i></a>
                 </div>
             </div>
 
 
             <div id="media">
                 <div class="hexagon">
-                    <div id="linea_sup">
-                        <div class="hex-bord">
-                            <div class="hex-imag"></div>
-                        </div>
-                        <div class="hex-bord">
-                            <div class="hex-imag"></div>
-                        </div>
+                    <div id="linea_sup">   
+                          <div class="hex-bord">
+                            <img class="hex-imag hex-media" src="img/pattern-circles-brown-2x.png" alt="img">
+                          </div>
+
+                          <div class="hex-bord">
+                            <div class="hex-mask">
+                              <video class="hex-video hex-media" src="img/Ashoka.mp4" autoplay muted loop></video>
+                            </div>
+                          </div>
+                          
                     </div>
                     <div id="linea_mid">
                         <div class="hex-bord">
-                            <div class="hex-imag"></div>
+                            <img class="hex-imag  hex-media" src="img/pattern-circles-brown-2x.png" alt="img">
                         </div>
                         <div class="hex-bord">
-                            <div class="hex-imag"></div>
+                            <img class="hex-imag  hex-media" src="img/pattern-circles-brown-2x.png" alt="img">
                         </div>
                         <div class="hex-bord">
-                            <div class="hex-imag"></div>
+                            <img class="hex-imag  hex-media" src="img/pattern-circles-brown-2x.png" alt="img">
                         </div>
                     </div>
                     <div id="linea_bot">
                         <div class="hex-bord">
-                            <div class="hex-imag"></div>
+                            <img class="hex-imag  hex-media" src="img/pattern-circles-brown-2x.png" alt="img">
                         </div>
                         <div class="hex-bord">
-                            <div class="hex-imag"></div>
+                            <img class="hex-imag  hex-media" src="img/pattern-circles-brown-2x.png" alt="img">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
 
+
+<!-- Ampliacion de imagen -->
+
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content-container">
+        <img class="modal-content" id="mediaModal" alt="Media">
+        <video class="modal-content" id="videoModal" controls muted></video>
+    </div>
+</div>
+          
 </body>
 </html>

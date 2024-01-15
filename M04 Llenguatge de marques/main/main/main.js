@@ -677,3 +677,46 @@
     
     },{}]},{},[3]);
     
+
+
+    window.onload = function() {
+        const textoOriginal = '"Princess Zelda has been captured by Ganon. He has taken over the Guardians and filled Hyrule with monsters. But a young man named Link has just awakened and must reclaim the Guardians to defeat Ganon and save Hyrule."';
+        const contenedorTexto = document.getElementById("sub-titulo");
+    
+        textoOriginal.split("").forEach((letra, index) => {
+            const span = document.createElement("span");
+            span.textContent = letra;
+            span.style.animationDelay = `${index * 0.04}s`;
+            contenedorTexto.appendChild(span);
+        });
+    };
+    
+
+    /**/
+
+    var mediaElements = document.querySelectorAll('.hex-media'); // Clase común para imágenes y videos
+
+    mediaElements.forEach(function (element) {
+        element.addEventListener('click', function () {
+            document.getElementById('myModal').style.display = 'block';
+
+            var modalContent = document.getElementById('mediaModal');
+            var videoContent = document.getElementById('videoModal');
+
+            modalContent.src = element.src;
+            videoContent.src = element.src;
+
+            if (element.tagName.toLowerCase() === 'video') {
+                modalContent.style.display = 'none';
+                videoContent.style.display = 'block';
+            } else {
+                modalContent.style.display = 'block';
+                videoContent.style.display = 'none';
+            }
+        });
+    });
+
+    document.getElementsByClassName('close')[0].addEventListener('click', function () {
+        document.getElementById('myModal').style.display = 'none';
+        document.getElementById('videoModal').pause();
+    });
