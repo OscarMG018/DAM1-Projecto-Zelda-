@@ -59,7 +59,7 @@ def ExecuteQuerry(querry):
         open_ssh_tunnel()
         mysql_connect()
         result_list = run_query(querry)
-        print(result_list)
+        return result_list
     except Exception as e:
         print(e)
     finally:
@@ -67,5 +67,6 @@ def ExecuteQuerry(querry):
         close_ssh_tunnel()
 
 def run(querry):
-    ExecuteQuerry(querry)
+    return ExecuteQuerry(querry)
+
 
