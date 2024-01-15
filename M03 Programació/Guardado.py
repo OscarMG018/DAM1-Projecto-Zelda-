@@ -2,7 +2,6 @@ from datetime import datetime
 import json
 import os
 import copy
-import mysql.connector
 import pandas as pd
 import logging
 import pymysql
@@ -65,8 +64,7 @@ def ExecuteQuerry(querry):
         open_ssh_tunnel()
         mysql_connect()
         result_list = run_query(querry)
-        print("Tipo de Resultado:", type(result_list))
-        print(result_list)
+        return result_list
     except Exception as e:
         print(e)
     finally:
