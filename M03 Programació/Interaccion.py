@@ -211,3 +211,24 @@ def CutGrass():
         Inventario.AddItem("Meat",1)
         return "You got a lizard"
 
+def TryEat(food_type):
+    if Inventario[food_type] != 0:
+        if Combate.PlayerLife != Combate.PlayerMaxLife:
+            return True, None
+        else:
+            return False, "You're not hungry now"
+    else:
+        return False, f"You don't have '{food_type}' to eat"
+
+def Eat(food_type):
+    if food_type == "vegetable":
+        PlayerLife += 1
+    if food_type == "salad":
+        PlayerLife += 2
+    if food_type == "pescatarian":
+        PlayerLife += 3
+    if food_type == "roasted":
+        PlayerLife += 4
+    Inventario[food_type] -= 1
+    if PlayerLife > Combate.PlayerMaxLife:
+            PlayerLife = Combate.PlayerMaxLife
