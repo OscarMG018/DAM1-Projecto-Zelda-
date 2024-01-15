@@ -34,8 +34,7 @@ OriginalMaps = {
             {"name" : "Enemy" , "symbol" : "E", "x" : 20, "y" : 8, "life" : 1,"EnemyNumber" : 1},
             {"name" : "Sanctuary" , "symbol" : "S", "x" : 28, "y" : 8, "SanctuaryNumber" : 1},
             {"name" : "Closed Chest" , "symbol" : "M", "x" : 46, "y" : 8, "item" : "Sword"},
-            {"name" : "Tree" , "symbol" : "T", "x" : 44, "y" : 8, "hits" : 0},
-            {"name" : "Fox" , "symbol" : "F", "x" : 50, "y" : 8, "visible" : False}
+            {"name" : "Tree" , "symbol" : "T", "x" : 44, "y" : 8, "hits" : 0}
         ]
     },
     "Death mountain" : {
@@ -59,7 +58,6 @@ OriginalMaps = {
             {"name" : "Tree" , "symbol" : "T", "x" : 17, "y" : 8, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 17, "y" : 7, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 18, "y" : 6, "hits" : 0},
-            {"name" : "Fox" , "symbol" : "F", "x" : 29, "y" : 1, "visible" : False},
             {"name" : "Closed Chest" , "symbol" : "M", "x" : 35, "y" : 7, "item" : "Shield"},
             {"name" : "Sanctuary" , "symbol" : "S", "x" : 48, "y" : 8, "SanctuaryNumber" : 3},
             {"name" : "Enemy" , "symbol" : "E", "x" : 50, "y" : 2, "life" : 2,"EnemyNumber" : 1}
@@ -90,9 +88,8 @@ OriginalMaps = {
             {"name" : "Tree" , "symbol" : "T", "x" : 30, "y" : 2, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 31, "y" : 2, "hits" : 0},
             {"name" : "Enemy" , "symbol" : "E", "x" : 37, "y" : 5, "life" : 2,"EnemyNumber" : 1},
-            {"name" : "Fox" , "symbol" : "F", "x" : 47, "y" : 7, "visible" : False},
             {"name" : "Sanctuary" , "symbol" : "S", "x" : 45, "y" : 2, "SanctuaryNumber" : 4},
-            {"name" : "Closed Chest" , "symbol" : "M", "x" : 51, "y" : 0, "item" : "Sword"},
+            {"name" : "Closed Chest" , "symbol" : "M", "x" : 51, "y" : 0, "item" : "Sword"}
         ]
     },
     "Necluda" : {
@@ -110,7 +107,6 @@ OriginalMaps = {
         ],
         "entities" : [
             {"name" : "Player" , "symbol" : "X", "x" : 1, "y" : 1},
-            {"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6, "visible" : False},
             {"name" : "Enemy" , "symbol" : "E", "x" : 9, "y" : 1, "life" : 1,"EnemyNumber" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 13, "y" : 6, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 14, "y" : 5, "hits" : 0},
@@ -152,7 +148,7 @@ OriginalMaps = {
             {"name" : "GanonHeart" , "symbol" : "♥", "x" : 51, "y" :2, "hits" : 0},
             {"name" : "GanonHeart" , "symbol" : "♥", "x" : 52, "y" :2, "hits" : 0},
             {"name" : "GanonHeart" , "symbol" : "♥", "x" : 53, "y" :2, "hits" : 0},
-            {"name" : "Ganon" , "symbol" : "G", "x" : 20, "y" :8},
+            {"name" : "Ganon" , "symbol" : " ", "x" : 20, "y" :8},
             {"name" : "InvisibleWall" , "symbol" : " ", "x" : 0, "y" :7},
             {"name" : "InvisibleWall" , "symbol" : " ", "x" : 1, "y" :7},
             {"name" : "InvisibleWall" , "symbol" : " ", "x" : 2, "y" :7},
