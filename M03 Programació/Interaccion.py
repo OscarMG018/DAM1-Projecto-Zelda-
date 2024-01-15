@@ -33,9 +33,9 @@ def Fishing():
 def DecideFoxVisibility():
     if random.random() <= 0.5:
         if Jugabilidad.mapName == "Hyrule":
-            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 49, "y" : 8})
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 50, "y" : 8})
         if Jugabilidad.mapName == "Death mountain":
-            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 29, "y" : 1})
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 36, "y" : 1})
         if Jugabilidad.mapName == "Gerudo":
             Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 47, "y" : 7})
         if Jugabilidad.mapName == "Necluda":
