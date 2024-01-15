@@ -549,6 +549,19 @@ def SavedGamesMenu():
             break
 
 def SavedGamesMenuHelp():
+    while(True):
+        clear_screen()
+        saved_games_menu_help()
+        new_prompt = input("> ").lower()
+        if new_prompt == "back":
+            break
+        else:
+            prompts_list.append("> Invalid Action")
+
+
+        
+
+    clear_screen()
     return #TODO
 
 def LegendPlotMenu(PlayerName):
