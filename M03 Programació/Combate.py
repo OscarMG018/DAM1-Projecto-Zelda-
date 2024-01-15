@@ -18,7 +18,7 @@ def tryattack():
         return True, Jugabilidad.GetIndexOfEntity(enemy)
     elif (fox != None and fox["visible"]):
         return True, Jugabilidad.GetIndexOfEntity(fox)
-    return False
+    return False, -1
 
 def attack():
     global PlayerLife

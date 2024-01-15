@@ -639,6 +639,28 @@ def GetInventory():
     else:
         return "Error"
 
+def ActionsAvailables():
+    actions = [["Exit",2],["Go",2],["Equip",2],["Unequip",2]]
+    if Jugabilidad.mapName == "Castle":
+        if Interaccion.TryCutGrass()[0] or Interaccion.TryCutTree()[0] or Combate.TryAttackGanon():
+            actions.insert(1,["Attack",2])
+    else:
+        if Combate.tryattack()[0] or Interaccion.TryCutGrass()[0] or Interaccion.TryCutTree()[0]:
+            actions.insert(1,["Attack",2])
+        if Inventario.GetItem("Vegetable")+Inventario.GetItem("Salad")+Inventario.GetItem("Pescatarian")+Inventario.GetItem("Roasted") > 0:
+            actions.append(["Eat",2])
+        for cookable,ingredients in Interaccion.CookingIngredients.items():
+            if Interaccion.TryCook(cookable)[0]:
+                actions.append(["Cook",2])
+                break
+        if Interaccion.TryFishing()[0]:
+            actions.append(["Fish",2])
+        if Interaccion.TryOpenChest()[0] or Interaccion.TryOpenSanctuary()[0]:
+            actions.append(["Open",2])
+    actions.append(["Show",2])
+    return actions
+
+
 def ExecuteMapAction(command,args):
     if command == None:
         AddToPropmts("Invalid action")
@@ -876,7 +898,7 @@ def MapMenu(LastLocation):
     while(True):
         clear_screen()
         mapstr = Jugabilidad.MapToStr()
-        menus = [[Jugabilidad.mapName,1],["Exit",2]]
+        menus = [[Jugabilidad.mapName,1]] + ActionsAvailables()
         mapstr = WithFrame(mapstr,Menus=menus)
         inventorystr = GetInventory()
         UI = concathorizontal(mapstr,inventorystr)
