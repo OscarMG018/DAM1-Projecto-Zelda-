@@ -1,20 +1,21 @@
 /* Background */
 
 body {
-        margin: 0;
-        overflow: hidden; /* Para evitar que haya scroll innecesario */
+    margin: 0;
+    overflow-x: hidden;
 }
 
 #canvasElement {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    margin: 0;
+    width: 100%;
+    height: 100%;
     z-index: -1;
     background-image: url('img/tile.png');
     background-size: repeat;
 }
+
+
 
 .recurso-utilizado img {
     height: 0;
@@ -24,19 +25,24 @@ body {
                                                             /* ----- HERO ----- */
 
 #hero {
+    align-items: center;
+    justify-content: center;
     display: flex;
     height: 100vh;
     width: 100vw;
     background: url(img/pattern-circles-ivory-2x.png);
-    align-items: center;
-    justify-content: center;
+    background-size: cover;
+    max-width: 100vw;
+
+
 }
 
 #brown {
     position: absolute;
     background: url(img/pattern-circles-brown-2x.png);
-    height: 99vh;
-    width: 99vw;
+    height: 90vh;
+    background-size: cover;
+    width: 90vw;
     mask: url(img/The_Legend_of_Zelda_-_Breath_of_the_Wild.svg);
     mask-repeat: no-repeat;
     mask-position: center;
@@ -44,15 +50,12 @@ body {
 }
 
 #promo {
-    position: relative;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    width: 39%;
-    height: 93vh;
-    margin: 3.5vh;
-    margin-left: 10%;
     align-items: center;
     justify-content: center;
+    width: 50%;
 } 
 
                                                             /* --- TITULO --- */
@@ -60,10 +63,11 @@ body {
 #titulo {
     display: flex;
     height: auto;
-    width: 100%;
+    width: 80%;
     text-align: center;
     align-items: end;
     margin-bottom: 1.5vh;
+    justify-content: center;
 }
 
 #titulo p {
@@ -72,7 +76,6 @@ body {
     font-size: 6.8vw;
     font-weight: 600;
     margin: 0; 
-
 }
 
 iam {
@@ -125,21 +128,17 @@ p span::before {
                                                             /* --- SUB-TITULO --- */
 
 .texto-animado {
+    width: 77%;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.3vw;
-    margin: 1%;
+    font-size: 1.5vw;
+    padding: 3%;
     color:white;
     text-shadow: 2px 2px black;
-    padding: 3%;
     z-index: 1;
-    height: 9.5vw;
-    width: 99%;
     text-align: center;
     background: url(img/pattern-runes-green.png);
-    justify-items: center;
-    align-items: center;
     border-radius: 3vh;
-    border: 1.5vh solid #46321f;
+    border: 0.5vw solid #46321f;
 }
 
 .texto-animado span {
@@ -169,7 +168,7 @@ p span::before {
 
 .button_h {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2vw;
+    font-size: 1.33vw;
     position: relative;
     color: #46321f;
     font-weight: 700;
@@ -247,31 +246,17 @@ p span::before {
 
                                                             /* --- IMAGENES --- */
 
-#media {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 39%;
-    height: auto;
-    margin: 3.5vh;
-    margin-left: 2%;
-    margin-right: 10%;
-    align-items: center;
-    justify-content: center;
-}
 
 .hexagon {
     display: flex;
     flex-direction: column;
-    height: 100%;
     align-items: center;
-    justify-items: center;
+    justify-content: center;
+    width: 44%;
 }
 
-#linea_sup, #linea_mid, #linea_bot {
-    position: relative;
+.linea {
     display: flex;
-    height: 33%;
 }
 
 .hex-bord {
@@ -364,7 +349,7 @@ p span::before {
                                                     /*--- CARRUSEL IMAGENES ---*/
 
     .scroller {
-        width:100vw;;
+        width: 98.8vw;
         }
         
     .scroller__inner {
@@ -424,3 +409,87 @@ p span::before {
         }
         }
         
+.cont_desarrollo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 80px;
+    flex-wrap: wrap;
+}
+
+.cont_desarrollo .card {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.cont_desarrollo .card .imgBx,
+.cont_desarrollo .card .textBx {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s;
+}
+
+.cont_desarrollo .card .imgBx {
+    background: #fff;
+    height: 120px;
+    z-index: 1;
+    transform-origin: bottom;
+}
+
+.cont_desarrollo .card:hover .imgBx {
+    transform: translateY(-100%) rotateX(90deg);
+}
+
+.cont_desarrollo .card .textBx {
+    height: 280px;
+    background: var(--clr);
+    border-top: 8px solid #333;
+    transform-origin: top;
+    transition-delay: 0.5s ;
+}
+
+.cont_desarrollo .card:hover .textBx {
+    transform: translateY(100%) rotateX(90deg);
+}
+
+.cont_desarrollo .card .imgBx::before {
+    content: "";
+    position: absolute;
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 144px;
+    height: 77px;
+    background: #fff;
+    border-bottom-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+    z-index: 1;
+}
+
+.cont_desarrollo .card .imgBx img {
+    position: relative;
+    top: 50px;
+    z-index: 1000;
+}
+
+.cont_desarrollo .card .textBx::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    width: 160px;
+    height: 80px;
+    background: #333;
+    border-bottom-left-radius: 80px;
+    border-bottom-right-radius: 80px;
+}
+
