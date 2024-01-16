@@ -391,7 +391,24 @@ def ZeldaSaved():
 *                                                                             *
 * Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
 
-def print_table(query_result, n):
+def print_table(query_result,columnNames, n):
+    columnLengths = []
+    for i in range(len(columnNames)):
+        columnLengths.append(len(columnNames[i]))
+    for row in query_result:
+        for i in range(len(row)):
+            if len(str(row[i])) > columnLengths[i]:
+                columnLengths[i] = len(str(row[i]))
+    if n < sum(columnLengths):
+        #distribute equaly
+        while n > 0:
+            for i in range(len(columnLengths)):
+                if n > 0:
+                    columnLengths[i] += 1
+                    n -= 1
+    for i in columnLengths:
+        print("+" + "-" * i, end="")
+    print("+")
     return  
 
 def dbdata_help():
