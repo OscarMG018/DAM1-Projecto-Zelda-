@@ -1053,6 +1053,8 @@ def ZeldaSavedMenu():
             AddToPropmts("Invalid Action")
 
 def ActionTime():
+    #Animar el agua
+    Jugabilidad.AnimateWater()
     #Broken trees regen -=1
     btrees = Jugabilidad.GetAllEntiiesWithName("Broken Tree")
     for tree in btrees:

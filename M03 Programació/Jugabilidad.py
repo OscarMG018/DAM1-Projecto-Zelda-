@@ -190,7 +190,7 @@ def TerrainAt(y,x):
     return map[y][x]
     
 def IsBlocked(y,x):
-    if TerrainAt(y,x) == "O" or TerrainAt(y,x) == "~" or TerrainAt(y,x) == "A" or TerrainAt(y,x) == "B":
+    if TerrainAt(y,x) == "O" or TerrainAt(y,x) == "~" or TerrainAt(y,x) == "A" or TerrainAt(y,x) == "-":
         return True
     if GetIndexByPosition(y,x) != -1:
         return True
@@ -421,7 +421,18 @@ def InitMap(MapInfo=None):
                 if chestSaved["opened"]:
                     chest["name"] = "Open Chest"
                     chest["symbol"] = "W"
-        
+
+def AnimateWater():
+    for y in range(len(map)):
+        for x in range(len(map[0])):
+            if TerrainAt(y,x) == "~":
+                r = random.random()
+                if r < 0.5:
+                    map[y][x] = "-"
+            elif TerrainAt(y,x) == "-":
+                r = random.random()
+                if r < 0.5:
+                    map[y][x] = "~"
                 
 """-------------Jugador-----------"""
 
