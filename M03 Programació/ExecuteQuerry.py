@@ -41,6 +41,7 @@ def mysql_connect():
 def RunQuery(sql):
     with connection.cursor() as cursor:
         cursor.execute(sql)
+        connection.commit()
         result = [list(row) for row in cursor.fetchall()]
     return result
 
