@@ -399,17 +399,35 @@ def print_table(query_result,columnNames, n):
         for i in range(len(row)):
             if len(str(row[i])) > columnLengths[i]:
                 columnLengths[i] = len(str(row[i]))
-    if n < sum(columnLengths):
+    if n > sum(columnLengths):
         #distribute equaly
+        n = n - sum(columnLengths)
         while n > 0:
             for i in range(len(columnLengths)):
                 if n > 0:
                     columnLengths[i] += 1
                     n -= 1
+    print("* ",end="")
     for i in columnLengths:
         print("+" + "-" * i, end="")
-    print("+")
-    return  
+    print("+ *")
+    print("* ",end="")
+    for name in columnNames:
+        print("|" + name.center(columnLengths[columnNames.index(name)]), end="")
+    print("| *")
+    print("* ",end="")
+    for i in columnLengths:
+        print("+" + "-" * i, end="")
+    print("+ *")
+    for row in query_result:
+        print("* ",end="")
+        for i in range(len(row)):
+            print("|" + str(row[i]).center(columnLengths[i]), end="")
+        print("| *")
+        print("* ",end="")
+        for i in columnLengths:
+            print("+" + "-" * i, end="")
+        print("+ *")
 
 def dbdata_help():
     result = "* DBdata, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
@@ -419,34 +437,43 @@ def dbdata_help():
 def dbdata_players():
     print("* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
     connect_db()
-    result = ExecuteQuerry("SELECT UserName, MAX(DateStarted) AS LatestGameDate FROM Game GROUP BY UserName;")
+    result = ExecuteQuerry("SELECT UserName, MAX(LastSaved) AS LastPlayed FROM Game GROUP BY UserName;")
     disconnect_db()
-    print_table(result,80)
-    print("* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *")
+    print_table(result,["UserName","LastPlayed"],76)
+    print("* Help, Player Activity, Weapons, Food, Blood Moons * * * * * * * * * * * * * * * *")
     
 def dbdata_player_activity():
-    """SELECT UserName, COUNT(*) AS PartidasJugadas
-    FROM Game
-    GROUP BY UserName;"""
-    result = "* DBdara, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    print("* DBdara, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT UserName, COUNT(*) AS PartidasJugadas FROM Game GROUP BY UserName;")
+    disconnect_db()
+    print_table(result,["UserName","Number of Games Played"],76)
+    print("* Help, Players, Weapons, Food, Blood Moons * * * * * * * * * * * * * * * * * * * *")
 
 def dbdata_weapons():
-    """SELECT g.UserName, w.WeaponName, w.WeaponQuantity, w.TimesObtained, g.DateStarted AS DateMostUsed
-FROM Weapons w
-JOIN Game g ON w.GameId = g.GameId
-WHERE (w.GameId, w.TimesUsed) IN (
-    SELECT GameId, MAX(TimesUsed) AS MaxTimesUsed
-    FROM Weapons
-    GROUP BY GameId
-)
-ORDER BY g.UserName, w.WeaponName;"""
-    result = "* DBdara, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    print("* DBdara, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT G.UserName, W.WeaponName, W.WeaponQuantity AS ObtainedQuantity, G.DateStarted AS DateMostUsed FROM Game G JOIN Weapons W ON G.GameId = W.GameId WHERE (W.WeaponQuantity IS NOT NULL AND W.WeaponQuantity > 0) AND (W.TimesUsed > 0) AND W.TimesUsed = ( SELECT MAX(TimesUsed) FROM Weapons WHERE GameId = G.GameId AND WeaponName = W.WeaponName );")
+    disconnect_db()
+    print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
+    print("* Help, Players, Player Activity, Food, Blood Moons * * * * * * * * * * * * * * * * *")
 
 def dbdata_food():
-    result = "* DBdara, Food * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    print("* DBdara, Food  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT G.UserName, F.FoodName, F.FoodQuantity AS ObtainedQuantity, G.DateStarted AS DateMostConsumed FROM Game G JOIN Food F ON G.GameId = F.GameId WHERE (F.FoodQuantity IS NOT NULL AND F.FoodQuantity > 0) AND (F.TimesConsumed > 0) AND F.TimesConsumed = ( SELECT MAX(TimesConsumed) FROM Food WHERE GameId = G.GameId AND FoodName = F.FoodName );")
+    disconnect_db()
+    print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
+    print("* Help, Players, Player Activity, Weapons, Blood Moons  * * * * * * * * * * * * * * *")
+
 
 def dbdata_blood_moons():
-    result = "* DBdara, Blood Moons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+    print("* DBdara, Blood Moons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT G.UserName, F.FoodName, F.FoodQuantity AS ObtainedQuantity, G.DateStarted AS DateMostConsumed FROM Game G JOIN Food F ON G.GameId = F.GameId WHERE (F.FoodQuantity IS NOT NULL AND F.FoodQuantity > 0) AND (F.TimesConsumed > 0) AND F.TimesConsumed = ( SELECT MAX(TimesConsumed) FROM Food WHERE GameId = G.GameId AND FoodName = F.FoodName );")
+    disconnect_db()
+    print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
+    print("* Help, Players, Player Activity, Weapons, Food * * * * * * * * * * * * * * * * * * *")
 
 def MainMenuAction(action):
     if action == "new game":
@@ -862,6 +889,7 @@ def ExecuteMapAction(command,args):
     elif command == "fish":
         if len(args) != 0:
             AddToPropmts("Invalid action")
+            return
         message = Interaccion.Fishing()
         AddToPropmts(message)   
         if message == "You Get A Fish" or message == "You don't Get A Fish":
@@ -870,6 +898,7 @@ def ExecuteMapAction(command,args):
     elif command == "open":
         if len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         if args[0].lower() == "chest":
             message = Interaccion.OpenChest()
             AddToPropmts(message)
@@ -950,6 +979,7 @@ def ExecuteMapAction(command,args):
     elif command == "equip":
         if len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         if "sword" in args[0].lower():
             message = Inventario.equip_weapon(args[0].title())
         elif "shield" in args[0].lower():
@@ -975,6 +1005,7 @@ def ExecuteMapAction(command,args):
     elif command == "eat":
         if len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         message = Interaccion.Eat(args[0].capitalize())
         AddToPropmts(message)
         if message == f"You ate a {args[0].capitalize()}":
