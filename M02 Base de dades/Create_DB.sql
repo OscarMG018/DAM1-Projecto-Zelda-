@@ -1,11 +1,10 @@
 -- Active: 1698162559588@@127.0.0.1@3306@projectodb
 
-DROP DATABASE IF EXISTS ProjectoDB;
-CREATE DATABASE ProjectoDB;
-USE ProjectoDB;
+DROP DATABASE IF EXISTS ZeldaDB;
+CREATE DATABASE ZeldaDB;
+USE ZeldaDB;
 
-DROP TABLE IF EXISTS game;
-CREATE TABLE game (
+CREATE TABLE Game (
     GameId INT AUTO_INCREMENT PRIMARY KEY,
     UserName VARCHAR(255) NOT NULL,
     DateStarted DATETIME,
@@ -16,8 +15,8 @@ CREATE TABLE game (
     BloodMoonAppearances INT,
     LastRegion ENUM("Hyrule","Death mountain","Gerudo","Necluda","Castle")
 );
-DROP TABLE IF EXISTS food;
-CREATE Table food (
+
+CREATE Table Food (
     GameId INT NOT NULL,
     FoodName ENUM("Vegetable","Fish","Meat","Salad","Pescatarian","Roasted"),
     FoodQuantity INT,
@@ -27,7 +26,7 @@ CREATE Table food (
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 );
 
-CREATE Table weapons (
+CREATE Table Weapons (
     GameId INT NOT NULL,
     WeaponName ENUM("Sword","Shield","Wood Sword","Wood Shield"),
     WeaponQuantity INT,
@@ -47,7 +46,6 @@ CREATE Table Sanctuaries (
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
 
-DROP TABLE IF EXISTS enemies;
 CREATE Table Enemies (
     GameId INT NOT NULL,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
@@ -89,7 +87,4 @@ SELECT * FROM Sanctuaries;
 SELECT * FROM Enemies;
 SELECT * FROM Chests;
 
-UPDATE enemies SET `PosX` = 2  WHERE `GameId` = 1 AND `Loacation` = "Hyrule" AND `EnemyId` = 1;
-
-DELETE FROM game WHERE GameId = 3
-
+INSERT into game VALUES (1, "Juan", NOW(), NOW(), 100, 100, 0, 0, "Hyrule");
