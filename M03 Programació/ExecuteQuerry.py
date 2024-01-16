@@ -62,7 +62,7 @@ def ExecuteQuerry(querry):
         mysql_disconnect()
         close_ssh_tunnel()
 
-def execute_queries(queries, should_print=False):
+def ExecuteQuerries(queries, should_print=False):
     results = []
     confirmations = []
     
@@ -85,8 +85,79 @@ def execute_queries(queries, should_print=False):
         print("Confirmations:", confirmations)
         print("Results:", results)
     else:
-        return results, confirmations
+        return confirmations, results
 
-execute_queries(["SELECT * FROM Food;"], True)
 
+#----------------------------------------------------
+    
+
+# Configuración de parámetros
+ssh_host = '4.231.12.44'
+ssh_username = 'ZeldaHaters'
+ssh_password = 'Abc1234567890'
+database_username = 'admin'
+database_password = 'admin'
+database_name = 'ZeldaDB'
+localhost = '127.0.0.1'
+
+# Túnel SSH y conexión a MySQL como variables globales
+
+tunnel = None
+connection = None
+
+def connect_db(verbose=False):
+    global tunnel, connection
+    
+    if verbose:
+        sshtunnel.DEFAULT_LOGLEVEL = logging.DEBUG
+    
+    # Configuración del túnel SSH
+    tunnel = SSHTunnelForwarder(
+        (ssh_host, 22),
+        ssh_username=ssh_username,
+        ssh_password=ssh_password,
+        remote_bind_address=('127.0.0.1', 3306)
+    )
+    
+    # Iniciar el túnel SSH
+    tunnel.start()
+
+    # Conectar a la base de datos MySQL
+    connection = pymysql.connect(
+        host='127.0.0.1',
+        user=database_username,
+        passwd=database_password,
+        db=database_name,
+        port=tunnel.local_bind_port
+    )
+
+def run_query(query):
+    global connection
+    
+    results = []
+    
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = [list(row) for row in cursor.fetchall()]
+        results.append(result)
+    
+    return results
+
+def disconnect_db():
+    global tunnel, connection
+    
+    # Cerrar conexión a MySQL
+    connection.close()
+    
+    # Cerrar el túnel SSH
+    tunnel.close()
+
+""" Ejemplo de uso:
+
+connect_db()
+print(run_query("Select * from Food"))
+print(run_query("Select * from Game"))
+disconnect_db()
+
+"""
 
