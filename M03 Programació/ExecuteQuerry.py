@@ -62,7 +62,31 @@ def ExecuteQuerry(querry):
         mysql_disconnect()
         close_ssh_tunnel()
 
-def run(querry):
-    return ExecuteQuerry(querry)
+def execute_queries(queries, should_print=False):
+    results = []
+    confirmations = []
+    
+    open_ssh_tunnel()
+    mysql_connect()
+    
+    for query in queries:
+        try:
+            result_list = run_query(query)
+            results.append({"query": query, "result": result_list, "status": "ok"})
+            confirmations.append("ok")
+        except Exception as e:
+            results.append({"query": query, "error": str(e), "status": "error"})
+            confirmations.append("error")
+    
+    mysql_disconnect()
+    close_ssh_tunnel()
+    
+    if should_print:
+        print("Confirmations:", confirmations)
+        print("Results:", results)
+    else:
+        return results, confirmations
+
+execute_queries(["SELECT * FROM Food;"], True)
 
 
