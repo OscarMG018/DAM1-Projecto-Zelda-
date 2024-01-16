@@ -9,7 +9,9 @@ from menuprincipal.ascii_draws_chosen import draw_chosen
 from datetime import datetime
 import copy
 import Cheats
-import ExecuteQuerry
+from ExecuteQuerry import RunQuery as ExecuteQuerry
+from ExecuteQuerry import connect_db as connect_db
+from ExecuteQuerry import disconnect_db as disconnect_db
 
 PlayerName = ""
 
@@ -167,9 +169,9 @@ def main_menu():
 
     # Comprobar si hay una partida guardada e imprimir opciones del menú según
     if len(Guardado.Saves) == 0:
-        print("* New Game, BDdata, Help, About, Exit " + ("* " * 25))
+        print("* New Game, BDdata, Help, About, Exit " + ("* " * 21))
     else:
-        print("* Continue, New Game, BDdata, Help, About, Exit " + ("* " * 20))
+        print("* Continue, New Game, BDdata, Help, About, Exit " + ("* " * 16))
 
 def new_game_menu_help():
     print(
@@ -390,43 +392,20 @@ def ZeldaSaved():
 *                                                                             *
 * Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
-def print_table(result, n):
-    # Check if the result is a list of lists
-    if not all(isinstance(row, list) for row in result):
-        print("Error: The result should be a list of lists.")
-        return
-    
-    # Determine the number of columns in the table
-    num_columns = max(len(row) for row in result)
-    
-    # Determine the minimum number of columns required based on n
-    num_columns = max(num_columns, n)
-    
-    # Print the table header
-    print("|", end="")
-    for col in range(1, num_columns + 1):
-        print(f" Column {col} |", end="")
-    print()
-    
-    # Print the table rows
-    for row in result:
-        print("|", end="")
-        for col in range(1, num_columns + 1):
-            if col <= len(row):
-                print(f" {row[col-1]} ", end="|")
-            else:
-                print(" " * 11, end="|")  # Adjust the width based on your preference
-        print()
+def print_table(query_result, n):
+    return  
 
 def dbdata_help():
-    result = "* DBdara, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    result = "* DBdata, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *"
     print(result)
 
 def dbdata_players():
-    print("* DBdara, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
-    result = ExecuteQuerry.ExecuteQuerry("SELECT UserName, MAX(DateStarted) AS LatestGameDate FROM Game GROUP BY UserName;",80)
-    print_table(result)
+    print("* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT UserName, MAX(DateStarted) AS LatestGameDate FROM Game GROUP BY UserName;")
+    disconnect_db()
+    print_table(result,80)
     print("* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *")
     
 def dbdata_player_activity():

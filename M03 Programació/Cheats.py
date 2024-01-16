@@ -48,6 +48,7 @@ def renamePlayer(NewName):
     if not ValidName(NewName):
         return "Cheating: That is not a valid name"
     Guardado.PlayerName = NewName
+    return f"Cheating: cheat rename {NewName}"
     
 
 def OpenSanctuaris():

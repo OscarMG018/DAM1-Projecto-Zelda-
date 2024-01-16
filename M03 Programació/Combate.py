@@ -46,6 +46,7 @@ def attack():
             PlayerLife -= 1
 
         # Attack enemy
+        Jugabilidad.MoveEnemy(Jugabilidad.GetIndexOfEntity(entity))
         entity["life"] -= 1
         message = Inventario.UseWeapon()
         if message != None:
