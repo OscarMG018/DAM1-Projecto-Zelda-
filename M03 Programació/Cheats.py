@@ -39,6 +39,8 @@ def cookFood(food):
         return "Cheating: " + message
     
 def ValidName(name):
+    if len(name) < 3 or len(name) > 20:
+        return False
     for c in name:
         if not c.isalnum() and c != " ":
             return False
@@ -47,12 +49,14 @@ def ValidName(name):
 def renamePlayer(NewName):
     if not ValidName(NewName):
         return "Cheating: That is not a valid name"
-    Guardado.PlayerName = NewName
+    Guardado.Saves[Guardado.ActiveSave]["PlayerName"] = NewName
     return f"Cheating: cheat rename {NewName}"
     
 
 def OpenSanctuaris():
     Jugabilidad.OpenSanctuaris = [True,True,True,True,True,True,True]
+    Combate.PlayerLife = 9
+    Combate.PlayerMaxLife = 9
     return "Cheating: Cheat open sanctuaris"
 
 def GameOver():

@@ -365,21 +365,20 @@ def InventoryFood():
     return result
 
 def GameOver():
- return """* Link death * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*       Game Over.                                                            *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+ print("""* Link death * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+*       Game Over.                                                           *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
 
 def ZeldaSaved():
-    return """* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * *a * * * *
+    print("""* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                                                                             *
 *                                                                             *
 *                                                                             *
@@ -390,7 +389,7 @@ def ZeldaSaved():
 *                                                                             *
 *                                                                             *
 *                                                                             *
-* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
 
 def print_table(query_result, n):
     return  
@@ -1010,10 +1009,18 @@ def MapMenu(LastLocation):
         action = input("> ")
         command,args = parse_input(action)
         if ExecuteMapAction(command,args) == "back":
-            break 
+            break
+        if len(Jugabilidad.GetAllEntiiesWithName("Ganon")) == 1 and len(Jugabilidad.GetAllEntiiesWithName("GanonHeart")) == 0:
+            Combate.PlayerLife = 1
+            SaveData()
+            ZeldaSavedMenu()
+            break
         if Combate.PlayerLife <= 0:
+            Combate.PlayerLife = Combate.PlayerMaxLife
+            SaveData()
             GameOverMenu()
             break
+
 
 def GameOverMenu():
     while(True):
@@ -1024,14 +1031,26 @@ def GameOverMenu():
             print(p)
         print("- - - - -\nWhat to do now?")
         action = input("> ").lower()
-        if action == "back":
+        if action == "continue":
             AddToPropmts(action)
-            Combate.PlayerLife = Combate.PlayerMaxLife
-            SaveData()
             break
         else:
             AddToPropmts("Invalid Action")
 
+def ZeldaSavedMenu():
+    while(True):
+        clear_screen()
+        ZeldaSaved()
+        print("\n## Last Prompts ##")
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        action = input("> ").lower()
+        if action == "continue":
+            AddToPropmts(action)
+            break
+        else:
+            AddToPropmts("Invalid Action")
 
 def ActionTime():
     #Broken trees regen -=1

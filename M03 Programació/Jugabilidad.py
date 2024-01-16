@@ -190,7 +190,7 @@ def TerrainAt(y,x):
     return map[y][x]
     
 def IsBlocked(y,x):
-    if TerrainAt(y,x) == "O" or TerrainAt(y,x) == "~" or TerrainAt(y,x) == "A":
+    if TerrainAt(y,x) == "O" or TerrainAt(y,x) == "~" or TerrainAt(y,x) == "A" or TerrainAt(y,x) == "B":
         return True
     if GetIndexByPosition(y,x) != -1:
         return True
