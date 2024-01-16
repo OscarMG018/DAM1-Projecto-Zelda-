@@ -431,7 +431,14 @@ def print_table(query_result,columnNames, n):
 
 def dbdata_help():
     result = "* DBdata, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
-    result += "* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *"
+    result +="*                                                                              *" + "\n"
+    result +="*     Players: Players that have played                                        *" + "\n"
+    result +="*     Player Activity: Number of games played per player                       *" + "\n"
+    result +="*     Weapons: Weapons data for each player                                    *" + "\n"
+    result +="*     Food: Food data for each player                                          *" + "\n"
+    result +="*     Blood Moons: Blood moon data for each player                             *" + "\n"
+    result +="*                                                                              *" + "\n"
+    result += "* Players, Player Activity, Weapons, Food, Blood Moons * * * * * * * * * * * * *"
     print(result)
 
 def dbdata_players():
