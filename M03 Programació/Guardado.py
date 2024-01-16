@@ -2,25 +2,28 @@ from datetime import datetime
 import json
 import os
 import copy
-from ExecuteQuerry import run as ExecuteQuerry
+from ExecuteQuerry import RunQuery as ExecuteQuerry
+from ExecuteQuerry import connect_db as connect_db
+from ExecuteQuerry import disconnect_db as disconnect_db
 
 ActiveSave = 0
 
 Saves = {}
 
 def NewDBSave(PlayerName,number):
-
-    ExecuteQuerry(f"""INSERT INTO Game VALUES ({number},'{PlayerName}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', 3, 3, 0, 0, 'Hyrule');
-    INSERT INTO Food VALUES ({number},'Vegetable',0,0,0);
-    INSERT INTO Food VALUES ({number},'Fish',0,0,0);
-    INSERT INTO Food VALUES ({number},'Meat',0,0,0);
-    INSERT INTO Food VALUES ({number},'Salad',0,0,0);
-    INSERT INTO Food VALUES ({number},'Pescatarian',0,0,0);
-    INSERT INTO Food VALUES ({number},'Roasted',0,0,0);
-    INSERT INTO Weapons VALUES ({number},'Sword',0,0,False,0,0);
-    INSERT INTO Weapons VALUES ({number},'Shield',0,0,False,0,0);
-    INSERT INTO Weapons VALUES ({number},'Wood Sword',0,0,False,0,0);
-    INSERT INTO Weapons VALUES ({number},'Wood Shield',0,0,False,0,0);""")
+    print(number)
+    connect_db()
+    ExecuteQuerry(f"INSERT INTO Game VALUES ({number},'{PlayerName}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', 3, 3, 0, 0, 'Hyrule')")
+    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Vegetable',0,0,0)")
+    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Fish',0,0,0)")
+    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Meat',0,0,0)")
+    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Salad',0,0,0)")
+    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Pescatarian',0,0,0)")
+    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Roasted',0,0,0)")
+    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Sword',0,0,False,0,0)")
+    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Shield',0,0,False,0,0)")
+    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Wood Sword',0,0,False,0,0)")
+    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Wood Shield',0,0,False,0,0)")
     for i in range(len(Saves[number]["SanctuariesOpened"])):
         ExecuteQuerry(f"INSERT INTO Sanctuaries VALUES ({number},{i},False)")
     for locationName,locationvalue in Saves[number]["MapInformation"].items():
@@ -28,8 +31,10 @@ def NewDBSave(PlayerName,number):
             ExecuteQuerry(f"INSERT INTO Enemies VALUES ({number},'{locationName}',{enemy['EnemyNumber']},{enemy['life']},{enemy['x']},{enemy['y']})")
         for id,chest in enumerate(locationvalue["Chests"]):
             ExecuteQuerry(f"INSERT INTO Chests VALUES ({number},'{locationName}',{id},{chest['opened']})")
+    disconnect_db()
 
 def SaveToDB(number):
+    connect_db()
     ExecuteQuerry(f"UPDATE Game SET LastSaved = '{Saves[number]['SaveDate']}', UserName = '{Saves[number]['PlayerName']}', LastRegion = '{Saves[number]['LastLocation']}', PlayerCurrentLife = {Saves[number]['PlayerLife']}, PlayerMaxLife = {Saves[number]['PlayerMaxLife']}, BloodMoon = {Saves[number]['BloodMoon']}, BloodMoonAppearances = {Saves[number]['BloodMoonAppearances']} WHERE GameId = {number}")
 
     ExecuteQuerry(f"UPDATE Food SET FoodQuantity = {Saves[number]['Inventario']['Vegetable']},TimesObtained = {Saves[number]['FoodObtained']['Vegetable']},TimesConsumed = {Saves[number]['FoodConsumed']['Vegetable']}  WHERE GameId = {number} and FoodName = 'Vegetables'")
@@ -57,8 +62,9 @@ def SaveToDB(number):
             ExecuteQuerry(f"UPDATE Enemies SET EnemyLife = {enemy['life']}, PosX = {enemy['x']}, PosY = {enemy['y']} WHERE GameId = {number} and EnemyId = {enemy['EnemyNumber']} and Loacation = '{locationName}'")
         for i,chest in enumerate(locationvalue["Chests"]):
             ExecuteQuerry(f"UPDATE Chests SET Opened = {chest['opened']} WHERE GameId = {number} and ChestId = {i} and Loacation = '{locationName}'")
-
+    disconnect_db()
 def DeleteSaveFromDB(number):
+    connect_db()
     try:
         ExecuteQuerry(f"DELETE FROM Food WHERE GameId = {number}")
         ExecuteQuerry(f"DELETE FROM Weapons WHERE GameId = {number}")
@@ -68,14 +74,16 @@ def DeleteSaveFromDB(number):
         ExecuteQuerry(f"DELETE FROM Game WHERE GameId = {number}")
     except Exception as e:
         print(f"Error deleting save game {number}: {e}")
+    disconnect_db()
 
 def LoadFromDB():
     global Saves
     Saves = {}
+    connect_db()
     for game in ExecuteQuerry("SELECT * FROM Game"):
         Saves[game[0]] = {
-            "DateStarted" : game[2],
-            "SaveDate" : game[3],
+            "DateStarted" : game[2].strftime('%Y-%m-%d %H:%M:%S'),
+            "SaveDate" : game[3].strftime('%Y-%m-%d %H:%M:%S'),
             "PlayerName" : game[1],
             "LastLocation" : game[8],
             "PlayerLife" : game[5],
@@ -161,6 +169,7 @@ def LoadFromDB():
             Saves[chest[0]]["MapInformation"][chest[1]]["Chests"][chest[2]]["opened"] = True
         else:
             Saves[chest[0]]["MapInformation"][chest[1]]["Chests"][chest[2]]["opened"] = False
+    disconnect_db()
     
 
 def NewSave(PlayerName):

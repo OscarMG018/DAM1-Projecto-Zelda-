@@ -9,6 +9,7 @@ from menuprincipal.ascii_draws_chosen import draw_chosen
 from datetime import datetime
 import copy
 import Cheats
+import ExecuteQuerry
 
 PlayerName = ""
 
@@ -389,6 +390,33 @@ def ZeldaSaved():
 *                                                                             *
 * Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
+def print_table(result, n):
+    # Check if the result is a list of lists
+    if not all(isinstance(row, list) for row in result):
+        print("Error: The result should be a list of lists.")
+        return
+    
+    # Determine the number of columns in the table
+    num_columns = max(len(row) for row in result)
+    
+    # Determine the minimum number of columns required based on n
+    num_columns = max(num_columns, n)
+    
+    # Print the table header
+    print("|", end="")
+    for col in range(1, num_columns + 1):
+        print(f" Column {col} |", end="")
+    print()
+    
+    # Print the table rows
+    for row in result:
+        print("|", end="")
+        for col in range(1, num_columns + 1):
+            if col <= len(row):
+                print(f" {row[col-1]} ", end="|")
+            else:
+                print(" " * 11, end="|")  # Adjust the width based on your preference
+        print()
 
 def dbdata_help():
     result = "* DBdara, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
@@ -396,18 +424,10 @@ def dbdata_help():
     print(result)
 
 def dbdata_players():
-    """SELECT UserName, MAX(DateStarted) AS LatestGameDate
-FROM Game
-GROUP BY UserName;"""
-    result = "* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
-    result += "*                                                                             *\n"
-    for saveId, save in Guardado.Saves.items():
-        result += f"* {save['PlayerName']}" + f"{save['SaveDate']}".rjust(75-len(save["PlayerName"])," ") +" *" + "\n"
-    for i in range(len(Guardado.Saves),9):
-        result += "*                                                                             *\n"
-    result += "*                                                                             *\n"
-    result += "* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *"
-    print(result)
+    print("* DBdara, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    result = ExecuteQuerry.ExecuteQuerry("SELECT UserName, MAX(DateStarted) AS LatestGameDate FROM Game GROUP BY UserName;",80)
+    print_table(result)
+    print("* Help, Players, Player Activity, Weapons, Food, Blood Moons  * * * * * * * * *")
     
 def dbdata_player_activity():
     """SELECT UserName, COUNT(*) AS PartidasJugadas

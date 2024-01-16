@@ -38,7 +38,7 @@ def mysql_connect():
         port=tunnel.local_bind_port
     )
 
-def run_query(sql):
+def RunQuery(sql):
     with connection.cursor() as cursor:
         cursor.execute(sql)
         result = [list(row) for row in cursor.fetchall()]
@@ -138,6 +138,7 @@ def run_query(query):
     
     with connection.cursor() as cursor:
         cursor.execute(query)
+        connection.commit()
         result = [list(row) for row in cursor.fetchall()]
         results.append(result)
     
