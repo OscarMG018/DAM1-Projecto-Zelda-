@@ -15,13 +15,15 @@
 </head>
 
 <body>
-
-
 <!-- Fondo -->
 
     <a class="recurso-utilizado"><img id="tile" src="img/tile.png"></a>
     <a class="recurso-utilizado"><img id="ntile" src="img/ntile.png"></a>
 
+    <canvas id="canvasElement" class="fullsize">
+        <p>Su navegador no soporta canvas</p>
+    </canvas>
+    
     <script id="default_vsh" type="x-shader/x-vertex">
         uniform mat4 u_mv;
         uniform mat4 u_mvp;
@@ -69,6 +71,8 @@
             gl_FragColor = diffuse + ambient + ambient;
         }
     </script>
+
+
 
          <!-- Hero -->
         <div id="hero">
@@ -142,5 +146,38 @@
     </div>
 </div>
           
+<!-- Carrusel Marcas -->
+
+<div class="scroller" data-direction="right" data-speed="fast">
+  <div class="scroller__inner">
+    <img src="img/activision.png"/>
+    <img src="img/Capcom-Logo-1988.png"/>
+    <img src="img/nintendo-logo-png-transparent.png"/>
+    <img src="img/sega_logo_icon_181397.png">
+    <img src="img/sony.png"/>
+    <img src="img/valve.png">
+    <img src="img/ubisoft.png"/>
+    <img src="img/activision.png"/>
+    <img src="img/Capcom-Logo-1988.png"/>
+    <img src="img/nintendo-logo-png-transparent.png"/>
+    <img src="img/sega_logo_icon_181397.png"/>
+    <img src="img/sony.png"/>
+    <img src="img/valve.png"/>
+    <img src="img/ubisoft.png"/>
+  </div>
+</div>
+
+<!-- Contenido -->
+
+asd
+sampler2Dsd
+dasdasdas
+asdas
+dasdasdasasd
+
+
+
+
+
 </body>
 </html>

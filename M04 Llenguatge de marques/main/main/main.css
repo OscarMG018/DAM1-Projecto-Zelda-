@@ -1,14 +1,19 @@
 /* Background */
 
 body {
-    margin: 0;
+        margin: 0;
+        overflow: hidden; /* Para evitar que haya scroll innecesario */
 }
 
-.fullsize {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+#canvasElement {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     z-index: -1;
+    background-image: url('img/tile.png');
+    background-size: repeat;
 }
 
 .recurso-utilizado img {
@@ -304,13 +309,13 @@ p span::before {
   }
 
 .hex-video {
-    width: 100%; /* Aumenta el tamaño para asegurar que cubra completamente el área del hexágono */
+    width: 100%;
     height: 100%;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    object-fit: cover; /* Ajusta el tamaño del video para cubrir el contenedor */
+    object-fit: cover;
     
   }
 
@@ -355,6 +360,67 @@ p span::before {
   .close:hover {
     color: #bbb;
   }
-  
-  
 
+                                                    /*--- CARRUSEL IMAGENES ---*/
+
+    .scroller {
+        width:100vw;;
+        }
+        
+    .scroller__inner {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2vw;
+        height: 2.5vw;
+        align-items: center;
+        background-color: rgb(255, 255, 255);
+        padding: 0.2vw;
+        }
+    
+    .scroller__inner img {
+        width: 7.81vw;
+        height: 75%;
+
+        }
+        
+    .scroller[data-animated="true"] {
+        overflow: hidden;
+        -webkit-mask: linear-gradient(
+            90deg,
+            transparent,
+            white 20%,
+            white 80%,
+            transparent
+        );
+        mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+        }
+        
+    .scroller[data-animated="true"] .scroller__inner {
+        width: max-content;
+        flex-wrap: nowrap;
+        animation: scroll var(--_animation-duration, 40s)
+            var(--_animation-direction, forwards) linear infinite;
+        }
+        
+    .scroller[data-direction="right"] {
+        --_animation-direction: reverse;
+        }
+        
+    .scroller[data-direction="left"] {
+        --_animation-direction: forwards;
+        }
+        
+    .scroller[data-speed="fast"] {
+        --_animation-duration: 15s;
+        }
+        
+    .scroller[data-speed="slow"] {
+        --_animation-duration: 60s;
+        }
+        
+    @keyframes scroll {
+        to {
+            transform: translate(calc(-50% - 0.5rem));
+        }
+        }
+        
