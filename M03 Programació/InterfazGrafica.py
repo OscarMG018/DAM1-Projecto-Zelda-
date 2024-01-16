@@ -8,6 +8,7 @@ import Interaccion
 from menuprincipal.ascii_draws_chosen import draw_chosen
 from datetime import datetime
 import copy
+import Cheats
 
 PlayerName = ""
 
@@ -395,9 +396,9 @@ def dbdata_help():
     print(result)
 
 def dbdata_players():
-    SELECT GameId, UserName, MAX(DateStarted) AS LatestGameDate
+    """SELECT UserName, MAX(DateStarted) AS LatestGameDate
 FROM Game
-GROUP BY UserName;
+GROUP BY UserName;"""
     result = "* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "*                                                                             *\n"
     for saveId, save in Guardado.Saves.items():
@@ -409,12 +410,21 @@ GROUP BY UserName;
     print(result)
     
 def dbdata_player_activity():
-    SELECT UserName, COUNT(*) AS PartidasJugadas
+    """SELECT UserName, COUNT(*) AS PartidasJugadas
     FROM Game
-    GROUP BY UserName;
+    GROUP BY UserName;"""
     result = "* DBdara, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 
 def dbdata_weapons():
+    """SELECT g.UserName, w.WeaponName, w.WeaponQuantity, w.TimesObtained, g.DateStarted AS DateMostUsed
+FROM Weapons w
+JOIN Game g ON w.GameId = g.GameId
+WHERE (w.GameId, w.TimesUsed) IN (
+    SELECT GameId, MAX(TimesUsed) AS MaxTimesUsed
+    FROM Weapons
+    GROUP BY GameId
+)
+ORDER BY g.UserName, w.WeaponName;"""
     result = "* DBdara, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 
 def dbdata_food():
@@ -956,7 +966,9 @@ def ExecuteMapAction(command,args):
             ActionTime()
             SaveData()
     elif command == "cheat":
-        return
+        message = Cheats.makeCheat(args)
+        AddToPropmts(message)
+        SaveData()
     elif command == "back":
         if Jugabilidad.mapName == "Castle":
             if len(args) != 0:
@@ -1041,12 +1053,14 @@ def ActionTime():
         Jugabilidad.RespawnEnemies()
 
 def SaveData():
+    global PlayerName
     ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)
     Jugabilidad.SaveMapInfo(ActiveSave)
     Combate.SaveCombate(ActiveSave)
     Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     Guardado.SaveToDB(ActiveSave)
+    PlayerName = Guardado.Saves[ActiveSave]["PlayerName"]
 
 Guardado.LoadFromDB()
 MainMenu()
