@@ -313,7 +313,7 @@ p span::before {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
@@ -408,7 +408,9 @@ p span::before {
             transform: translate(calc(-50% - 0.5rem));
         }
         }
-        
+
+/* TARJETAS */
+
 .cont_desarrollo {
     position: relative;
     display: flex;
@@ -416,6 +418,9 @@ p span::before {
     align-items: center;
     gap: 80px;
     flex-wrap: wrap;
+
+    margin-bottom: 100px;
+    margin-top: 100px;
 }
 
 .cont_desarrollo .card {
@@ -427,6 +432,48 @@ p span::before {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.cont_desarrollo .card .content {
+    font-family: 'Poppins', sans-serif;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 25px;
+    gap: 10px;
+    transition-delay: 0s;
+    transition: 0.33s;
+    opacity: 0;
+}
+
+.cont_desarrollo .card:hover .content {
+    transition-delay: 0.33s;
+    opacity: 1;
+}
+
+.cont_desarrollo .card .content h2 {
+    letter-spacing: 0.1em;
+    font-weight: 600;    
+    color: var(--clr);
+}
+
+.cont_desarrollo .card .content p {
+    text-align: center;
+    color: #fff;
+}
+
+.cont_desarrollo .card .content a {
+    color: #fff;
+    background: var(--clr);
+    padding: 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .cont_desarrollo .card .imgBx,
@@ -455,11 +502,26 @@ p span::before {
     background: var(--clr);
     border-top: 8px solid #333;
     transform-origin: top;
-    transition-delay: 0.5s ;
+    transition-delay: 0.33s ;
+    align-items: flex-end;
+    overflow: hidden;
 }
 
 .cont_desarrollo .card:hover .textBx {
     transform: translateY(100%) rotateX(90deg);
+}
+
+.cont_desarrollo .card .textBx h2 {
+    font-family: 'Poppins', sans-serif;
+    color:#222;
+    font-size: 1.25em;
+    letter-spacing: 0.15em;
+    font-weight: 500;
+    text-transform: uppercase;
+    background: #fff;
+    padding: 5px 25px;
+    box-shadow: 0 0 0 8px #333;
+    margin: 0;
 }
 
 .cont_desarrollo .card .imgBx::before {
@@ -469,7 +531,7 @@ p span::before {
     left: 50%;
     transform: translateX(-50%);
     width: 144px;
-    height: 77px;
+    height: 74px;
     background: #fff;
     border-bottom-left-radius: 80px;
     border-bottom-right-radius: 80px;
@@ -479,7 +541,7 @@ p span::before {
 .cont_desarrollo .card .imgBx img {
     position: relative;
     top: 50px;
-    z-index: 1000;
+    z-index: 5;
 }
 
 .cont_desarrollo .card .textBx::before {

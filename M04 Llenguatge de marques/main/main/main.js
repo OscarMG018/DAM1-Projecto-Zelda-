@@ -677,7 +677,7 @@
     
     },{}]},{},[3]);
     
-
+    /**/
 
     window.onload = function() {
         const textoOriginal = '"Princess Zelda has been captured by Ganon. He has taken over the Guardians and filled Hyrule with monsters. But a young man named Link has just awakened and must reclaim the Guardians to defeat Ganon and save Hyrule."';
