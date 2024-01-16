@@ -59,6 +59,7 @@ def UseWeapon():
     global inventario_armas
     equiped_weapon = GetEquipedWeapon()
     inventario_armas[equiped_weapon][0] -= 1
+    Guardado.Saves[Guardado.ActiveSave]["ArmasUsed"][GetEquipedWeapon()] += 1
     if inventario_armas[equiped_weapon][0] == 0:
         inventario_armas[equiped_weapon][1] -= 1
         if equiped_weapon == "Sword":
@@ -73,6 +74,7 @@ def UseShield():
     global inventario_armas
     equiped_shield = GetEquipedShield()
     inventario_armas[equiped_shield][0] -= 1
+    Guardado.Saves[Guardado.ActiveSave]["ArmasUsed"][GetEquipedShield()] += 1
     if inventario_armas[equiped_shield][0] == 0:
         inventario_armas[equiped_shield][1] -= 1
         if equiped_shield == "Shield":
@@ -87,12 +89,15 @@ def AddItem(nombre, cantidad):
     global inventario_armas, inventario
     if nombre in ["Vegetable", "Fish", "Meat", "Salad", "Pescatarian", "Roasted"]:
         inventario[nombre] += cantidad
+        Guardado.Saves[Guardado.ActiveSave]["FoodObtained"][nombre] += cantidad
     if nombre in ["Wood Sword", "Wood Shield"]:
         inventario_armas[nombre][1] += cantidad
-        inventario_armas[nombre][0] = 5       
+        inventario_armas[nombre][0] = 5      
+        Guardado.Saves[Guardado.ActiveSave]["ArmasObteined"][nombre] += cantidad 
     if nombre in ["Sword", "Shield"]:
         inventario_armas[nombre][1] += cantidad
         inventario_armas[nombre][0] = 9
+        Guardado.Saves[Guardado.ActiveSave]["ArmasObteined"][nombre] += cantidad 
 
 def GetItem(nombre):
     global inventario_armas, inventario

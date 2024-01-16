@@ -2,6 +2,7 @@ import Jugabilidad
 import random
 import Inventario
 import Combate
+import Guardado
 
 #Pesca
 
@@ -225,6 +226,7 @@ def TryEat(food_type):
 def Eat(food_type):
     if not TryEat(food_type)[0]:
         return TryEat(food_type)[1]
+    Guardado.Saves[Guardado.ActiveSave]["FoodConsumed"][food_type] += 1
     if food_type == "Vegetable":
         Combate.PlayerLife += 1
     if food_type == "Salad":
