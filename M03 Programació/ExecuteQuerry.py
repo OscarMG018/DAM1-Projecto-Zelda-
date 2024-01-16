@@ -14,10 +14,6 @@ database_password = 'admin'
 database_name = 'ZeldaDB'
 localhost = '127.0.0.1'
 
-ActiveSave = 0
-
-Saves = {}
-
 def open_ssh_tunnel(verbose=False):
     if verbose:
         sshtunnel.DEFAULT_LOGLEVEL = logging.DEBUG

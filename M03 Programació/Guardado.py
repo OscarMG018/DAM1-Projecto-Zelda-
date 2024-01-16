@@ -4,7 +4,12 @@ import os
 import copy
 from ExecuteQuerry import run as ExecuteQuerry
 
+ActiveSave = 0
+
+Saves = {}
+
 def NewDBSave(PlayerName,number):
+
     ExecuteQuerry(f"INSERT INTO Game VALUES ({number},'{PlayerName}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', 3, 3, 0, 0, 'Hyrule')")
     ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Vegetable',0,0,0)")
     ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Fish',0,0,0)")
