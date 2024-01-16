@@ -65,13 +65,13 @@ CREATE Table Chests (
     PRIMARY KEY(GameId, Loacation, ChestId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
 )
+DELETE FROM Enemies;
+DELETE FROM Food;
+DELETE FROM Weapons;
+DELETE FROM Sanctuaries;
+DELETE FROM Chests;
+DELETE FROM Game;
 
-DELETE FROM enemies;
-DELETE FROM food;
-DELETE FROM weapons;
-DELETE FROM sanctuaries;
-DELETE FROM chests;
-DELETE FROM game;
 
 DELETE FROM enemies WHERE `GameId` = 2;
 DELETE FROM food WHERE `GameId` = 2;
@@ -80,9 +80,9 @@ DELETE FROM sanctuaries WHERE `GameId` = 2;
 DELETE FROM chests WHERE `GameId` = 2;
 DELETE FROM game WHERE `GameId` = 2;
 
-SELECT * From game;
-SELECT * FROM food;
-SELECT * FROM weapons;
+SELECT * From Game;
+SELECT * FROM Food;
+SELECT * FROM Weapons;
 SELECT * FROM Sanctuaries;
 SELECT * FROM Enemies;
 SELECT * FROM Chests;
