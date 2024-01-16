@@ -10,17 +10,17 @@ Saves = {}
 
 def NewDBSave(PlayerName,number):
 
-    ExecuteQuerry(f"INSERT INTO Game VALUES ({number},'{PlayerName}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', 3, 3, 0, 0, 'Hyrule')")
-    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Vegetable',0,0,0)")
-    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Fish',0,0,0)")
-    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Meat',0,0,0)")
-    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Salad',0,0,0)")
-    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Pescatarian',0,0,0)")
-    ExecuteQuerry(f"INSERT INTO Food VALUES ({number},'Roasted',0,0,0)")
-    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Sword',0,0,False,0,0)")
-    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Shield',0,0,False,0,0)")
-    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Wood Sword',0,0,False,0,0)")
-    ExecuteQuerry(f"INSERT INTO Weapons VALUES ({number},'Wood Shield',0,0,False,0,0)")
+    ExecuteQuerry(f"""INSERT INTO Game VALUES ({number},'{PlayerName}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', '{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}', 3, 3, 0, 0, 'Hyrule');
+    INSERT INTO Food VALUES ({number},'Vegetable',0,0,0);
+    INSERT INTO Food VALUES ({number},'Fish',0,0,0);
+    INSERT INTO Food VALUES ({number},'Meat',0,0,0);
+    INSERT INTO Food VALUES ({number},'Salad',0,0,0);
+    INSERT INTO Food VALUES ({number},'Pescatarian',0,0,0);
+    INSERT INTO Food VALUES ({number},'Roasted',0,0,0);
+    INSERT INTO Weapons VALUES ({number},'Sword',0,0,False,0,0);
+    INSERT INTO Weapons VALUES ({number},'Shield',0,0,False,0,0);
+    INSERT INTO Weapons VALUES ({number},'Wood Sword',0,0,False,0,0);
+    INSERT INTO Weapons VALUES ({number},'Wood Shield',0,0,False,0,0);""")
     for i in range(len(Saves[number]["SanctuariesOpened"])):
         ExecuteQuerry(f"INSERT INTO Sanctuaries VALUES ({number},{i},False)")
     for locationName,locationvalue in Saves[number]["MapInformation"].items():
