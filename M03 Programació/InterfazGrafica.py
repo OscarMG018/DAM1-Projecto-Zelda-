@@ -395,6 +395,9 @@ def dbdata_help():
     print(result)
 
 def dbdata_players():
+    SELECT GameId, UserName, MAX(DateStarted) AS LatestGameDate
+FROM Game
+GROUP BY UserName;
     result = "* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "*                                                                             *\n"
     for saveId, save in Guardado.Saves.items():
@@ -406,6 +409,9 @@ def dbdata_players():
     print(result)
     
 def dbdata_player_activity():
+    SELECT UserName, COUNT(*) AS PartidasJugadas
+    FROM Game
+    GROUP BY UserName;
     result = "* DBdara, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 
 def dbdata_weapons():
