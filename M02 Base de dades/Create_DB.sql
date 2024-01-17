@@ -1,4 +1,4 @@
--- Active: 1698162559588@@127.0.0.1@3306@projectodb
+-- Active: 1698162559588@@127.0.0.1@3306
 
 DROP DATABASE IF EXISTS ZeldaDB;
 CREATE DATABASE ZeldaDB;
@@ -36,7 +36,7 @@ CREATE Table Weapons (
     TimesUsed INT,
     PRIMARY KEY(GameId, WeaponName),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
+);
 
 CREATE Table Sanctuaries (
     GameId INT NOT NULL,
@@ -44,7 +44,7 @@ CREATE Table Sanctuaries (
     Opened BOOLEAN,
     PRIMARY KEY(GameId, SanctuaryId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
+);
 
 CREATE Table Enemies (
     GameId INT NOT NULL,
@@ -55,7 +55,7 @@ CREATE Table Enemies (
     PosY INT,
     PRIMARY KEY(GameId, Loacation, EnemyId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
+);
 
 CREATE Table Chests (
     GameId INT NOT NULL,
@@ -64,7 +64,8 @@ CREATE Table Chests (
     Opened BOOLEAN,
     PRIMARY KEY(GameId, Loacation, ChestId),
     FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
+);
+
 DELETE FROM Enemies;
 DELETE FROM Food;
 DELETE FROM Weapons;
@@ -88,3 +89,14 @@ SELECT * FROM Enemies;
 SELECT * FROM Chests;
 
 INSERT into game VALUES (1, "Juan", NOW(), NOW(), 100, 100, 0, 0, "Hyrule");
+
+
+MItjana de blood moons de les partides
+jugades.
+● Dades de la partida on han aparegut més
+blood moons, data partida, nom del jugador i
+quantitat de blood moons.
+
+SELECT avg(BloodMoonAppearances) from game;
+
+SELECT * FROM game WHERE BloodMoonAppearances > (SELECT max(BloodMoonAppearances) from game);

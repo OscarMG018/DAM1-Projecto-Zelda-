@@ -170,9 +170,9 @@ def main_menu():
 
     # Comprobar si hay una partida guardada e imprimir opciones del menú según
     if len(Guardado.Saves) == 0:
-        print("* New Game, BDdata, Help, About, Exit " + ("* " * 21))
+        print("* New Game, consultes BD, Help, About, Exit " + ("* " * 18))
     else:
-        print("* Continue, New Game, BDdata, Help, About, Exit " + ("* " * 16))
+        print("* Continue, New Game, consultes BD, Help, About, Exit " + ("* " * 13))
 
 def new_game_menu_help():
     print(
@@ -443,51 +443,92 @@ def dbdata_help():
     print(result)
 
 def dbdata_players():
-    print("* DBdara, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    print("* consultes BD, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
     connect_db()
-    result = ExecuteQuerry("SELECT UserName, MAX(LastSaved) AS LastPlayed FROM Game GROUP BY UserName;")
+    result = ExecuteQuerry("SELECT UserName, MAX(LastSaved) AS LastPlayed FROM Game GROUP BY UserName Limit 10;")
     disconnect_db()
     print_table(result,["UserName","LastPlayed"],76)
     print("* Help, Player Activity, Weapons, Food, Blood Moons * * * * * * * * * * * * * * * *")
     
 def dbdata_player_activity():
-    print("* DBdara, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    print("* consultes BD, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * *")
     connect_db()
-    result = ExecuteQuerry("SELECT UserName, COUNT(*) AS PartidasJugadas FROM Game GROUP BY UserName;")
+    result = ExecuteQuerry("SELECT UserName, COUNT(*) AS PartidasJugadas FROM Game GROUP BY UserName Limit 10;")
     disconnect_db()
     print_table(result,["UserName","Number of Games Played"],76)
     print("* Help, Players, Weapons, Food, Blood Moons * * * * * * * * * * * * * * * * * * * *")
 
 def dbdata_weapons():
-    print("* DBdara, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    print("* consultes BD, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
     connect_db()
-    result = ExecuteQuerry("SELECT G.UserName, W.WeaponName, W.WeaponQuantity AS ObtainedQuantity, G.DateStarted AS DateMostUsed FROM Game G JOIN Weapons W ON G.GameId = W.GameId WHERE (W.WeaponQuantity IS NOT NULL AND W.WeaponQuantity > 0) AND (W.TimesUsed > 0) AND W.TimesUsed = ( SELECT MAX(TimesUsed) FROM Weapons WHERE GameId = G.GameId AND WeaponName = W.WeaponName );")
+    result = ExecuteQuerry("""
+SELECT
+    G.UserName,
+    W.WeaponName,
+    max(W.TimesObtained),
+    (SELECT datetable.dateStarted FROM (SELECT g.gameId, g.userName, w.WeaponName, w.timesUsed, g.dateStarted
+        FROM Game g
+        JOIN Weapons w ON g.gameId = w.gameId
+        WHERE g.UserName = G.UserName AND w.weaponName = W.WeaponName
+        ORDER BY w.timesUsed DESC
+        LIMIT 1) AS datetable)
+FROM
+    Game G
+JOIN
+    Weapons W ON G.GameId = W.GameId
+GROUP BY
+    G.UserName, W.WeaponName
+ORDER BY
+    G.UserName, W.WeaponName
+Limit 12;
+""")
     disconnect_db()
     print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
     print("* Help, Players, Player Activity, Food, Blood Moons * * * * * * * * * * * * * * * * *")
 
 def dbdata_food():
-    print("* DBdara, Food  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    print("* consultes BD, Food  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
     connect_db()
-    result = ExecuteQuerry("SELECT G.UserName, F.FoodName, F.FoodQuantity AS ObtainedQuantity, G.DateStarted AS DateMostConsumed FROM Game G JOIN Food F ON G.GameId = F.GameId WHERE (F.FoodQuantity IS NOT NULL AND F.FoodQuantity > 0) AND (F.TimesConsumed > 0) AND F.TimesConsumed = ( SELECT MAX(TimesConsumed) FROM Food WHERE GameId = G.GameId AND FoodName = F.FoodName );")
+    result = ExecuteQuerry("""
+SELECT
+    G.UserName,
+    F.FoodName,
+    max(F.TimesObtained),
+    (SELECT datetable.dateStarted FROM (SELECT g.gameId, g.userName, f.FoodName, f.TimesConsumed, g.dateStarted
+        FROM Game g
+        JOIN Food f ON g.gameId = f.gameId
+        WHERE g.UserName = G.UserName AND f.FoodName = F.FoodName
+        ORDER BY f.TimesConsumed DESC
+        LIMIT 1) AS datetable)
+FROM
+    Game G
+JOIN
+    Food F ON G.GameId = F.GameId
+GROUP BY
+    G.UserName, F.FoodName
+ORDER BY
+    G.UserName, F.FoodName
+Limit 12;""")
     disconnect_db()
-    print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
+    print_table(result,["UserName","FoodName","ObtainedQuantity","DateMostConsumed"],76)
     print("* Help, Players, Player Activity, Weapons, Blood Moons  * * * * * * * * * * * * * * *")
 
 
 def dbdata_blood_moons():
-    print("* DBdara, Blood Moons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    print("* consultes BD, Blood Moons * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
     connect_db()
-    result = ExecuteQuerry("SELECT G.UserName, F.FoodName, F.FoodQuantity AS ObtainedQuantity, G.DateStarted AS DateMostConsumed FROM Game G JOIN Food F ON G.GameId = F.GameId WHERE (F.FoodQuantity IS NOT NULL AND F.FoodQuantity > 0) AND (F.TimesConsumed > 0) AND F.TimesConsumed = ( SELECT MAX(TimesConsumed) FROM Food WHERE GameId = G.GameId AND FoodName = F.FoodName );")
+    result1 = ExecuteQuerry("SELECT avg(BloodMoonAppearances) from Game;")
+    result2 = ExecuteQuerry("SELECT UserName, DateStarted, LastSaved, BloodMoonAppearances FROM Game ORDER BY BloodMoonAppearances DESC LIMIT 1;")
     disconnect_db()
-    print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
+    print_table(result1,["Avarage of Blood Moons"],79)
+    print_table(result2,["UserName","DateStarted","LastSaved","Blood Moon Appearances"],76)
     print("* Help, Players, Player Activity, Weapons, Food * * * * * * * * * * * * * * * * * * *")
 
 def MainMenuAction(action):
     if action == "new game":
         AddToPropmts(action)
         NewGameMenu()
-    elif action == "dbdata":
+    elif action == "consultes bd":
         AddToPropmts(action)
         DBdataMenu()
     elif action == "help":

@@ -1,4 +1,4 @@
 revisar mensages de las ultimas cosas añadidas
-canviar fishing y go by the water para que funcionen con "-"
-canviar BDdata por consultes BD en todas las pantallas [oscar]
+canviar fishing y go by the water para que funcionen con "-" [oscar]
 limpiar ramas y archivos sin usar
+finalizar SQL
