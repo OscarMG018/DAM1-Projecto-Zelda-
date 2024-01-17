@@ -1,0 +1,3 @@
+revisar mensages de las ultimas cosas añadidas  [oscar]
+limpiar ramas y archivos sin usar
+finalizar SQL

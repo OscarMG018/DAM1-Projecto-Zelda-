@@ -3,7 +3,6 @@ import random
 import Inventario
 import Combate
 import Guardado
-from datetime import datetime
 
 #Pesca
 
@@ -15,7 +14,7 @@ def TryFishing():
     py = Jugabilidad.GetEntityByIndex(playerIndex)["y"]
     if fished:
         return False,"You have already fished in this loacation"
-    if not Jugabilidad.AdjacentTerrain(py,px,"~"):
+    if not (Jugabilidad.AdjacentTerrain(py,px,"~") or  Jugabilidad.AdjacentTerrain(py,px,"-")):
         return False, "There isn't water near you"
     return True,None
 
@@ -33,16 +32,21 @@ def Fishing():
 #Fox
 
 def DecideFoxVisibility():
-    foxlist = Jugabilidad.GetAllEntiiesWithName("Fox")
-    if len(foxlist) == 0:
-        return
-    fox = foxlist[0]
-    if random.random() < 0.5:
-        fox["visible"] = True
+    foxlist = Jugabilidad.GetAllEntiiesWithName("Fox",location=None)
+    if len(foxlist) > 0:
+        Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(foxlist[0]))
+    if random.random() <= 0.5:
+        if Jugabilidad.mapName == "Hyrule":
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 50, "y" : 8})
+        if Jugabilidad.mapName == "Death mountain":
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 29, "y" : 1})
+        if Jugabilidad.mapName == "Gerudo":
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 47, "y" : 7})
+        if Jugabilidad.mapName == "Necluda":
+            Jugabilidad.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6})
         return "You see a Fox"
-        return
-    fox["visible"] = False
-    return "You don't see a Fox"
+    else:
+        return "You don't see a Fox"
 
 #Cocinar
 
@@ -62,7 +66,7 @@ def TryCook(name):
         return False, "This recipe doesn't exist"
     insuficientIngredients = []
     for ingridient in CookingIngredients[name]:
-        if Inventario.GetItem(ingridient[0],category="Food") < ingridient[1]:
+        if Inventario.GetItem(ingridient[0]) < ingridient[1]:
             insuficientIngredients.append(ingridient[0])
     if len(insuficientIngredients) > 0:
         return False, "You don't have enough "+" and ".join(insuficientIngredients)
@@ -72,8 +76,8 @@ def Cook(name):
     if not TryCook(name)[0]:
         return TryCook(name)[1]
     for ingridient in CookingIngredients[name]:
-        Inventario.RemoveItem(ingridient[0],ingridient[1],category="Food")
-    Inventario.AddItem(name,1,category="Food")
+        Inventario.RemoveItem(ingridient[0],ingridient[1])
+    Inventario.AddItem(name,1)
     return f"You cooked a {name}"
 
 #Cofres
@@ -128,7 +132,7 @@ def OpenSanctuary():
     py = player["y"]
     sanc = Jugabilidad.AdjacentEntity(py,px,"Sanctuary")
     Jugabilidad.OpenSanctuaris[sanc["SanctuaryNumber"]] = True
-    Inventario.PlayerMaxLife += 1
+    Combate.PlayerMaxLife += 1
     return "You opened the sanctuary"
 
 #Tree
@@ -139,13 +143,13 @@ def TryShakeTree():
     py = player["y"]
     if Jugabilidad.AdjacentEntity(py,px,"Tree") == None:
         if Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
-            return False, "The tree is not ready yet"
-        return False, "There isn't a tree here"
+            return False, ["The tree is not ready yet"]
+        return False, ["There isn't a tree here"]
     return True,None
 
 def ShakeTree():
-    #if not TryShakeTree()[0]:
-        #return TryShakeTree()[1]
+    if not TryShakeTree()[0]:
+        return TryShakeTree()[1]
     messages = []
     r = random.random()
     if Inventario.GetEquipedWeapon() == None:
@@ -168,9 +172,6 @@ def ShakeTree():
         py = player["y"]
         tree = Jugabilidad.AdjacentEntity(py,px,"Tree")
         tree["hits"] += 1
-        message = Inventario.UseWeapon()
-        if message != None:
-            messages.append(message)
         if tree["hits"] >= 5:
             tree["hits"] = 0
             tree["name"] = "Broken Tree"
@@ -186,6 +187,9 @@ def ShakeTree():
             messages.append("You got an apple")
         else:
             messages.append("The Tree didn't give you anythng")
+        message = Inventario.UseWeapon()
+        if message != None:
+            messages.append(message)
         return messages
 
 #Gespa
@@ -201,62 +205,37 @@ def TryCutGrass():
     return True,None
 
 def CutGrass():
-    #if not TryCutGrass()[0]:
-        #return TryCutGrass()[1] 
+    if not TryCutGrass()[0]:
+        return TryCutGrass()[1] 
     r = random.random()
-    if r < 1:
+    if r < 0.1:
         Inventario.AddItem("Meat",1)
         return "You got a lizard"
 
-#Time and saving
+def TryEat(food_type):
+    if food_type not in ["Vegetable","Salad","Pescatarian","Roasted"]:
+        return False, f"{food_type} isn't comestible"
+    if Inventario.inventario[food_type] != 0:
+        if Combate.PlayerLife != Combate.PlayerMaxLife:
+            return True, None
+        else:
+            return False, "You're not hungry now"
+    else:
+        return False, f"You don't have '{food_type}' to eat"
 
-def ActionTime():
-    #Broken trees regen -=1
-    btrees = Jugabilidad.GetAllEntiiesWithName("Broken Tree")
-    for tree in btrees:
-        tree["regen"] -= 1
-        if tree["regen"] <= 0:
-            tree["name"] = "Tree"
-            del tree["regen"]
-    #Reclose ches if condition
-    if len(Jugabilidad.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
-        RecloseChest()
-    #Blood Moon
-    Combate.BloodMoon += 1
-    if Combate.BloodMoon >= 25:
-        Combate.BloodMoon = 0
-        Combate.BloodMoonAppearances += 1
-        Jugabilidad.RespawnEnemies()
-    Inventario.BloodMoon += 1
-    if Inventario.BloodMoon >= 25:
-        Inventario.BloodMoon = 0
-
-def test():
-    Jugabilidad.InitMap()
-    Jugabilidad.LoadMap("Hyrule")
-    while(True):
-        print(Jugabilidad.MapToStr())
-        print(Inventario.inventario_armas)
-        print(Inventario.inventario)
-        print(fished)
-        action = input().split(" ")
-        if action[0] == "fishing":
-            print(Fishing())
-        if action[0] == "go":
-            Jugabilidad.MovePlayerBy(int(action[1]),int(action[2]))
-        if action[0] == "goto":
-            Jugabilidad.MovePlayerNearEntity("symbol",action[1])
-        if action[0] == "open":
-            if action[1] == "chest":
-                print(OpenChest())
-            elif action[1] == "sanctuary":
-                print(OpenSanctuary())
-test()
-
-def SaveData():
-    ActiveSave = Guardado.ActiveSave
-    Inventario.SaveInventory(ActiveSave)
-    Jugabilidad.SaveMapInfo(ActiveSave)
-    Guardado.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    Guardado.SaveToFile() #Cambiar por Guardado.SaveToDB() cuando este lista
-
+def Eat(food_type):
+    if not TryEat(food_type)[0]:
+        return TryEat(food_type)[1]
+    Guardado.Saves[Guardado.ActiveSave]["FoodConsumed"][food_type] += 1
+    if food_type == "Vegetable":
+        Combate.PlayerLife += 1
+    if food_type == "Salad":
+        Combate.PlayerLife += 2
+    if food_type == "Pescatarian":
+        Combate.PlayerLife += 3
+    if food_type == "Roasted":
+        Combate.PlayerLife += 4
+    Inventario.inventario[food_type] -= 1
+    if Combate.PlayerLife > Combate.PlayerMaxLife:
+        Combate.PlayerLife = Combate.PlayerMaxLife
+    return f"You ate a {food_type.capitalize()}"
