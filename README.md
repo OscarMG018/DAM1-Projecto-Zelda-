@@ -12,8 +12,41 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <div align="left">
 
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+
 ### Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
+
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+
+#### Map controls
+
+| Action            | Shortcut |
+|-------------------|----------|
+| Turn page left    | `A`      |
+| Turn page right   | `D`      |
+| Next Surah        | `W`      |
+| Previous Surah    | `S`      |
+| Zoom in           | `=`      |
+| Zoom out          | `-`      |
+| Toggle fullscreen | `F11`    |
+| Toggle theme      | `T`      |
+| Jump to last page | `E`      |
+| Open on quran.com | `Q`      |
+
+#### Inventory controls
+
+| Action            | Shortcut           | Shortcut |
+|-------------------|--------------------|----------|
+| Equip weapon      | `Equip 'weapon'`   | ```Shell hola```
+| Equip shield      | `Equip 'shield'`   |
+| Unequip weapon    | `Unequip 'weapon'` |
+| Unequip shield    | `Unequip 'shield'` |
+| Zoom in           | `=`                |
+| Zoom out          | `-`                |
+| Toggle fullscreen | `F11`              |
+
+#### Interacion controls
 
 | Action            | Shortcut |
 |-------------------|----------|
@@ -31,3 +64,26 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 -----
 
 </div>
+
+```shell
+# Update apt.
+sudo apt update
+
+# Install tools.
+sudo apt install \
+  bazel \
+  clang \
+  libc++-dev \
+  lld
+
+# Download Carbon's code.
+$ git clone https://github.com/carbon-language/carbon-lang
+$ cd carbon-lang
+```
+
+Then you can build and run the explorer:
+
+```shell
+# Build and run the explorer.
+$ bazel run //explorer -- ./explorer/testdata/print/format_only.carbon
+```
