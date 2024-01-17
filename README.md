@@ -50,7 +50,8 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 | Action            | Shortcut |
 |-------------------|----------|
-| Turn page left    | `A`      |
+| Turn page left    | ```shell
+# Update apt.     |
 | Turn page right   | `D`      |
 | Next Surah        | `W`      |
 | Previous Surah    | `S`      |
@@ -67,22 +68,10 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 ```shell
 # Update apt.
-sudo apt update
 
-# Install tools.
-sudo apt install \
-  bazel \
-  clang \
-  libc++-dev \
-  lld
-
-# Download Carbon's code.
-$ git clone https://github.com/carbon-language/carbon-lang
-$ cd carbon-lang
-```
 
 Then you can build and run the explorer:
 
 
-# Build and run the explorer: $ bazel run //explorer -- ./explorer/testdata/print/format_only.carbon
+
 
