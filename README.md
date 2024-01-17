@@ -4,8 +4,8 @@
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 <sub>
-    Coded with 💙 by edoardottt.
-  </sub>
+Coded with 💙 by edoardottt.
+</sub>
   
 </div>
 
