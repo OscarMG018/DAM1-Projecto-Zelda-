@@ -2,10 +2,6 @@
 
 # 🏹 - Zelda Breath of the Wild - 🛡️  
 
-<sub>
-Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
-</sub>
-
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 <sub>
