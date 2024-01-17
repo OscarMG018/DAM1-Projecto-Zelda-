@@ -137,7 +137,7 @@ p span::before {
     z-index: 1;
     text-align: center;
     background: url(img/pattern-runes-green.png);
-    border-radius: 3vh;
+    border-radius: 2vw;
     border: 0.5vw solid #46321f;
 }
 
@@ -159,11 +159,11 @@ p span::before {
 
 #buttons_hero {
     height: 5vw;
-    width: 100%;
+    width: 90%;
     justify-content: center;
     align-items: center;
     display: flex;
-    gap: 5%;
+    gap: 2%;
 }
 
 .button_h {
@@ -202,6 +202,10 @@ p span::before {
 
 .button_h span  {
     position: relative;
+}
+
+.button_h span img {
+    width: 1.5vw;
 }
 
 .button_h i {
@@ -474,6 +478,13 @@ p span::before {
     margin-top: 10px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    border-radius: 1vw;
+    transition: 0.2s;
+    box-shadow: 0 0 10px #111;
+}
+
+.cont_desarrollo .card .content a:hover{
+    transform: scale(1.1);
 }
 
 .cont_desarrollo .card .imgBx,
