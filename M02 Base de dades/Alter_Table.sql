@@ -1,0 +1,39 @@
+ALTER TABLE game ADD CONSTRAINT CKPlayerMaxLife CHECK (PlayerMaxLife > 0);
+ALTER TABLE game ALTER COLUMN DPlayerMaxLife SET DEFAULT 3;
+ALTER TABLE game ADD CONSTRAINT CKPlayerCurrentLife CHECK (PlayerCurrentLife > 0 && PlayerCurrentLife <= PlayerMaxLife);
+ALTER TABLE game ALTER COLUMN  DPlayerCurrentLife SET DEFAULT 3;
+
+
+ALTER TABLE food ADD CONSTRAINT CKFoodQuantity CHECK (FoodQuantity >= 0);
+ALTER TABLE food ALTER COLUMN  DFoodQuantity SET DEFAULT 0;
+ALTER TABLE food ADD CONSTRAINT CKTimesObtained CHECK (TimesObtained >= 0);
+ALTER TABLE food ALTER COLUMN  DTimesObtained SET DEFAULT 0;
+ALTER TABLE food ADD CONSTRAINT CKTimesComsumed CHECK (TimesComsumed >= 0);
+ALTER TABLE food ALTER COLUMN  DTimesComsumed SET DEFAULT 0;
+
+
+ALTER TABLE weapons ADD CONSTRAINT CKWeaponQuantity CHECK (WeaponQuantity >= 0);
+ALTER TABLE weapons ALTER COLUMN  DWeaponQuantity SET DEFAULT 0;
+ALTER TABLE weapons ADD CONSTRAINT CKWeaponDurability CHECK (WeaponDurability >= 0);
+ALTER TABLE weapons ALTER COLUMN  SWeaponDurability SET DEFAULT 0;
+
+
+ALTER TABLE weapons ADD CONSTRAINT CKTimesObtained CHECK (TimesObtained >= 0);
+ALTER TABLE weapons ALTER COLUMN  STimesObtained SET DEFAULT 0;
+ALTER TABLE weapons ADD CONSTRAINT CKTimesUsed CHECK (TimesUsed >= 0);
+ALTER TABLE weapons ALTER COLUMN  DTimesUsed SET DEFAULT 0;
+
+
+ALTER TABLE Sanctuaries ADD CONSTRAINT CKSanctuaryId CHECK (SanctuaryId >= 0);
+ALTER TABLE Sanctuaries ALTER COLUMN DOpened SET DEFAULT false;
+
+
+ALTER TABLE Enemies ADD CONSTRAINT CKPosX CHECK (PosX >= 0);
+ALTER TABLE Enemies ADD CONSTRAINT CKPosY CHECK (PosY >= 0);
+ALTER TABLE Enemies ADD CONSTRAINT CKEnemyLife CHECK (EnemyLife >= 0);
+ALTER TABLE Enemies ALTER COLUMN DEnemyLife SET DEFAULT 1;
+ALTER TABLE Enemies ADD CONSTRAINT CKEnemyId CHECK (EnemyId >= 0);
+
+
+ALTER TABLE Chests ADD CONSTRAINT CKChestId CHECK (ChestId >= 0);
+ALTER TABLE Chests ALTER COLUMN DOpened SET DEFAULT false;
