@@ -66,11 +66,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 </div>
 
-```shell
-# Update apt.
 
-
-Then you can build and run the explorer:
 
 | Descripción                  | Comando                                               |
 |------------------------------|-------------------------------------------------------|
