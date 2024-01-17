@@ -34,17 +34,22 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Jump to last page | `E`      |
 | Open on quran.com | `Q`      |
 
+#### Food items
+
+#### Recepts
+
 #### Inventory controls
 
-| Action            | Shortcut           | Example  |
-|-------------------|--------------------|----------|
-| Equip weapon      | `Equip 'weapon'`   |          |
-| Equip shield      | `Equip 'shield'`   |          |
-| Unequip weapon    | `Unequip 'weapon'` |          |
-| Unequip shield    | `Unequip 'shield'` |          |
-| Zoom in           | `=`                |          |
-| Zoom out          | `-`                |          |
-| Toggle fullscreen | `F11`              |          |
+| Action            | Shortcut           | Example               |
+|-------------------|--------------------|-----------------------|
+| Equip weapon      | *Equip 'weapon'*   | `Equip Wood Sword`    |
+| Equip shield      | *Equip 'shield'*   | `Equip Shield`        |
+| Unequip weapon    | *Unequip 'weapon'* | `Unequip Sword`       |
+| Unequip shield    | *Unequip 'shield'* | `Unequip Wood Shield` |
+| Zoom in           | *Eat 'food'*       | `Eat Vegetable`       |
+| Zoom out          | *Cook 'recept'*    | `Cook Salad`          |
+
+
 
 #### Interacion controls
 
@@ -64,13 +69,11 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 -----
 
-**Este texto estará en negrita**
+
 
 *Este texto estará en cursiva*
 
-***Este texto estará en negrita y cursiva***
-
-`Este texto será tratado como código en línea`
+<img src="READMEIMAGES/meat.png" width="600"
 
 
 
