@@ -72,6 +72,10 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 Then you can build and run the explorer:
 
+| Descripción                  | Comando                                               |
+|------------------------------|-------------------------------------------------------|
+| Build and run the explorer   | `$ bazel run //explorer -- ./explorer/testdata/print/format_only.carbon` |
+
 
 
 
