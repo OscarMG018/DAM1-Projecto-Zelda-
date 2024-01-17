@@ -1,12 +1,12 @@
--- Active: 1698162559588@@127.0.0.1@3306@projectodb
-CREATE DATABASE ProjectoDB;
-USE ProjectoDB;
+DROP DATABASE IF EXISTS ZeldaDB;
+CREATE DATABASE ZeldaDB;
+USE ZeldaDB;
 
-CREATE TABLE game (
-    GameId INT AUTO_INCREMENT PRIMARY KEY,
-    UserName VARCHAR(255) NOT NULL,
-    DateStarted DATE,
-    LastSaved DATE,
+CREATE TABLE Game (
+    GameId INT,
+    UserName VARCHAR(255),
+    DateStarted DATETIME,
+    LastSaved DATETIME,
     PlayerMaxLife INT,
     PlayerCurrentLife INT,
     BloodMoon INT,
@@ -14,56 +14,42 @@ CREATE TABLE game (
     LastRegion ENUM("Hyrule","Death mountain","Gerudo","Necluda","Castle")
 );
 
-CREATE Table food (
-    GameId INT NOT NULL,
+CREATE Table Food (
+    GameId INT,
     FoodName ENUM("Vegetable","Fish","Meat","Salad","Pescatarian","Roasted"),
     FoodQuantity INT,
     TimesObtained INT,
-    TimesComsumed INT,
-    PRIMARY KEY(GameId, FoodName),
-    FOREIGN KEY(GameId) REFERENCES game(GameId)
+    TimesConsumed INT
 );
 
-CREATE Table weapons (
-    GameId INT NOT NULL,
+CREATE Table Weapons (
+    GameId INT,
     WeaponName ENUM("Sword","Shield","Wood Sword","Wood Shield"),
     WeaponQuantity INT,
-    WeaponDurability INT
+    WeaponDurability INT,
     Equiped BOOLEAN,
     TimesObtained INT,
-    TimesUsed INT,
-    PRIMARY KEY(GameId, WeaponName)
-    FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
+    TimesUsed INT
+);
 
-CREATE Table Sanctuaries {
-    GameId INT NOT NULL,
+CREATE Table Sanctuaries (
+    GameId INT,
     SanctuaryId INT,
-    Opened BOOLEAN,
-    PRIMARY KEY(GameId, SanctuaryId)
-    FOREIGN KEY(GameId) REFERENCES game(GameId)
-}
+    Opened BOOLEAN
+);
 
-CREATE Table Enemies {
-    GameId INT NOT NULL,
+CREATE Table Enemies (
+    GameId INT,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
     EnemyId INT,
     EnemyLife INT,
     PosX INT,
-    PoxY INT,
-    PRIMARY KEY(GameId, Loacation, EnemyId)
-    FOREIGN KEY(GameId) REFERENCES game(GameId)
-}
-
-DROP TABLE Chests
+    PosY INT
+);
 
 CREATE Table Chests (
-    GameId INT NOT NULL,
+    GameId INT,
     Loacation ENUM("Hyrule","Death mountain","Gerudo","Necluda"),
     ChestId INT,
-    Opened BOOLEAN,
-    PRIMARY KEY(GameId, Loacation, ChestId),
-    FOREIGN KEY(GameId) REFERENCES game(GameId)
-)
-
-SELECT * FROM chests order by PosX asc, PosY asc
+    Opened BOOLEAN
+);
