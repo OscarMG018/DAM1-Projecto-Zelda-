@@ -38,11 +38,8 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 | Action            | Shortcut           | Shortcut |
 |-------------------|--------------------|----------|
-| Equip weapon      | `Equip 'weapon'`   | ```shell
-# Update apt.
-sudo apt update
-```
-quip shield      | `Equip 'shield'`   |
+| Equip weapon      | `Equip 'weapon'`   | 
+| Equip shield      | `Equip 'shield'`   |
 | Unequip weapon    | `Unequip 'weapon'` |
 | Unequip shield    | `Unequip 'shield'` |
 | Zoom in           | `=`                |
@@ -87,6 +84,4 @@ $ cd carbon-lang
 Then you can build and run the explorer:
 
 ```shell
-# Build and run the explorer.
-$ bazel run //explorer -- ./explorer/testdata/print/format_only.carbon
-```
+Build and run the explorer.
