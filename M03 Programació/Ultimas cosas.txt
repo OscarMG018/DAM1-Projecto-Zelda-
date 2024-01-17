@@ -1,0 +1,5 @@
+revisar mensages de las ultimas cosas añadidas
+canviar fishing y go by the water para que funcionen con "-"
+commandos sin argumentos
+canviar BDdata por consultes BD en todas las pantallas
+playtestear cheats
