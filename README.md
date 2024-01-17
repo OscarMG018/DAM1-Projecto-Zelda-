@@ -83,5 +83,6 @@ $ cd carbon-lang
 
 Then you can build and run the explorer:
 
-```shell
-Build and run the explorer.
+
+# Build and run the explorer: $ bazel run //explorer -- ./explorer/testdata/print/format_only.carbon
+
