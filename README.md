@@ -36,15 +36,15 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 #### Inventory controls
 
-| Action            | Shortcut           | Shortcut |
+| Action            | Shortcut           | Example  |
 |-------------------|--------------------|----------|
-| Equip weapon      | `Equip 'weapon'`   | 
-| Equip shield      | `Equip 'shield'`   |
-| Unequip weapon    | `Unequip 'weapon'` |
-| Unequip shield    | `Unequip 'shield'` |
-| Zoom in           | `=`                |
-| Zoom out          | `-`                |
-| Toggle fullscreen | `F11`              |
+| Equip weapon      | `Equip 'weapon'`   |          |
+| Equip shield      | `Equip 'shield'`   |          |
+| Unequip weapon    | `Unequip 'weapon'` |          |
+| Unequip shield    | `Unequip 'shield'` |          |
+| Zoom in           | `=`                |          |
+| Zoom out          | `-`                |          |
+| Toggle fullscreen | `F11`              |          |
 
 #### Interacion controls
 
@@ -64,13 +64,16 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 -----
 
-</div>
+**Este texto estará en negrita**
+
+*Este texto estará en cursiva*
+
+***Este texto estará en negrita y cursiva***
+
+`Este texto será tratado como código en línea`
 
 
 
-| Descripción                  | Comando                                               |
-|------------------------------|-------------------------------------------------------|
-| Build and run the explorer   | `$ bazel run //explorer -- ./explorer/testdata/print/format_only.carbon` |
 
 
 
