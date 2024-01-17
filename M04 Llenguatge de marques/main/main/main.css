@@ -432,24 +432,43 @@ p span::before {
 #texto_princi h2 {
     font-size: 3.5rem;
     transform: scaleY(1.3);
-    margin-left: 5vw;
-    margin-right: 5vw;
+    margin-left: 8vw;
+    margin-right: 8vw;
     cursor:default;
 }
 
 #texto_princi p {
+    margin: 0;
     font-size: 1.5rem;
     font-weight: 700;
     transform: scaleY(1.2);
-    margin-left: 5vw;
+    margin-left: 10vw;
     cursor:default;
-    margin-right: 5vw;
+    margin-top: 9vh;
+    margin-right: 10vw;
 
 }
                                                                         /* IMAGENES */
 
+.runes {
+    display: flex;
+    height: 13px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 7vh;
+    margin-bottom: 7vh;
+}
+
+.runes div {
+    width: 80%;
+    height: 100%;
+    background: url(img/runes-1.png);
+    background-size: contain;
+}
+
+
 .box {
-    margin-top: 50px;
     width: 100%;
     display: flex;
     align-content: center;
@@ -542,7 +561,6 @@ p span::before {
 
                                                                         /* TARJETAS */
 #bump_top_2 {
-    margin-top: 8vh;
     width: 100vw;
     height: 50px;
     background: url(img/runes-bottom-ivory.svg);
