@@ -311,15 +311,16 @@ def AdjacentEntity(y,x,entityToFind,PropertySearching="name"):
                 return GetEntityByPosition(y2,x2)
     return None
 
-def NearestTerrain(y, x, terrainToFind):
+def NearestTerrain(y, x, terrainsToFind):
     visited = [[False for _ in range(len(map[0]))] for _ in range(len(map))]
     queue = deque([(y, x, 0)])  # (y, x, distance)
     visited[y][x] = True
 
     while queue:
         y, x, dist = queue.popleft()
-        if TerrainAt(y, x) == terrainToFind:
-            return (y, x)
+        for terrainToFind in terrainsToFind:
+            if TerrainAt(y, x) == terrainToFind:
+                return (y, x)
 
         for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:  # up, down, left, right
             ny, nx = y + dy, x + dx
@@ -486,13 +487,13 @@ def MovePlayerNearEntity(EntityProperty,EntityValue): #
     MoveEntityTo(playerIndex,pos[0],pos[1])
     return f"You can't go to {EntityValue} from here"*(radius-1 != 0)
 
-def MovePlayerNearTerrain(terrain):
+def MovePlayerNearTerrain(terrains):
     playerIndex = GetPlayerIndex()
     px = GetEntityByIndex(playerIndex)["x"]
     py = GetEntityByIndex(playerIndex)["y"]
-    terrainPosition = NearestTerrain(py,px,terrain)
+    terrainPosition = NearestTerrain(py,px,terrains)
     if terrainPosition == (-1,-1):
-        return f"There is no {terrain} near you"
+        return f"There is no {terrains[0]} near you"
 
     posiblePositions = []
     radius = 1
@@ -506,7 +507,7 @@ def MovePlayerNearTerrain(terrain):
         radius += 1
     pos = random.choice(posiblePositions)
     MoveEntityTo(playerIndex,pos[0],pos[1])
-    return f"You can't go to {terrain} from here"*(radius-1 != 0)
+    return f"You can't go to {terrains[0]} from here"*(radius-1 != 0)
 
 """-------------Enemy-----------"""
 

@@ -878,7 +878,7 @@ def ExecuteMapAction(command,args):
                 Combate.PlayerLife -= 1
         elif len(args) == 3 and args[0].lower() == "by" and args[1].lower() == "the":
             if args[2].lower() == "water":
-                message = Jugabilidad.MovePlayerNearTerrain("~")
+                message = Jugabilidad.MovePlayerNearTerrain(["~","-"])
                 if message == "You can't go to ~ from here":
                     AddToPropmts(message)
                     ActionTime()

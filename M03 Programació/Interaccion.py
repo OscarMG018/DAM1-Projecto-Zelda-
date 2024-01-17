@@ -14,7 +14,7 @@ def TryFishing():
     py = Jugabilidad.GetEntityByIndex(playerIndex)["y"]
     if fished:
         return False,"You have already fished in this loacation"
-    if not Jugabilidad.AdjacentTerrain(py,px,"~"):
+    if not (Jugabilidad.AdjacentTerrain(py,px,"~") or  Jugabilidad.AdjacentTerrain(py,px,"-")):
         return False, "There isn't water near you"
     return True,None
 
