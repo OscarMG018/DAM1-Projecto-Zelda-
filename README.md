@@ -51,7 +51,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Action            | Shortcut |
 |-------------------|----------|
 | Turn page left    | ```shell
-# Update apt.     |
+# Update apt.                  |
 | Turn page right   | `D`      |
 | Next Surah        | `W`      |
 | Previous Surah    | `S`      |
