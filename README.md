@@ -10,4 +10,24 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 </div>
 
-<img src="https://static.wikia.nocookie.net/zelda/images/d/d7/Zelda_Breath_of_the_Wild_BotW_Logo.png/revision/latest?cb=20170523125012&path-prefix=es">
+<div align="left">
+
+### Keyboard Shortcuts
+*Tooltips within the app also explain the keyboard shortcuts for the respective function*
+
+| Action            | Shortcut |
+|-------------------|----------|
+| Turn page left    | `A`      |
+| Turn page right   | `D`      |
+| Next Surah        | `W`      |
+| Previous Surah    | `S`      |
+| Zoom in           | `=`      |
+| Zoom out          | `-`      |
+| Toggle fullscreen | `F11`    |
+| Toggle theme      | `T`      |
+| Jump to last page | `E`      |
+| Open on quran.com | `Q`      |
+
+-----
+
+</div>
