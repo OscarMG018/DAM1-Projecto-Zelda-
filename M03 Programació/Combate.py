@@ -8,8 +8,6 @@ PlayerMaxLife = 3
 BloodMoon = 0
 BloodMoonAppearances = 0
 
-
-
 def tryattack():
     player = Jugabilidad.GetPlayer()
     enemy = Jugabilidad.AdjacentEntity(player["y"],player["x"],"Enemy")
@@ -30,7 +28,7 @@ def attack():
     shield_equipped = Inventario.GetEquipedShield()
 
     if weapon_equipped is None:
-        return ["No hay armas equipadas para atacar."]
+        return ["You don't have a weapon equiped"]
 
     player = Jugabilidad.GetPlayer()
     entity = Jugabilidad.GetEntityByIndex(entityIndex)
@@ -53,9 +51,10 @@ def attack():
             messages.append(message)
         if entity["life"] <= 0:
             Jugabilidad.RemoveEntity(entityIndex)
-            messages.append(f"Atacaste al enemigo con {weapon_equipped}. ¡Enemigo eliminado!")
+            messages.append(f"Brave, keep fighting Link")
         else:
-            messages.append(f"Atacaste al enemigo con {weapon_equipped}. Vida restante del enemigo: {entity['life']}.")
+            messages.append(f"“You defeated an enemy, this is a dangerous zone")
+        messages.append(f"Be careful Link, you only have {PlayerLife} hearts")
         return messages
 
     elif entity["name"] == "Fox":
@@ -64,8 +63,8 @@ def attack():
         message = [Inventario.UseWeapon()]
         Inventario.AddItem("Meat",1)
         if len(message) > 0:
-            return [f"Atacaste al zorro con {weapon_equipped}. ¡Zorro eliminado!"] + message
-        return [f"Atacaste al zorro con {weapon_equipped}. ¡Zorro eliminado!"]
+            return ["You got meat"] + message
+        return [f"You got meat"]
     
 
 frases = [

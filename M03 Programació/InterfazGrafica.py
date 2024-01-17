@@ -1121,6 +1121,7 @@ def MapMenu(LastLocation):
 
 
 def GameOverMenu():
+    AddToPropmts("Nice try, you died, game is over")
     while(True):
         clear_screen()
         GameOver()
@@ -1136,6 +1137,7 @@ def GameOverMenu():
             AddToPropmts("Invalid Action")
 
 def ZeldaSavedMenu():
+    AddToPropmts("You saved Zelda, you won the game")
     while(True):
         clear_screen()
         ZeldaSaved()
