@@ -10,4 +10,4 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 </div>
 
-<img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fzelda.fandom.com%2Fes%2Fwiki%2FThe_Legend_of_Zelda%3A_Breath_of_the_Wild&psig=AOvVaw3A0OyoGpOsysezneQEcqna&ust=1705596075608000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCLj539Tu5IMDFQAAAAAdAAAAABAD">
+<img src="https://static.wikia.nocookie.net/zelda/images/d/d7/Zelda_Breath_of_the_Wild_BotW_Logo.png/revision/latest?cb=20170523125012&path-prefix=es">
