@@ -12,7 +12,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <div align="left">
 
-### Keyboard Shortcuts
+### Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
 
 | Action            | Shortcut |
