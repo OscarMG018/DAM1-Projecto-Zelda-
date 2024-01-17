@@ -6,6 +6,8 @@ import random
 import Guardado
 
 def makeCheat(args):
+    if len(args) == 0:
+        return "Cheating: No cheat specified"
     if args[0] == "rename":
         return renamePlayer(args[1])
     elif args[0] == "add":
@@ -32,11 +34,18 @@ def AddItem(item):
 def cookFood(food):
     if food not in ["Salad","Roasted","Pescatarian"]:
         return "Cheating: That is not a food"
-    succes,message = Interaccion.TryCook(food)
-    if succes:
-        return f"Cheating: cheat cook {food}"
-    else:
-        return "Cheating: " + message
+    if food not in Interaccion.CookingIngredients:
+        return "CheatingThis recipe doesn't exist"
+    insuficientIngredients = []
+    for ingridient in Interaccion.CookingIngredients[food]:
+        if Inventario.GetItem(ingridient[0]) < ingridient[1]:
+            insuficientIngredients.append(ingridient[0])
+    if len(insuficientIngredients) > 0:
+        return "You don't have enough "+" and ".join(insuficientIngredients)
+    for ingridient in Interaccion.CookingIngredients[food]:
+        Inventario.RemoveItem(ingridient[0],ingridient[1])
+    Inventario.AddItem(food,1)
+    return f"Cheating: cheat cook {food}"
     
 def ValidName(name):
     if len(name) < 3 or len(name) > 20:
@@ -52,7 +61,6 @@ def renamePlayer(NewName):
     Guardado.Saves[Guardado.ActiveSave]["PlayerName"] = NewName
     return f"Cheating: cheat rename {NewName}"
     
-
 def OpenSanctuaris():
     Jugabilidad.OpenSanctuaris = [True,True,True,True,True,True,True]
     Combate.PlayerLife = 9
@@ -60,7 +68,7 @@ def OpenSanctuaris():
     return "Cheating: Cheat open sanctuaris"
 
 def GameOver():
-    Combate.PlayerCurrentLife = 0
+    Combate.PlayerLife = 0
     return "Cheating: Cheat game over"
 
 def WinGame():

@@ -129,6 +129,7 @@ def parse_input(input):
         return None, None
     command = parts[0]
     args = parts[1:]
+    print(command,args)
     return command, args
 
 
@@ -806,9 +807,7 @@ def ExecuteMapAction(command,args):
         return
     command = command.lower()
     if command == "go":
-        if args[0].isdigit():
-            if len(args) != 2:
-                AddToPropmts("Invalid action")
+        if len(args) == 2 and args[0].isdigit():
             number = int(args[0])
             direction = args[1].lower()
             if direction == "up":
@@ -836,7 +835,7 @@ def ExecuteMapAction(command,args):
             if Jugabilidad.mapName == "Castle" and Combate.InFrontOfGanon():
                 AddToPropmts("Ganon's presence hurts you")
                 Combate.PlayerLife -= 1
-        elif args[0].lower() == "by" and args[1].lower() == "the":
+        elif len(args) == 3 and args[0].lower() == "by" and args[1].lower() == "the":
             if args[2].lower() == "water":
                 message = Jugabilidad.MovePlayerNearTerrain("~")
                 if message == "You can't go to ~ from here":
@@ -920,8 +919,9 @@ def ExecuteMapAction(command,args):
                 SaveData()
                 ActionTime()
     elif command == "show":
-        if len(args) > 2:
+        if len(args) != 2 or len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         if args[0].lower() == "inventory":
             if args[1].lower() in ["main","weapons","food"]:
                 global invetoryToShow
@@ -1001,6 +1001,7 @@ def ExecuteMapAction(command,args):
     elif command == "unequip":
         if len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         if "sword" in args[0].lower() or "shield" in args[0].lower():
             message = Inventario.unequip_item(args[0].title())
             AddToPropmts(message)
@@ -1037,6 +1038,7 @@ def ExecuteMapAction(command,args):
     elif command == "exit":
         if len(args) != 0:
             AddToPropmts("Invalid action")
+            return
         return "back"
     else:
         AddToPropmts("Invalid action")
@@ -1066,7 +1068,7 @@ def MapMenu(LastLocation):
         if ExecuteMapAction(command,args) == "back":
             break
         if len(Jugabilidad.GetAllEntiiesWithName("Ganon")) == 1 and len(Jugabilidad.GetAllEntiiesWithName("GanonHeart")) == 0:
-            Combate.PlayerLife = 1
+            Combate.PlayerLife = Combate.PlayerMaxLife
             SaveData()
             ZeldaSavedMenu()
             break
