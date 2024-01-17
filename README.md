@@ -3,6 +3,10 @@
 # 🏹 - Zelda Breath of the Wild - 🛡️  
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
+<sub>
+    Coded with 💙 by edoardottt.
+  </sub>
+  
 </div>
 
 Hola
