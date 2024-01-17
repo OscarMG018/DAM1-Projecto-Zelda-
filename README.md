@@ -38,8 +38,11 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 | Action            | Shortcut           | Shortcut |
 |-------------------|--------------------|----------|
-| Equip weapon      | `Equip 'weapon'`   | ```Shell hola```
-| Equip shield      | `Equip 'shield'`   |
+| Equip weapon      | `Equip 'weapon'`   | ```shell
+# Update apt.
+sudo apt update
+```
+quip shield      | `Equip 'shield'`   |
 | Unequip weapon    | `Unequip 'weapon'` |
 | Unequip shield    | `Unequip 'shield'` |
 | Zoom in           | `=`                |
