@@ -623,7 +623,7 @@ def AboutMenu():
             AddToPropmts("Invalid Action")
 
 def ValidName(name):
-    if len(name) < 3 or len(name) > 20:
+    if len(name) < 3 or len(name) > 10:
         return False
     for c in name:
         if not c.isalnum() and c != " ":
@@ -761,7 +761,7 @@ def LegendPlotMenu(PlayerName):
         else:
             prompts_list.append("> Invalid Action")
     InitializeNewGame(PlayerName)
-    MapMenu("Hyrule")
+    MapMenu("Hyrule",True)
 
 mapConnections = {
     "Hyrule" : ["Gerudo","Death mountain","Castle"],
@@ -1085,10 +1085,12 @@ def ExecuteMapAction(command,args):
 
 invetoryToShow = "main"
 
-def MapMenu(LastLocation):
+def MapMenu(LastLocation,newGame=False):
     global invetoryToShow
     invetoryToShow = "main"
     Jugabilidad.LoadMap(LastLocation)
+    if newGame:
+        Jugabilidad.MovePlayerBy(0,1)
     message = Interaccion.DecideFoxVisibility()
     AddToPropmts(message)
     Jugabilidad.AnimateWater()
