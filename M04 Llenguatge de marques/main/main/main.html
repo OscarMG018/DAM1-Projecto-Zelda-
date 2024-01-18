@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Título de tu Página</title>
-    <link rel="stylesheet" href="main.css">
-    <script src="main.js" async></script>
-    <script src="../shadowPartial.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/main.js" async></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
@@ -56,14 +55,6 @@
 
     <a href="">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-            <path fill-rule="evenodd" d="M4.125 3C3.089 3 2.25 3.84 2.25 4.875V18a3 3 0 003 3h15a3 3 0 01-3-3V4.875C17.25 3.839 16.41 3 15.375 3H4.125zM12 9.75a.75.75 0 000 1.5h1.5a.75.75 0 000-1.5H12zm-.75-2.25a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5H12a.75.75 0 01-.75-.75zM6 12.75a.75.75 0 000 1.5h7.5a.75.75 0 000-1.5H6zm-.75 3.75a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5H6a.75.75 0 01-.75-.75zM6 6.75a.75.75 0 00-.75.75v3c0 .414.336.75.75.75h3a.75.75 0 00.75-.75v-3A.75.75 0 009 6.75H6z" clip-rule="evenodd" />
-            <path d="M18.75 6.75h1.875c.621 0 1.125.504 1.125 1.125V18a1.5 1.5 0 01-3 0V6.75z" />
-        </svg>
-        News
-    </a>
-
-    <a href="">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
             <path fill-rule="evenodd" d="M15 3.75a.75.75 0 01.75-.75h4.5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0V5.56l-4.72 4.72a.75.75 0 11-1.06-1.06l4.72-4.72h-2.69a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
             <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
         </svg>
@@ -76,7 +67,6 @@
 
 <a class="recurso-utilizado"><img id="tile" src="img/tile.png"></a>
 <a class="recurso-utilizado"><img id="ntile" src="img/ntile.png"></a>
-
 
 
 <canvas id="canvasElement" class="fullsize">
@@ -150,7 +140,7 @@ void main() {
                 <div id="buttons_hero">
                     <a href="#" class="button_h" style="--clr:#24584D"><span>Tutorial <img src="img/diagonalarrowrightup_110941.png"></span><i></i></a>
                     <a href="#" class="button_h" style="--clr:#24584D"><span>About us <img src="img/diagonalarrowrightup_110941.png"></span><i></i></a>
-                    <a href="#" class="button_h" style="--clr:#24584D"><span>... <img src="img/diagonalarrowrightup_110941.png"></span><i></i></a>
+                    <a href="#" class="button_h" style="--clr:#24584D"><span>Timeline <img src="img/diagonalarrowrightup_110941.png"></span><i></i></a>
                 </div>
             </div>
 
@@ -167,7 +157,6 @@ void main() {
                             <video class="hex-video hex-media" src="img/Ashoka.mp4" autoplay muted loop></video>
                         </div>
                         </div>
-                        
                 </div>
                 <div class="linea">
                     <div class="hex-bord">
@@ -192,14 +181,14 @@ void main() {
         </div>
 
 
-        <!-- Ampliacion de imagen -->
-    <div id="myModal" class="modal">
-        <span class="close">&times;</span>
-        <div class="modal-content-container">
-            <img class="modal-content" id="mediaModal" alt="Media">
-            <video class="modal-content" id="videoModal" controls muted></video>
-        </div>
+    <!-- Ampliacion de imagen -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-content-container">
+        <img class="modal-content" id="mediaModal" alt="Media">
+        <video class="modal-content" id="videoModal" controls muted></video>
     </div>
+</div>
 
 
 <!-- Separador -->
@@ -284,7 +273,7 @@ void main() {
 
         <div class="card" style="--clr:#3ae374;">
             <div class="content">
-                <h2>...</h2>
+                <h2>Timeline</h2>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum rem tempora, omnis tempore natus beatae excepturi blanditiis quas mollitia reprehenderit a, cum exercitationem vitae magnam!</p>
                 <a href="#">Read More</a>
             </div>
@@ -292,7 +281,7 @@ void main() {
                 <img src="img/grupo.png">
             </div>
             <div class="textBx" style="background: url(img/pattern-circles-ocher-2x.png);">
-                <h2>...</h2>
+                <h2>Timeline</h2>
             </div>
         </div>
 </div>
