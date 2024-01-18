@@ -69,11 +69,13 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 -----
 
+*FOOD*
 
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
-*Este texto estará en cursiva*
-
-<img src="ReadmeImages/meat.png" alt="Descripción de la imagen" width = "600px">
+<img src="ReadmeImages/meat.png" width = "16%" height=auto>
+<img src="ReadmeImages/vegetable.png" width = "16%" height=auto>
+<img src="ReadmeImages/pescatarian.png" width = "16%" height=auto>
 
 
 
