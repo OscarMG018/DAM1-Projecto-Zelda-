@@ -907,7 +907,7 @@ def ExecuteMapAction(command,args):
                         ActionTime()
                 else:
                     AddToPropmts("That is not in this location")
-        elif args[0] == "to":
+        elif len(args) == 2 and args[0] == "to":
             mapname = (" ".join(args[1:])).capitalize()
             " ".capitalize()
             if Jugabilidad.mapName == mapname:
