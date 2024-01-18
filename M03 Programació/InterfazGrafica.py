@@ -1092,6 +1092,7 @@ def MapMenu(LastLocation):
     Jugabilidad.LoadMap(LastLocation)
     message = Interaccion.DecideFoxVisibility()
     AddToPropmts(message)
+    Jugabilidad.AnimateWater()
     while(True):
         clear_screen()
         mapstr = Jugabilidad.MapToStr()
