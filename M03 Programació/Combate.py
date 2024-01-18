@@ -38,12 +38,16 @@ def attack():
         if shield_equipped == "Shield":
             if random.random() > 0.6:
                 PlayerLife -= 1
+            else:
+                messages.append(f"You blocked the attack")
             message = Inventario.UseShield()
             if message != None:
                 messages.append(message)
         elif shield_equipped == "Wood Shield":    
             if random.random() > 0.4:
                 PlayerLife -= 1
+            else:
+                messages.append(f"You blocked the attack")
             message = Inventario.UseShield()
             if message != None:
                 messages.append(message)
