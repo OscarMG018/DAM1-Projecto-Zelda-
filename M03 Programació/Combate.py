@@ -62,9 +62,9 @@ def attack():
             messages.append(message)
         if entity["life"] <= 0:
             Jugabilidad.RemoveEntity(entityIndex)
-            messages.append(f"Brave, keep fighting Link")
-        else:
             messages.append(f"“You defeated an enemy, this is a dangerous zone")
+        else:
+            messages.append(f"Brave, keep fighting Link")
         messages.append(f"Be careful Link, you only have {PlayerLife} hearts")
         return messages
 
