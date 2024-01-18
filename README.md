@@ -78,7 +78,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
-##FOOD
+###FOOD
 
 <img src="ReadmeImages/meat.png" width = "16%" height=auto>
 <img src="ReadmeImages/vegetable.png" width = "16%" height=auto>
