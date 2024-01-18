@@ -824,3 +824,11 @@ carousel.addEventListener("touchmove", dragging);
 
 document.addEventListener("mouseup", dragStop);
 carousel.addEventListener("touchend", dragStop);
+
+/* Header */
+function toggleMenu() {
+    let menuBtn = document.getElementById('menu');
+    let menuItem = document.getElementById('menuItem');
+    menuBtn.classList.toggle('active')
+    menuItem.classList.toggle('active')
+}
