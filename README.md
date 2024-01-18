@@ -27,6 +27,18 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Relative movement | *Go by the 'symbol'* | `Go by the M`         |
 | Region movement   | *Go to 'region'*    | `Go to Gerudo`        |
 
+
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+
+#### Interacion controls
+
+| Action | Definition | Aspects | 
+|--------|------------|---------|
+|        |            |         |
+|        |            |         |     
+|--------|------------|---------|
+
+
 #### Food items
 
 #### Recepts
@@ -39,8 +51,8 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Equip shield      | *Equip 'shield'*   | `Equip Shield`        |
 | Unequip weapon    | *Unequip 'weapon'* | `Unequip Sword`       |
 | Unequip shield    | *Unequip 'shield'* | `Unequip Wood Shield` |
-| Zoom in           | *Eat 'food'*       | `Eat Vegetable`       |
-| Zoom out          | *Cook 'recept'*    | `Cook Salad`          |
+| Eat item          | *Eat 'food'*       | `Eat Vegetable`       |
+| Cook item         | *Cook 'recept'*    | `Cook Salad`          |
 
 
 #### Interacion controls
