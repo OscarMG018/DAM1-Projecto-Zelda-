@@ -73,7 +73,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 *Este texto estará en cursiva*
 
-<img src="ReadmeImages/meat.png" alt="Descripción de la imagen">
+<img src="ReadmeImages/meat.png" alt="Descripción de la imagen" width = "600px">
 
 
 
