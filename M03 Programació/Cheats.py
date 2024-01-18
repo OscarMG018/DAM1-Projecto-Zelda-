@@ -48,7 +48,7 @@ def cookFood(food):
     return f"Cheating: cheat cook {food}"
     
 def ValidName(name):
-    if len(name) < 3 or len(name) > 20:
+    if len(name) < 3 or len(name) > 10:
         return False
     for c in name:
         if not c.isalnum() and c != " ":
