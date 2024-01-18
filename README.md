@@ -71,8 +71,8 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 
 <img src="ReadmeImages/meat.png" width = "16%" height=auto>
-<img src="ReadmeImages/meat.png" width = "16%" height=auto>
-
+<img src="ReadmeImages/vegetable.png" width = "16%" height=auto>
+<img src="ReadmeImages/fish.png" width = "16%" height=auto>
 
 
 
