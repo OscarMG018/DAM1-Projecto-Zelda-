@@ -646,8 +646,12 @@ def NewGameMenu():
             AddToPropmts(action)
             NewGameMenuHelp()
         else:
+            if action == "":
+                AddToPropmts(f"Welcome to the game, {'Link'}")
+                LegendPlotMenu("Link")
+                break
             if ValidName(action):
-                AddToPropmts(f"Welcome to the game,{action}")
+                AddToPropmts(f"Welcome to the game, {action}")
                 LegendPlotMenu(action)
                 break
             else:
