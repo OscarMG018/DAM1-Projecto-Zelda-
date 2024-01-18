@@ -21,18 +21,11 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 #### Map controls
 
-| Action            | Shortcut |
-|-------------------|----------|
-| Turn page left    | `A`      |
-| Turn page right   | `D`      |
-| Next Surah        | `W`      |
-| Previous Surah    | `S`      |
-| Zoom in           | `=`      |
-| Zoom out          | `-`      |
-| Toggle fullscreen | `F11`    |
-| Toggle theme      | `T`      |
-| Jump to last page | `E`      |
-| Open on quran.com | `Q`      |
+| Action            | Shortcut            | Example               |
+|-------------------|---------------------|-----------------------|
+| Lineal movement   | *Go 'X' 'direction'* | `Go 10 right`         |
+| Relative movement | *Go by the 'symbol'* | `Go by the M`         |
+| Region movement   | *Go to 'region'*    | `Go to Gerudo`        |
 
 #### Food items
 
@@ -48,7 +41,6 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Unequip shield    | *Unequip 'shield'* | `Unequip Wood Shield` |
 | Zoom in           | *Eat 'food'*       | `Eat Vegetable`       |
 | Zoom out          | *Cook 'recept'*    | `Cook Salad`          |
-
 
 
 #### Interacion controls
@@ -69,13 +61,19 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 -----
 
-*FOOD*
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
+
+##FOOD
 
 <img src="ReadmeImages/meat.png" width = "16%" height=auto>
 <img src="ReadmeImages/vegetable.png" width = "16%" height=auto>
 <img src="ReadmeImages/pescatarian.png" width = "16%" height=auto>
+
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+
+##RECEPTS
+
 
 
 
