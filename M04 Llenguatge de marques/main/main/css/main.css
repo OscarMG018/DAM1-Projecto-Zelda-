@@ -180,7 +180,7 @@ body {
 
 #titulo {
     display: flex;
-    height: auto;
+    height: 20vw;
     width: 80%;
     text-align: center;
     align-items: end;
