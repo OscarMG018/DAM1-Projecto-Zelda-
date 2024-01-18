@@ -822,7 +822,7 @@ def GetInventory():
 def ActionsAvailables():
     actions = [["Exit",2],["Go",2],["Equip",2],["Unequip",2]]
     if Jugabilidad.mapName == "Castle":
-        if Interaccion.TryCutGrass()[0] or Interaccion.TryCutTree()[0] or Combate.TryAttackGanon():
+        if Interaccion.TryCutGrass()[0] or Interaccion.TryShakeTree()[0] or Combate.TryAttackGanon():
             actions.insert(1,["Attack",2])
     else:
         if Combate.tryattack()[0] or Interaccion.TryCutGrass()[0] or Interaccion.TryShakeTree()[0]:
