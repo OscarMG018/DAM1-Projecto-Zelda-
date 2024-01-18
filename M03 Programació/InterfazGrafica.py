@@ -227,12 +227,12 @@ def about_menu():
     print(
 """* About * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                                                                             *
-*         Game developed by ‘Team 2, The hometown bugs’ :                     *
+*         Game developed by ‘Team 1, Zelda Haters’ :                          *
 *                                                                             *
 *                                                                             *
-*              Allan Turing                                                   *
-*              Steve Jobs                                                     *
-*              Linus Torvalds                                                 *
+*              Oscar Medina                                                   *
+*              Pablo Vicente                                                  *
+*              Victor Valero                                                  *
 *                                                                             *
 *         Type 'back' now to go back to the 'Main menu'                       *
 *                                                                             *
