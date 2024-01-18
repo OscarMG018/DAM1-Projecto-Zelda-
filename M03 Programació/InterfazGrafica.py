@@ -129,7 +129,6 @@ def parse_input(input):
         return None, None
     command = parts[0]
     args = parts[1:]
-    print(command,args)
     return command, args
 
 
@@ -907,7 +906,7 @@ def ExecuteMapAction(command,args):
                         ActionTime()
                 else:
                     AddToPropmts("That is not in this location")
-        elif len(args) == 2 and args[0] == "to":
+        elif len(args) >= 2 and args[0] == "to":
             mapname = (" ".join(args[1:])).capitalize()
             " ".capitalize()
             if Jugabilidad.mapName == mapname:
@@ -960,7 +959,7 @@ def ExecuteMapAction(command,args):
                 SaveData()
                 ActionTime()
     elif command == "show":
-        if len(args) != 2 or len(args) != 1:
+        if len(args) != 2 and len(args) != 1:
             AddToPropmts("Invalid action")
             return
         if args[0].lower() == "inventory":
