@@ -431,7 +431,7 @@ def print_table(query_result,columnNames, n):
         print("+ *")
 
 def dbdata_help():
-    result = "* DBdata, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    result = "* consultes BD, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result +="*                                                                              *" + "\n"
     result +="*     Players: Players that have played                                        *" + "\n"
     result +="*     Player Activity: Number of games played per player                       *" + "\n"
