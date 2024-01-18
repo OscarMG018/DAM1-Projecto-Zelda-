@@ -34,8 +34,9 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 | Action | Definition                         | Aspects                                                                         | 
 |--------|------------------------------------|---------------------------------------------------------------------------------|
-| Attack | Attacks to a near entoty           | An enemy or fox has to be 1 cell near and player needs to have a sword equipped |
-
+| Attack | Attacks to a near entity           | An enemy or fox has to be 1 cell near and player needs to have a sword equipped |
+| Attack | Cuts a nearby bush                 | A bush has to be 1 cell near and player needs to have a sword equipped          |
+| Open   | Opens a chest                      | A chest has to be 1 cell near |
 
 #### Food items
 
