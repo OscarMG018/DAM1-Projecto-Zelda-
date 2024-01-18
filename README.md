@@ -32,11 +32,9 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 #### Interacion controls
 
-| Action | Definition | Aspects | 
-|--------|------------|---------|
-|        |            |         |
-|        |            |         |     
-|--------|------------|---------|
+| Action | Definition                         | Aspects                                                                         | 
+|--------|------------------------------------|---------------------------------------------------------------------------------|
+| Attack | Attacks to a near entoty           | An enemy or fox has to be 1 cell near and player needs to have a sword equipped |
 
 
 #### Food items
