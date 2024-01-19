@@ -1,6 +1,6 @@
 <div align="center" style="padding-bottom: 200px;">
 
-<h1 align="center" font-family: "Babas">
+<h1 align="center" font-family: Babas>
 🏹 - Zelda Breath of the Wild - 🛡️  
 <br/><br/>
 
