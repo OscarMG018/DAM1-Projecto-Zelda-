@@ -50,10 +50,6 @@
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 </sub>
 
-</div>
-
-<div align="left">
-
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 ### Game controls
