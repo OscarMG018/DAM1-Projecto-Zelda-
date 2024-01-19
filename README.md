@@ -75,7 +75,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 <div>
 
 # Introduction
-
+  
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
 tribe. The Sheikah were a tribe of warriors who protected  the Triforce,  
 a sacred relic that granted wishes.  
