@@ -62,6 +62,7 @@ def SaveToDB(number):
         for i,chest in enumerate(locationvalue["Chests"]):
             ExecuteQuerry(f"UPDATE Chests SET Opened = {chest['opened']} WHERE GameId = {number} and ChestId = {i} and Loacation = '{locationName}'")
     disconnect_db()
+
 def DeleteSaveFromDB(number):
     connect_db()
     try:

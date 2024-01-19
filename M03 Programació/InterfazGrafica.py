@@ -943,8 +943,8 @@ def ExecuteMapAction(command,args):
         message = Interaccion.Fishing()
         AddToPropmts(message)   
         if message == "You Get A Fish" or message == "You don't Get A Fish":
-            SaveData()
             ActionTime()
+            SaveData()
     elif command == "open":
         if len(args) != 1:
             AddToPropmts("Invalid action")
@@ -953,15 +953,15 @@ def ExecuteMapAction(command,args):
             message = Interaccion.OpenChest()
             AddToPropmts(message)
             if message[0] == "Y":
-                SaveData()
                 ActionTime()
+                SaveData()
         elif args[0].lower() == "sanctuary":
             message = Interaccion.OpenSanctuary()
             if message[4] != "o":
                 AddToPropmts(message)
             else:
-                SaveData()
                 ActionTime()
+                SaveData()
     elif command == "show":
         if len(args) != 2 and len(args) != 1:
             AddToPropmts("Invalid action")
@@ -1190,3 +1190,4 @@ def SaveData():
 
 Guardado.LoadFromDB()
 MainMenu()
+
