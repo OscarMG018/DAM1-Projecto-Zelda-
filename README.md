@@ -72,8 +72,10 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div>
+<div aligh="center">
 
+<div align="left">
+        
 # Introduction
   
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
@@ -93,6 +95,15 @@ But a young man named 'Link' has just awakened and
 must reclaim the Guardians to defeat Ganon and save Hyrule.  
 
 </div>
+
+<div align="right">
+
+<img width="350" src="https://static.wikia.nocookie.net/logopedia/images/5/53/763px-BotW_NA_Logo.png/revision/latest?cb=20160701154320" />
+
+</div>
+</div>
+
+<br/><br/>
 
 # Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
