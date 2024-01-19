@@ -56,29 +56,15 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Eat item          | *Eat 'food'*       | `Eat Vegetable`       |
 | Cook item         | *Cook 'recept'*    | `Cook Salad`          |
 
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
-#### Interacion controls
+<div align="center" style="padding-bottom: 200px;">
 
-| Action            | Shortcut |
-|-------------------|----------|
-| Turn page left    | ```shell
-# Update apt.                  |
-| Turn page right   | `D`      |
-| Next Surah        | `W`      |
-| Previous Surah    | `S`      |
-| Zoom in           | `=`      |
-| Zoom out          | `-`      |
-| Toggle fullscreen | `F11`    |
-| Toggle theme      | `T`      |
-| Jump to last page | `E`      |
-| Open on quran.com | `Q`      |
-
------
-
+# 🍖 - Food - 🌿 
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
-###FOOD
+</div>
 
 <img src="ReadmeImages/meat.png" width = "30%" height=auto>
 <img src="ReadmeImages/vegetable.png" width = "30%" height=auto>
@@ -86,11 +72,17 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
-##RECEPTS
+<div align="center" style="padding-bottom: 200px;">
 
-<img src="ReadmeImages/roasted.png" width = "30%" height=auto>
-<img src="ReadmeImages/salad.png" width = "30%" height=auto>
-<img src="ReadmeImages/pescatarian.png" width = "30%" height=auto>
+# 🍲 - Recepts - 🥗
+
+[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+
+</div>
+
+<img src="ReadmeImages/roasted.png" width = "50%" height=auto>
+<img src="ReadmeImages/salad.png" width = "50%" height=auto>
+<img src="ReadmeImages/pescatarian.png" width = "50%" height=auto>
 
 
 
