@@ -72,7 +72,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div aligh="center">
+<div align="center">
 
 <div align="left">
         
@@ -98,7 +98,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 <div align="right">
 
-<img width="350" src="https://static.wikia.nocookie.net/logopedia/images/5/53/763px-BotW_NA_Logo.png/revision/latest?cb=20160701154320" />
+<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
 
 </div>
 </div>
