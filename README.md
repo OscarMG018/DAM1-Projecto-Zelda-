@@ -4,6 +4,8 @@
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
+<br/><br/>
+
 <h3 align="center">
         <samp>&gt; Hey There!, We are
                 <b><a target="_blank">ZeldaHaters</a></b>
