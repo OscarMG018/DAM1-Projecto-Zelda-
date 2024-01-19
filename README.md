@@ -1,8 +1,12 @@
 <div align="center" style="padding-bottom: 200px;">
 
-# 🏹 - Zelda Breath of the Wild - 🛡️  
+<h1 align="center">
+🏹 - Zelda Breath of the Wild - 🛡️  
+<br/><br/>
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+</h1>
+
+<img align="right" src="ReadmeImages/linealsymbol.png"/>
 
 <br/><br/>
 
@@ -39,7 +43,7 @@
   
  ✌️ &emsp; We are learning to program in python<br/><br/>
  ❤️ &emsp; We enjoyed creating this project and have learned a lot<br/><br/>
- 📧 &emsp; Reach me anytime: pablovicenteroura2005@gmail.com<br/><br/>
+ 📧 &emsp; Reach us anytime: pablovicenteroura2005@gmail.com<br/><br/>
  💬 &emsp; Ask us about anything [here](https://github.com/OscarMG018/DAM1-Projecto-Zelda-/issues)
 
  </p>
@@ -47,6 +51,7 @@
 </p>
 
 </div>
+
 
 <sub align="center">
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
@@ -119,7 +124,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <div align="center" style="padding-bottom: 200px;">
 
-# 🍖 - Food - 🌿 
+# 🍖 - Food Items - 🌿 
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
@@ -135,7 +140,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <div align="center" style="padding-bottom: 200px;">
 
-# 🍲 - Recepts - 🥗
+# 🍲 - Recepts Items - 🥗
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
