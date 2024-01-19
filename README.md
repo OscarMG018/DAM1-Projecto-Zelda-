@@ -107,10 +107,6 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Open   | `Opens a chest`     |            
 | Open Santuary   | `Opens a sanctuary`  |  
 
-#### Food items
-
-#### Recepts
-
 #### Inventory controls
 
 | Action            | Shortcut           | Example               |
