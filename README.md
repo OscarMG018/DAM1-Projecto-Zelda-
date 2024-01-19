@@ -76,12 +76,6 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 # Introduction
 
-<div align="left">
-
-<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
-
-</div>
-
 <div align="right">
 
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
@@ -99,6 +93,12 @@ Ganon. He has taken over the Guardians and filled Hyrule with monsters.
 
 But a young man named 'Link' has just awakened and  
 must reclaim the Guardians to defeat Ganon and save Hyrule.  
+
+</div>
+
+<div align="left">
+
+<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
 
 </div>
 
