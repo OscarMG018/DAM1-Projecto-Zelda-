@@ -52,12 +52,6 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/><br/>
 <br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
-<br/><br/>
 
 # Use To Code
 
