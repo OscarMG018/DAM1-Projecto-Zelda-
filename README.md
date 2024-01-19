@@ -153,6 +153,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 # 🍖 - Food Items - 🌿 
 
+<br/><br/>
+
 </div>
 
 <p align="center">
@@ -167,6 +169,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 # 🍲 - Recepts Items - 🥗
 
+<br/><br/>
 
 </div>
 
