@@ -112,8 +112,6 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 # Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
-
 #### Map controls
 
 | Action            | Shortcut            | Example               |
