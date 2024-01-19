@@ -72,9 +72,11 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div>
+<div align="center">
 
 # Introduction
+
+<div align="left">
 
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
 tribe. The Sheikah were a tribe of warriors who protected  the Triforce,  
@@ -93,6 +95,17 @@ But a young man named 'Link' has just awakened and
 must reclaim the Guardians to defeat Ganon and save Hyrule.  
 
 </div>
+
+<div align="right">
+
+<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
+
+</div>
+
+</div>
+
+
+<br/><br/>
 
 # Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
