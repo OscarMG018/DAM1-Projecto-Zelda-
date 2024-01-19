@@ -80,7 +80,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <p>
 
-<img width="300px" height="auto" align="right" right-border="100px" src="https://static.wikia.nocookie.net/zelda/images/0/02/BotW_Link_Shooting_Artwork.png/revision/latest?cb=20170628164822&path-prefix=pl" />
+<img width="300px" height="auto" align="right" border-right="100px" src="https://static.wikia.nocookie.net/zelda/images/0/02/BotW_Link_Shooting_Artwork.png/revision/latest?cb=20170628164822&path-prefix=pl" />
 
 <p align="right">
 
