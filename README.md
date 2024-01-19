@@ -94,9 +94,9 @@ Ganon. He has taken over the Guardians and filled Hyrule with monsters.
 But a young man named 'Link' has just awakened and  
 must reclaim the Guardians to defeat Ganon and save Hyrule.  
 
-<img width="200px" height="200px" src="https://cdn.discordapp.com/attachments/1184188955915198607/1197944348403310713/ScreenHunter_102_Jan._19_17.42.png?ex=65bd1b9d&is=65aaa69d&hm=922bcdd87461eedf393361c6a26372b2336adff1d475ed00d36e27d709d778ee&" />
-
 </div>
+
+<img width="200px" height="200px" src="https://cdn.discordapp.com/attachments/1184188955915198607/1197944348403310713/ScreenHunter_102_Jan._19_17.42.png?ex=65bd1b9d&is=65aaa69d&hm=922bcdd87461eedf393361c6a26372b2336adff1d475ed00d36e27d709d778ee&" />
 
 </div>
 
