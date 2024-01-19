@@ -67,8 +67,6 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<br/><br/>
-
 <div>
 
 # Introduction
