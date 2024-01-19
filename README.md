@@ -133,7 +133,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Attack | `Cuts a nearby bush`        |
 | Attack | `Hits a nearby tree`     |         
 | Fish | `Fishes in a nerby lake`  |         
-| Open   | `Opens a chest`     |            
+| Open Chest   | `Opens a chest`     |            
 | Open Santuary   | `Opens a sanctuary`  |  
 
 <br/><br/>
@@ -150,6 +150,19 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Unequip shield    | *Unequip 'shield'* | `Unequip Wood Shield` |
 | Eat item          | *Eat 'food'*       | `Eat Vegetable`       |
 | Cook item         | *Cook 'recept'*    | `Cook Salad`          |
+
+<br/><br/>
+
+#### Show commands
+
+*Terminal commands to show the interfaces*
+
+| Action | Definition                         | 
+|--------|------------------------------------|
+| Show inventory main| `Attacks a nearby entity`   |
+| Show inventory weapons | `Cuts a nearby bush`        |
+| Show inventory food  | `Hits a nearby tree`     |         
+| Show map | `Fishes in a nerby lake`  |         
 
 <br/><br/>
 
@@ -183,6 +196,13 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 </p>
 
+<br/><br/>
+
+# Gameplay
+
+<div align="center">
+
+</div>
 
 
 
