@@ -1,6 +1,6 @@
 <div align="center" style="padding-bottom: 200px;">
 
-<h1 align="center">
+<h1 align="center" font-family: "Babas">
 🏹 - Zelda Breath of the Wild - 🛡️  
 <br/><br/>
 
@@ -76,10 +76,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 # Introduction
 
-<img align="center" src="ReadmeImages/txt1.png" />
-<img align="center" src="ReadmeImages/castillo.png" />
-<img align="center" src="ReadmeImages/txt2.png" />
-<img align="center" src="ReadmeImages/link.png" />
+
 
 </div>
 
