@@ -76,6 +76,22 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 # Introduction
 
+10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
+tribe. The Sheikah were a tribe of warriors who protected  the Triforce,  
+a sacred relic that granted wishes.  
+
+But one day, Ganondorf, an evil sorcerer, stole the Triforce and began  
+to rule Hyrule with an iron fist. 
+
+The princess, with the help of a heroic young man, managed to defeat  
+Ganondorf and recover the Triforce.  
+
+Now history is repeating itself, and Princess Zelda has been captured by  
+Ganon. He has taken over the Guardians and filled Hyrule with monsters.  
+
+But a young man named 'Link' has just awakened and  
+must reclaim the Guardians to defeat Ganon and save Hyrule.  
+
 </div>
 
 # Game controls
@@ -104,10 +120,6 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 | Fish | `Fishes in a nerby lake`  |         
 | Open   | `Opens a chest`     |            
 | Open Santuary   | `Opens a sanctuary`  |  
-
-#### Food items
-
-#### Recepts
 
 #### Inventory controls
 
