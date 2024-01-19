@@ -72,12 +72,16 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div>
+<div align="left">
+
+<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
+
+</div>
 
 <div align="right">
         
 # Introduction
-  
+
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
 tribe. The Sheikah were a tribe of warriors who protected  the Triforce,  
 a sacred relic that granted wishes.  
@@ -96,12 +100,6 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 </div>
 
-<div align="left">
-
-<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
-
-</div>
-</div>
 
 <br/><br/>
 
