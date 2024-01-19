@@ -80,13 +80,17 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 ###FOOD
 
-<img src="ReadmeImages/meat.png" width = "16%" height=auto>
-<img src="ReadmeImages/vegetable.png" width = "16%" height=auto>
-<img src="ReadmeImages/pescatarian.png" width = "16%" height=auto>
+<img src="ReadmeImages/meat.png" width = "30%" height=auto>
+<img src="ReadmeImages/vegetable.png" width = "30%" height=auto>
+<img src="ReadmeImages/fish.png" width = "30%" height=auto>
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 ##RECEPTS
+
+<img src="ReadmeImages/roasted.png" width = "30%" height=auto>
+<img src="ReadmeImages/salad.png" width = "30%" height=auto>
+<img src="ReadmeImages/pescatarian.png" width = "30%" height=auto>
 
 
 
