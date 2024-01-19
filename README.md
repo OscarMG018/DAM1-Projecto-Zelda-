@@ -21,7 +21,7 @@
   </samp>
 </p>
 
-<p align="left"> 
+
 
 <!-- About Section -->
  # About us
@@ -36,7 +36,7 @@
 
 </p>
 
-</p>
+
 
 <sub align="center">
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
