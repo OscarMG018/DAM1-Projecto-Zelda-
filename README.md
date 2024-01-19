@@ -32,7 +32,7 @@
 <!-- About Section -->
 
 
-<div>
+<div aligh="left">
 
 # About us
 
