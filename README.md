@@ -72,9 +72,9 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div align="center">
+<div>
 
-<div align="left">
+<div align="right">
         
 # Introduction
   
@@ -96,7 +96,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 </div>
 
-<div align="right">
+<div align="left">
 
 <img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
 
