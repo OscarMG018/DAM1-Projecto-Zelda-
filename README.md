@@ -80,9 +80,9 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 </div>
 
-<img src="ReadmeImages/roasted.png" width = "50%" height=auto>
-<img src="ReadmeImages/salad.png" width = "50%" height=auto>
-<img src="ReadmeImages/pescatarian.png" width = "50%" height=auto>
+<img src="ReadmeImages/roasted.png" width = "30%" height=auto>
+<img src="ReadmeImages/salad.png" width = "30%" height=auto>
+<img src="ReadmeImages/pescatarian.png" width = "30%" height=auto>
 
 
 
