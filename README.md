@@ -26,6 +26,8 @@
 <!-- About Section -->
 
 
+<div>
+
 # About us
 
 <p>
@@ -42,7 +44,7 @@
 
 </p>
 
-
+</div>
 
 <sub align="center">
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
