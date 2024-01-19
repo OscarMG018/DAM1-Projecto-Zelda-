@@ -72,7 +72,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div align="center">
+<div>
 
 # Introduction
 
