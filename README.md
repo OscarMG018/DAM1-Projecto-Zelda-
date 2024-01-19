@@ -10,6 +10,17 @@
         </samp>
 </h3>
 
+
+<p align="center"> 
+  <samp>
+    <a href="https://www.iesesteveterradas.cat/">「 Google Us 」</a>
+    <br>
+    「 We are a group of multiplatform application development students from Spain</b> 」
+    <br>
+    <br>
+  </samp>
+</p>
+
 <sub align="center">
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 </sub>
