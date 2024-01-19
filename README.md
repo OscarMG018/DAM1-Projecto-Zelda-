@@ -171,7 +171,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 <div align="center" style="padding-bottom: 200px;">
 
-# 🍲 - Recepts Items - 🥗
+# 🍲 - Recipes - 🥗
 
 <br/><br/>
 
