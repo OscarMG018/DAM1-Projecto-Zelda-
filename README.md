@@ -4,7 +4,13 @@
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
-<sub>
+<h3 align="center">
+        <samp>&gt; Hey There!, We are
+                <b><a target="_blank" href="https://alsiam.com">ZeldaHaters</a></b>
+        </samp>
+</h3>
+
+<sub align="center">
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 </sub>
 
