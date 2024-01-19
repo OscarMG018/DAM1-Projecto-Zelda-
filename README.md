@@ -32,7 +32,7 @@
 <!-- About Section -->
 
 
-<div>
+<div aligh="left">
 
 # About us
 
@@ -72,11 +72,17 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div align="center">
+<div align="left">
 
 # Introduction
 
-<div align="left">
+<div>
+
+<p>
+
+<img width="400px" height="auto" align="right" src="https://static.wikia.nocookie.net/zelda/images/0/02/BotW_Link_Shooting_Artwork.png/revision/latest?cb=20170628164822&path-prefix=pl" />
+
+<p align="right">
 
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
 tribe. The Sheikah were a tribe of warriors who protected  the Triforce,  
@@ -94,13 +100,9 @@ Ganon. He has taken over the Guardians and filled Hyrule with monsters.
 But a young man named 'Link' has just awakened and  
 must reclaim the Guardians to defeat Ganon and save Hyrule.  
 
-</div>
+</p>
 
-<div align="right">
-
-<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
-
-</div>
+</p>
 
 </div>
 
@@ -108,11 +110,10 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 <br/><br/>
 
 # Game controls
-*Tooltips within the app also explain the keyboard shortcuts for the respective function*
-
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 #### Map controls
+
+*Terminal commands to move around the map*
 
 | Action            | Shortcut            | Example               |
 |-------------------|---------------------|-----------------------|
@@ -120,10 +121,11 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Relative movement | *Go by the 'symbol'* | `Go by the M`         |
 | Region movement   | *Go to 'region'*    | `Go to Gerudo`        |
 
-
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+<br/><br/>
 
 #### Interacion controls
+
+*Terminal commands to interact with entities*
 
 | Action | Definition                         | 
 |--------|------------------------------------|
@@ -134,7 +136,11 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Open   | `Opens a chest`     |            
 | Open Santuary   | `Opens a sanctuary`  |  
 
+<br/><br/>
+
 #### Inventory controls
+
+*Terminal commands related to inventory*
 
 | Action            | Shortcut           | Example               |
 |-------------------|--------------------|-----------------------|
@@ -145,13 +151,13 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Eat item          | *Eat 'food'*       | `Eat Vegetable`       |
 | Cook item         | *Cook 'recept'*    | `Cook Salad`          |
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+<br/><br/>
 
 <div align="center" style="padding-bottom: 200px;">
 
 # 🍖 - Food Items - 🌿 
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+<br/><br/>
 
 </div>
 
@@ -161,13 +167,13 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 </p>
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+<br/><br/>
 
 <div align="center" style="padding-bottom: 200px;">
 
-# 🍲 - Recepts Items - 🥗
+# 🍲 - Recipes - 🥗
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
+<br/><br/>
 
 </div>
 
