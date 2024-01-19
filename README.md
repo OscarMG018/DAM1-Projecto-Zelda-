@@ -111,9 +111,9 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 # Game controls
 
-*Terminal commands to move around the map*
-
 #### Map controls
+
+*Terminal commands to move around the map*
 
 | Action            | Shortcut            | Example               |
 |-------------------|---------------------|-----------------------|
@@ -122,6 +122,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Region movement   | *Go to 'region'*    | `Go to Gerudo`        |
 
 #### Interacion controls
+
+*Terminal commands to interact with entities*
 
 | Action | Definition                         | 
 |--------|------------------------------------|
@@ -134,6 +136,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 #### Inventory controls
 
+*Terminal commands related to inventory*
+
 | Action            | Shortcut           | Example               |
 |-------------------|--------------------|-----------------------|
 | Equip weapon      | *Equip 'weapon'*   | `Equip Wood Sword`    |
@@ -143,13 +147,9 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Eat item          | *Eat 'food'*       | `Eat Vegetable`       |
 | Cook item         | *Cook 'recept'*    | `Cook Salad`          |
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
-
 <div align="center" style="padding-bottom: 200px;">
 
 # 🍖 - Food Items - 🌿 
-
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 </div>
 
@@ -159,13 +159,11 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 </p>
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 <div align="center" style="padding-bottom: 200px;">
 
 # 🍲 - Recepts Items - 🥗
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 </div>
 
