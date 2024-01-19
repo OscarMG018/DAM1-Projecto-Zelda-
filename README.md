@@ -84,8 +84,13 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 <img align="center"src="ReadmeImages/salad.png" width = "30%" height=auto>
 <img align="leftt"src="ReadmeImages/pescatarian.png" width = "30%" height=auto>
 
+<p align="center">
 
+<img src="ReadmeImages/roasted.png" width = "30%" height=auto>
+<img src="ReadmeImages/salad.png" width = "30%" height=auto>
+<img src="ReadmeImages/pescatarian.png" width = "30%" height=auto>
 
+</p>
 
 
 
