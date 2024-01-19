@@ -121,6 +121,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Relative movement | *Go by the 'symbol'* | `Go by the M`         |
 | Region movement   | *Go to 'region'*    | `Go to Gerudo`        |
 
+<br/><br/>
+
 #### Interacion controls
 
 *Terminal commands to interact with entities*
@@ -133,6 +135,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Fish | `Fishes in a nerby lake`  |         
 | Open   | `Opens a chest`     |            
 | Open Santuary   | `Opens a sanctuary`  |  
+
+<br/><br/>
 
 #### Inventory controls
 
