@@ -72,7 +72,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
-<div align="right">
+<div align="left">
 
 # Introduction
 
@@ -80,8 +80,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <p>
 
-<img width="200px" height="200px" align="right"
-src="https://cdn.discordapp.com/attachments/1184188955915198607/1197944348403310713/ScreenHunter_102_Jan._19_17.42.png?ex=65bd1b9d&is=65aaa69d&hm=922bcdd87461eedf393361c6a26372b2336adff1d475ed00d36e27d709d778ee&" />
+<img width="200px" height="200px" align="right" src="https://static.posters.cz/image/750/pinturas-sobre-lienzo-the-legend-of-zelda-breath-of-the-wild-view-i111060.jpg" />
 
 <p align="right">
 
