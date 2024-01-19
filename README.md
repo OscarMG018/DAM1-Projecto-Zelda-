@@ -80,7 +80,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <p>
 
-<img width="500px" height="auto" align="right" src="https://static.posters.cz/image/750/pinturas-sobre-lienzo-the-legend-of-zelda-breath-of-the-wild-view-i111060.jpg" />
+<img width="300px" height="auto" align="right" src="https://static.posters.cz/image/750/pinturas-sobre-lienzo-the-legend-of-zelda-breath-of-the-wild-view-i111060.jpg" />
 
 <p align="right">
 
