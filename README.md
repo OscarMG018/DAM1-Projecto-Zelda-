@@ -124,7 +124,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <div align="center" style="padding-bottom: 200px;">
 
-# 🍖 - Food - 🌿 
+# 🍖 - Food Items - 🌿 
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
@@ -140,7 +140,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <div align="center" style="padding-bottom: 200px;">
 
-# 🍲 - Recepts - 🥗
+# 🍲 - Recepts Items - 🥗
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
