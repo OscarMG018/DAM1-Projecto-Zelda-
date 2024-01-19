@@ -50,7 +50,7 @@
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 </sub>
 
-## Game controls
+# Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
