@@ -68,7 +68,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <p align="center">
   
-<img src="ReadmeImages/ingredientes.png" width = "30%" height=auto>
+<img src="ReadmeImages/ingredientes.png" width = "100%" height=auto>
 
 </p>
 
@@ -84,7 +84,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <p backbround-color = "black" align="center">
 
-<img src="ReadmeImages/recetas.png" width = "30%" height=auto>
+<img src="ReadmeImages/recetas.png" width = "100%" height=auto>
 
 </p>
 
