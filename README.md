@@ -52,10 +52,9 @@
 
 </div>
 
-<sub align="center">
-
 <br/><br/>
 
+<sub align="center">
 Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 </sub>
 
