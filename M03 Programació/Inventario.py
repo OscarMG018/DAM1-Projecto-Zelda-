@@ -9,26 +9,24 @@ inventario_armas = {"Wood Sword":[0, 1, False], "Sword": [0, 1, True], "Wood Shi
 def equip_weapon(type):
     global inventario_armas
     if inventario_armas[type][1] != 0:
-        if inventario_armas["Wood Sword"][2] == False and inventario_armas["Sword"][2] == False:
+        if inventario_armas[type][2] == True:
+            return f"You already have {type} equipped'"
+        else:
+            inventario_armas[GetEquipedWeapon()][2] = False
             inventario_armas[type][2] = True
             return f"You have equipped '{type}'"
-        elif inventario_armas["Wood Sword"][2] == True:
-            return "You already have 'Wood Sword' equipped'"
-        elif inventario_armas["Sword"][2] == True:
-            return "You already have 'Sword' equipped'"
     else:
         return f"You don't have '{type}'"
 
 def equip_shield(type):
     global inventario_armas
     if inventario_armas[type][1] != 0:
-        if inventario_armas["Wood Shield"][2] == False and inventario_armas["Shield"][2] == False:
+        if inventario_armas[type][2] == True:
+            return f"You already have {type} equipped'"
+        else:
+            inventario_armas[GetEquipedShield()][2] = False
             inventario_armas[type][2] = True
             return f"You have equipped '{type}'"
-        elif inventario_armas["Wood Shield"][2] == True:
-            return "You already have 'Wood Shield' equipped'"
-        elif inventario_armas["Shield"][2] == True:
-            return "You already have 'Shield' equipped'"
     else:
         return f"You don't have '{type}'"
 
@@ -63,11 +61,11 @@ def UseWeapon():
     if inventario_armas[equiped_weapon][0] == 0:
         inventario_armas[equiped_weapon][1] -= 1
         if equiped_weapon == "Sword":
-            inventario_armas[equiped_weapon[0]] = 9
+            inventario_armas[equiped_weapon][0] = 9
         else:
-            inventario_armas[equiped_weapon[0]] = 5
+            inventario_armas[equiped_weapon][0] = 5
         if inventario_armas[equiped_weapon][1] == 0:
-            inventario_armas[equiped_weapon[2]] = False
+            inventario_armas[equiped_weapon][2] = False
         return f"{equiped_weapon} has been broken, you have {inventario_armas[equiped_weapon][1]} left"
     
 def UseShield():
@@ -78,11 +76,11 @@ def UseShield():
     if inventario_armas[equiped_shield][0] == 0:
         inventario_armas[equiped_shield][1] -= 1
         if equiped_shield == "Shield":
-            inventario_armas[equiped_shield[0]] = 9
+            inventario_armas[equiped_shield][0] = 9
         else:
-            inventario_armas[equiped_shield[0]] = 5
+            inventario_armas[equiped_shield][2] = 5
         if inventario_armas[equiped_shield][1] == 0:
-            inventario_armas[equiped_shield[2]] = False
+            inventario_armas[equiped_shield][2] = False
         return f"{equiped_shield} has been broken, you have {inventario_armas[equiped_shield][1]} left"
 
 def AddItem(nombre, cantidad):

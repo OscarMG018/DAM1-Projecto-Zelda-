@@ -338,12 +338,12 @@ def InventoryWeapons():
     else:
         result += "                   *" + "\n"
     result += "Wood Shield" +f"{Inventario.GetItem('Wood Shield')[0]}/{Inventario.GetItem('Wood Shield')[1]} *".rjust(9," ") + "\n"
-    if Inventario.GetEquipedWeapon() == "Wood Shield":
+    if Inventario.GetEquipedShield() == "Wood Shield":
         result += "  (equiped)        *" + "\n"
     else:
         result += "                   *" + "\n"
     result += "Shield" +f"{Inventario.GetItem('Shield')[0]}/{Inventario.GetItem('Shield')[1]} *".rjust(14," ") + "\n"
-    if Inventario.GetEquipedWeapon() == "Shield":
+    if Inventario.GetEquipedShield() == "Shield":
         result += "  (equiped)        *" + "\n"
     else:
         result += "                   *" + "\n"
@@ -962,7 +962,7 @@ def ExecuteMapAction(command,args):
                 ActionTime()
                 SaveData()
     elif command == "show":
-        if len(args) != 2 and len(args) != 1:
+        if len(args) not in [1,2]:
             AddToPropmts("Invalid action")
             return
         if args[0].lower() == "inventory":
@@ -1027,13 +1027,13 @@ def ExecuteMapAction(command,args):
                 ActionTime()
                 SaveData()
     elif command == "equip":
-        if len(args) != 1:
+        if len(args) not in [1,2]:
             AddToPropmts("Invalid action")
             return
-        if "sword" in args[0].lower():
-            message = Inventario.equip_weapon(args[0].title())
-        elif "shield" in args[0].lower():
-            message = Inventario.equip_shield(args[0].title())
+        if args[0].lower() == "sword" or args[1].lower() == "sword":
+            message = Inventario.equip_weapon(" ".join(args).title())
+        elif args[0].lower() == "shield" or args[1].lower() == "shield":
+            message = Inventario.equip_shield(" ".join(args).title())
         else:
             AddToPropmts("Invalid action")
             return
@@ -1042,7 +1042,7 @@ def ExecuteMapAction(command,args):
             ActionTime()
             SaveData()
     elif command == "unequip":
-        if len(args) != 1:
+        if len(args) not in [1,2]:
             AddToPropmts("Invalid action")
             return
         if "sword" in args[0].lower() or "shield" in args[0].lower():
