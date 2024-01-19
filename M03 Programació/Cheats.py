@@ -1,7 +1,7 @@
 import Inventario
 import Interaccion
 import Combate
-import Jugabilidad
+import MapSystem
 import random
 import Guardado
 
@@ -62,7 +62,7 @@ def renamePlayer(NewName):
     return f"Cheating: cheat rename {NewName}"
     
 def OpenSanctuaris():
-    Jugabilidad.OpenSanctuaris = [True,True,True,True,True,True,True]
+    MapSystem.OpenSanctuaris = [True,True,True,True,True,True,True]
     Combate.PlayerLife = 9
     Combate.PlayerMaxLife = 9
     return "Cheating: Cheat open sanctuaris"
@@ -72,17 +72,17 @@ def GameOver():
     return "Cheating: Cheat game over"
 
 def WinGame():
-    Ganon = Jugabilidad.GetAllEntiiesWithName("Ganon")
+    Ganon = MapSystem.GetAllEntiiesWithName("Ganon")
     #Posar la entitat de Ganon en una posició aleatòria si no esta.
     if len(Ganon) == 0:
         entity = {"name":"Ganon","x":0,"y":0,"symbol": " "}
-        while Jugabilidad.IsBlocked(entity["y"],entity["x"]):
-            entity["y"] = random.randint(0,len(Jugabilidad.map)-1)
-            entity["x"] = random.randint(0,len(Jugabilidad.map[0])-1)
-        Jugabilidad.AddEntity(entity)
+        while MapSystem.IsBlocked(entity["y"],entity["x"]):
+            entity["y"] = random.randint(0,len(MapSystem.map)-1)
+            entity["x"] = random.randint(0,len(MapSystem.map[0])-1)
+        MapSystem.AddEntity(entity)
     #Quitar todos los GanonHearts si hay
-    Hearts = Jugabilidad.GetAllEntiiesWithName("GanonHeart")
+    Hearts = MapSystem.GetAllEntiiesWithName("GanonHeart")
     for heart in Hearts:
-        Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(heart))
+        MapSystem.RemoveEntity(MapSystem.GetIndexOfEntity(heart))
     return "Cheating: Cheat win game"
 

@@ -1,6 +1,6 @@
 import Guardado
 import Inventario
-import Jugabilidad
+import MapSystem
 import random
 
 PlayerLife = 3
@@ -9,13 +9,13 @@ BloodMoon = 0
 BloodMoonAppearances = 0
 
 def tryattack():
-    player = Jugabilidad.GetPlayer()
-    enemy = Jugabilidad.AdjacentEntity(player["y"],player["x"],"Enemy")
-    fox = Jugabilidad.AdjacentEntity(player["y"],player["x"],"Fox")
+    player = MapSystem.GetPlayer()
+    enemy = MapSystem.AdjacentEntity(player["y"],player["x"],"Enemy")
+    fox = MapSystem.AdjacentEntity(player["y"],player["x"],"Fox")
     if enemy != None:
-        return True, Jugabilidad.GetIndexOfEntity(enemy)
+        return True, MapSystem.GetIndexOfEntity(enemy)
     elif (fox != None and fox["visible"]):
-        return True, Jugabilidad.GetIndexOfEntity(fox)
+        return True, MapSystem.GetIndexOfEntity(fox)
     return False, -1
 
 def attack():
@@ -30,8 +30,8 @@ def attack():
     if weapon_equipped is None:
         return ["You don't have a weapon equiped"]
 
-    player = Jugabilidad.GetPlayer()
-    entity = Jugabilidad.GetEntityByIndex(entityIndex)
+    player = MapSystem.GetPlayer()
+    entity = MapSystem.GetEntityByIndex(entityIndex)
 
     if entity["name"] == "Enemy":
         messages = []
@@ -55,13 +55,13 @@ def attack():
             PlayerLife -= 1
 
         # Attack enemy
-        Jugabilidad.MoveEnemy(Jugabilidad.GetIndexOfEntity(entity))
+        MapSystem.MoveEnemy(MapSystem.GetIndexOfEntity(entity))
         entity["life"] -= 1
         message = Inventario.UseWeapon()
         if message != None:
             messages.append(message)
         if entity["life"] <= 0:
-            Jugabilidad.RemoveEntity(entityIndex)
+            MapSystem.RemoveEntity(entityIndex)
             messages.append(f"“You defeated an enemy, this is a dangerous zone")
         else:
             messages.append(f"Brave, keep fighting Link")
@@ -70,7 +70,7 @@ def attack():
 
     elif entity["name"] == "Fox":
         # Attack fox
-        Jugabilidad.RemoveEntity(entityIndex)
+        MapSystem.RemoveEntity(entityIndex)
         message = [Inventario.UseWeapon()]
         Inventario.AddItem("Meat",1)
         if len(message) > 0:
@@ -92,8 +92,8 @@ frases = [
 ]
 
 def TryAttackGanon():
-    playerIndex = Jugabilidad.GetPlayerIndex()
-    px = Jugabilidad.GetEntityByIndex(playerIndex)["x"]
+    playerIndex = MapSystem.GetPlayerIndex()
+    px = MapSystem.GetEntityByIndex(playerIndex)["x"]
     if px == 19:
         weapon_equipped = Inventario.GetEquipedWeapon()
         if weapon_equipped != None:
@@ -110,7 +110,7 @@ def attackGanon():
     messages = []
 
     # Obtener todas las entidades de corazón de Ganon en el castillo
-    ganon_hearts = Jugabilidad.GetAllEntiiesWithName("GanonHeart", location="Castle")
+    ganon_hearts = MapSystem.GetAllEntiiesWithName("GanonHeart", location="Castle")
 
     if ganon_hearts:
         # Obtener la última entidad de corazón de Ganon
@@ -125,13 +125,13 @@ def attackGanon():
             messages.append(message)
 
         # Eliminar la última entidad de corazón de Ganon
-        Jugabilidad.RemoveEntity(Jugabilidad.GetIndexOfEntity(last_ganon_heart))
+        MapSystem.RemoveEntity(MapSystem.GetIndexOfEntity(last_ganon_heart))
 
         # Añadir un mensaje aleatorio como resultado del ataque
         messages.append(random.choice(frases))
         
         # Verificar si quedan más corazones de Ganon
-        remaining_ganon_hearts = Jugabilidad.GetAllEntiiesWithName("GanonHeart", location="Castle")
+        remaining_ganon_hearts = MapSystem.GetAllEntiiesWithName("GanonHeart", location="Castle")
         if not remaining_ganon_hearts:
             # Ganon está derrotado, realiza las acciones necesarias
             messages.append("It has been an exhausting fight, but with persistence, you have achieved it.")
@@ -140,8 +140,8 @@ def attackGanon():
         return messages
 
 def InFrontOfGanon():
-    playerIndex = Jugabilidad.GetPlayerIndex()
-    px = Jugabilidad.GetEntityByIndex(playerIndex)["x"]
+    playerIndex = MapSystem.GetPlayerIndex()
+    px = MapSystem.GetEntityByIndex(playerIndex)["x"]
     if px == 19:
         return True
     return False

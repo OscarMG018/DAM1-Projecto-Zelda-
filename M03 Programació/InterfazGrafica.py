@@ -1,7 +1,7 @@
 import Guardado
 import Inventario
 import Combate
-import Jugabilidad
+import MapSystem
 import platform
 import os
 import Interaccion
@@ -143,7 +143,7 @@ def InitializeNewGame(playerName):
     Guardado.NewDBSave(playerName, GameId)
     #Inicializa los sistemas de juego
     Inventario.InvenroryInit()
-    Jugabilidad.InitMap()
+    MapSystem.InitMap()
     Combate.InitCombate()
     PlayerName = playerName
     Guardado.ActiveSave = GameId
@@ -152,7 +152,7 @@ def InitializeNewGame(playerName):
 def LoadSavedGame(GameId):
     global PlayerName
     Inventario.InvenroryInit(invetoryInfo=Guardado.GetInventoryInfo(GameId))
-    Jugabilidad.InitMap(MapInfo=Guardado.GetMapInfo(GameId))
+    MapSystem.InitMap(MapInfo=Guardado.GetMapInfo(GameId))
     Combate.InitCombate(CombateInfo=Guardado.GetCombateInfo(GameId))
     Guardado.ActiveSave = GameId
     PlayerName = Guardado.Saves[GameId]["PlayerName"]
@@ -277,6 +277,7 @@ def saved_games_menu():
         result += f'*  {i}: {save["SaveDate"]} - {save["PlayerName"]}, {save["LastLocation"]}'.ljust(72)+f'♥ {save["PlayerLife"]}/{save["PlayerMaxLife"]} *\n'
     for i in range(len(Guardado.Saves),9):
         result += "*                                                                             *\n"
+    result += "*                                                                             *\n"
     result += "* Play X, Erase X, Help, Back * * * * * * * * * * * * * * * * * * * * * * * * *"
     print(result)
 
@@ -681,7 +682,6 @@ def SavedGamesMenuAction(command,args):
             AddToPropmts("Invalid action")
         else:
             index = Guardado.GetSavedGameId(int(args[0]))
-            AddToPropmts(str(index))
             if Guardado.Saves.get(index) == None:
                 AddToPropmts("Invalid action")
             else:
@@ -698,7 +698,6 @@ def SavedGamesMenuAction(command,args):
             if Guardado.Saves.get(index) == None:
                 AddToPropmts("Invalid action")
             else:
-                AddToPropmts(str(index))
                 Guardado.DeleteSaveFromDB(index)
                 del Guardado.Saves[index]
     elif command == "help":
@@ -778,14 +777,14 @@ mapConnections = {
 def WorldMap():
     result = "* Map * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "*                                                         *" + "\n"
-    result += "*  Hyrule       " + "S0" + "?"*(not Jugabilidad.OpenSanctuaris[0]) + " "* Jugabilidad.OpenSanctuaris[0] +" "*23+"Death Mountain  *" + "\n"
-    result += "*"+" "*30 + "S2" + "?"*(not Jugabilidad.OpenSanctuaris[2]) + " "* Jugabilidad.OpenSanctuaris[2] + " "*24+"*" + "\n"
-    result += "*"+" "*8 + "S1" + "?"*(not Jugabilidad.OpenSanctuaris[1]) + " "* Jugabilidad.OpenSanctuaris[1] +" "*39 + "S3" + "?"*(not Jugabilidad.OpenSanctuaris[3]) + " "* Jugabilidad.OpenSanctuaris[3] + " "*4+ "*" +"\n"
+    result += "*  Hyrule       " + "S0" + "?"*(not MapSystem.OpenSanctuaris[0]) + " "* MapSystem.OpenSanctuaris[0] +" "*23+"Death Mountain  *" + "\n"
+    result += "*"+" "*30 + "S2" + "?"*(not MapSystem.OpenSanctuaris[2]) + " "* MapSystem.OpenSanctuaris[2] + " "*24+"*" + "\n"
+    result += "*"+" "*8 + "S1" + "?"*(not MapSystem.OpenSanctuaris[1]) + " "* MapSystem.OpenSanctuaris[1] +" "*39 + "S3" + "?"*(not MapSystem.OpenSanctuaris[3]) + " "* MapSystem.OpenSanctuaris[3] + " "*4+ "*" +"\n"
     result += "*                                                         *" + "\n"
     result += "*"+"Castle".center(57," ") +"*"+"\n"
     result += "*                                                         *" + "\n"
-    result += "*" +" "*17 + "S4" + "?"*(not Jugabilidad.OpenSanctuaris[4]) + " "* Jugabilidad.OpenSanctuaris[4]+" "*32 + "S5" + "?"*(not Jugabilidad.OpenSanctuaris[5]) + " "* Jugabilidad.OpenSanctuaris[5] +"  *" + "\n"
-    result += "*  Gerudo" + " "*31 + "S6" + "?"*(not Jugabilidad.OpenSanctuaris[6]) + " "* Jugabilidad.OpenSanctuaris[6] + " "*6 + "Necluda  *" + "\n"
+    result += "*" +" "*17 + "S4" + "?"*(not MapSystem.OpenSanctuaris[4]) + " "* MapSystem.OpenSanctuaris[4]+" "*32 + "S5" + "?"*(not MapSystem.OpenSanctuaris[5]) + " "* MapSystem.OpenSanctuaris[5] +"  *" + "\n"
+    result += "*  Gerudo" + " "*31 + "S6" + "?"*(not MapSystem.OpenSanctuaris[6]) + " "* MapSystem.OpenSanctuaris[6] + " "*6 + "Necluda  *" + "\n"
     result += "*                                                         *" + "\n"
     result += "* Back  * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     return result
@@ -825,7 +824,7 @@ def GetInventory():
 
 def ActionsAvailables():
     actions = [["Exit",2],["Go",2],["Equip",2],["Unequip",2]]
-    if Jugabilidad.mapName == "Castle":
+    if MapSystem.mapName == "Castle":
         if Interaccion.TryCutGrass()[0] or Interaccion.TryShakeTree()[0] or Combate.TryAttackGanon():
             actions.insert(1,["Attack",2])
     else:
@@ -855,33 +854,33 @@ def ExecuteMapAction(command,args):
             number = int(args[0])
             direction = args[1].lower()
             if direction == "up":
-                message = Jugabilidad.MovePlayerBy(1*number, 0)
+                message = MapSystem.MovePlayerBy(1*number, 0)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             elif direction == "down":
-                message = Jugabilidad.MovePlayerBy(-1*number, 0)
+                message = MapSystem.MovePlayerBy(-1*number, 0)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             elif direction == "left":
-                message = Jugabilidad.MovePlayerBy(0, -1*number)
+                message = MapSystem.MovePlayerBy(0, -1*number)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             elif direction == "right":
-                message = Jugabilidad.MovePlayerBy(0, 1*number)
+                message = MapSystem.MovePlayerBy(0, 1*number)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             else:
                 AddToPropmts("That is not a direction")
-            if Jugabilidad.mapName == "Castle" and Combate.InFrontOfGanon():
+            if MapSystem.mapName == "Castle" and Combate.InFrontOfGanon():
                 AddToPropmts("Ganon's presence hurts you")
                 Combate.PlayerLife -= 1
         elif len(args) == 3 and args[0].lower() == "by" and args[1].lower() == "the":
             if args[2].lower() == "water":
-                message = Jugabilidad.MovePlayerNearTerrain(["~","-"])
+                message = MapSystem.MovePlayerNearTerrain(["~","-"])
                 if message == "You can't go to ~ from here":
                     AddToPropmts(message)
                     ActionTime()
@@ -891,7 +890,7 @@ def ExecuteMapAction(command,args):
                     ActionTime()
             else:
                 if len(args[2]) == 1:
-                    message = Jugabilidad.MovePlayerNearEntity("symbol",args[2])
+                    message = MapSystem.MovePlayerNearEntity("symbol",args[2])
                     if message == f"You can't go to {args[2]} from here":
                         AddToPropmts(message)
                         ActionTime()
@@ -900,7 +899,7 @@ def ExecuteMapAction(command,args):
                     else:
                         ActionTime()
                 elif args[2][0] == "S":
-                    message = Jugabilidad.MovePlayerNearEntity("SanctuaryNumber",int(args[2][1:]))
+                    message = MapSystem.MovePlayerNearEntity("SanctuaryNumber",int(args[2][1:]))
                     if message == f"You can't go to {args[2][1:]} from here":
                         AddToPropmts(f"You can't go to {args[2]} from here")
                         ActionTime()
@@ -913,20 +912,20 @@ def ExecuteMapAction(command,args):
         elif len(args) >= 2 and args[0] == "to":
             mapname = (" ".join(args[1:])).capitalize()
             " ".capitalize()
-            if Jugabilidad.mapName == mapname:
+            if MapSystem.mapName == mapname:
                 AddToPropmts("You are already in that location")
 
-            elif Jugabilidad.maps.get(mapname) == None:
+            elif MapSystem.maps.get(mapname) == None:
                 AddToPropmts("That is not a location")
 
-            elif Jugabilidad.mapName == "Castle":
+            elif MapSystem.mapName == "Castle":
                 AddToPropmts("To exit the castle type \"Back\"")
 
-            elif mapname not in mapConnections[Jugabilidad.mapName]:
+            elif mapname not in mapConnections[MapSystem.mapName]:
                 AddToPropmts("You can't go to that location from here")
 
             else:
-                Jugabilidad.LoadMap(mapname)
+                MapSystem.LoadMap(mapname)
                 message = Interaccion.DecideFoxVisibility()
                 AddToPropmts(f"You are now in {mapname}")
                 Interaccion.fished = False
@@ -988,10 +987,10 @@ def ExecuteMapAction(command,args):
             ActionTime()
             SaveData()            
     elif command == "attack":
-        player = Jugabilidad.GetPlayer()
+        player = MapSystem.GetPlayer()
         px = player["x"]
         py = player["y"]
-        if Jugabilidad.AdjacentEntity(py,px,"Tree") != None or Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
+        if MapSystem.AdjacentEntity(py,px,"Tree") != None or MapSystem.AdjacentEntity(py,px,"Broken Tree") != None:
             messages = Interaccion.ShakeTree()
             for message in messages:
                 AddToPropmts(message)
@@ -1000,7 +999,7 @@ def ExecuteMapAction(command,args):
                 SaveData()
             elif messages[0] == "The Tree didn't give you anythng":
                 ActionTime()
-        elif Jugabilidad.AdjacentEntity(py,px,"Fox") != None or Jugabilidad.AdjacentEntity(py,px,"Enemy") != None:
+        elif MapSystem.AdjacentEntity(py,px,"Fox") != None or MapSystem.AdjacentEntity(py,px,"Enemy") != None:
             if len(args) != 0:
                 AddToPropmts("Invalid action")
                 return
@@ -1010,7 +1009,7 @@ def ExecuteMapAction(command,args):
             if not(len(messages) == 1 and messages[0] == "No hay entidades cercanas para atacar."):
                 ActionTime()
                 SaveData()
-        elif Jugabilidad.AdjacentEntity(py,px,"Ganon") != None:
+        elif MapSystem.AdjacentEntity(py,px,"Ganon") != None:
             messages = Combate.attackGanon()
             for message in messages:
                 AddToPropmts(message)
@@ -1020,7 +1019,7 @@ def ExecuteMapAction(command,args):
             elif messages[0] != "No hay armas equipadas para atacar." or messages[0] != "Ganon is out of range":
                 ActionTime()
                 SaveData()
-        elif Jugabilidad.TerrainAt(py,px) == " ":
+        elif MapSystem.TerrainAt(py,px) == " ":
             message = Interaccion.CutGrass()
             if message != None:
                 AddToPropmts(message)
@@ -1068,11 +1067,11 @@ def ExecuteMapAction(command,args):
         AddToPropmts(message)
         SaveData()
     elif command == "back":
-        if Jugabilidad.mapName == "Castle":
+        if MapSystem.mapName == "Castle":
             if len(args) != 0:
                 AddToPropmts("Invalid action")
             else:
-                Jugabilidad.LoadMap(Jugabilidad.previusLocation)
+                MapSystem.LoadMap(MapSystem.previusLocation)
                 message = Interaccion.DecideFoxVisibility()
                 AddToPropmts(message)
                 ActionTime()
@@ -1092,16 +1091,16 @@ invetoryToShow = "main"
 def MapMenu(LastLocation,newGame=False):
     global invetoryToShow
     invetoryToShow = "main"
-    Jugabilidad.LoadMap(LastLocation)
+    MapSystem.LoadMap(LastLocation)
     if newGame:
-        Jugabilidad.MovePlayerBy(0,1)
+        MapSystem.MovePlayerBy(0,1)
     message = Interaccion.DecideFoxVisibility()
     AddToPropmts(message)
-    Jugabilidad.AnimateWater()
+    MapSystem.AnimateWater()
     while(True):
         clear_screen()
-        mapstr = Jugabilidad.MapToStr()
-        menus = [[Jugabilidad.mapName,1]] + ActionsAvailables()
+        mapstr = MapSystem.MapToStr()
+        menus = [[MapSystem.mapName,1]] + ActionsAvailables()
         mapstr = WithFrame(mapstr,Menus=menus)
         inventorystr = GetInventory()
         UI = concathorizontal(mapstr,inventorystr)
@@ -1114,7 +1113,7 @@ def MapMenu(LastLocation,newGame=False):
         command,args = parse_input(action)
         if ExecuteMapAction(command,args) == "back":
             break
-        if len(Jugabilidad.GetAllEntiiesWithName("Ganon")) == 1 and len(Jugabilidad.GetAllEntiiesWithName("GanonHeart")) == 0:
+        if len(MapSystem.GetAllEntiiesWithName("Ganon")) == 1 and len(MapSystem.GetAllEntiiesWithName("GanonHeart")) == 0:
             Combate.PlayerLife = Combate.PlayerMaxLife
             SaveData()
             ZeldaSavedMenu()
@@ -1160,29 +1159,29 @@ def ZeldaSavedMenu():
 
 def ActionTime():
     #Animar el agua
-    Jugabilidad.AnimateWater()
+    MapSystem.AnimateWater()
     #Broken trees regen -=1
-    btrees = Jugabilidad.GetAllEntiiesWithName("Broken Tree")
+    btrees = MapSystem.GetAllEntiiesWithName("Broken Tree")
     for tree in btrees:
         tree["regen"] -= 1
         if tree["regen"] <= 0:
             tree["name"] = "Tree"
             del tree["regen"]
     #Reclose ches if condition
-    if len(Jugabilidad.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
+    if len(MapSystem.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
         Interaccion.RecloseChest()
     #Blood Moon
     Combate.BloodMoon += 1
     if Combate.BloodMoon >= 25:
         Combate.BloodMoon = 0
         Combate.BloodMoonAppearances += 1
-        Jugabilidad.RespawnEnemies()
+        MapSystem.RespawnEnemies()
 
 def SaveData():
     global PlayerName
     ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)
-    Jugabilidad.SaveMapInfo(ActiveSave)
+    MapSystem.SaveMapInfo(ActiveSave)
     Combate.SaveCombate(ActiveSave)
     Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     Guardado.SaveToDB(ActiveSave)
