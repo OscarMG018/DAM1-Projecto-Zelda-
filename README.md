@@ -110,7 +110,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 <br/><br/>
 
 # Game controls
-*Tooltips within the app also explain the keyboard shortcuts for the respective function*
+
+*Terminal commands to move around the map*
 
 #### Map controls
 
@@ -119,9 +120,6 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Lineal movement   | *Go 'X' 'direction'* | `Go 10 right`         |
 | Relative movement | *Go by the 'symbol'* | `Go by the M`         |
 | Region movement   | *Go to 'region'*    | `Go to Gerudo`        |
-
-
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 #### Interacion controls
 
