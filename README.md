@@ -2,6 +2,8 @@
 
 # 🏹 - Zelda Breath of the Wild - 🛡️  
 
+<img align="center" src="https://fs-prod-cdn.nintendo-europe.com/media/images/08_content_images/games_6/nintendo_switch_7/nswitch_thelegendofzeldabreathofthewild/NSwitch_TheLegendOfZeldaBreathOfTheWild_wp_facebook_01.jpg" />
+
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
 <br/><br/>
