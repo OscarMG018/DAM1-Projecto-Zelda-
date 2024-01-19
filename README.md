@@ -76,6 +76,11 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 # Introduction
 
+<img align="center" src="ReadmeImages/txt1.png" />
+<img align="center" src="ReadmeImages/castillo.png" />
+<img align="center" src="ReadmeImages/txt2.png" />
+<img align="center" src="ReadmeImages/link.png" />
+
 </div>
 
 # Game controls
