@@ -2,6 +2,8 @@
 
 <h1 align="center">
 🏹 - Zelda Breath of the Wild - 🛡️  
+<br/><br/>
+
 </h1>
 
 <img align="right" src="ReadmeImages/linealsymbol.png"/>
