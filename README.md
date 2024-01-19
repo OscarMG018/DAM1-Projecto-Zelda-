@@ -147,6 +147,8 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 | Eat item          | *Eat 'food'*       | `Eat Vegetable`       |
 | Cook item         | *Cook 'recept'*    | `Cook Salad`          |
 
+<br/><br/>
+
 <div align="center" style="padding-bottom: 200px;">
 
 # 🍖 - Food Items - 🌿 
@@ -159,6 +161,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 </p>
 
+<br/><br/>
 
 <div align="center" style="padding-bottom: 200px;">
 
