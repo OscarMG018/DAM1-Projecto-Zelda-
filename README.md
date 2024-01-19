@@ -2,8 +2,6 @@
 
 # 🏹 - Zelda Breath of the Wild - 🛡️  
 
-[//]: # "repo main details  -------------------------------------------------------------------------------------------"
-
 <img align="right" src="ReadmeImages/linealsymbol.png"/>
 
 <br/><br/>
