@@ -67,6 +67,14 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 <br/>
 
+<br/><br/>
+
+<div>
+
+# Introduction
+
+</div>
+
 # Game controls
 *Tooltips within the app also explain the keyboard shortcuts for the respective function*
 
