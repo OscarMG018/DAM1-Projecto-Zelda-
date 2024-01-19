@@ -6,7 +6,7 @@
 
 <h3 align="center">
         <samp>&gt; Hey There!, We are
-                <b><a target="_blank" href="https://alsiam.com">ZeldaHaters</a></b>
+                <b><a target="_blank">ZeldaHaters</a></b>
         </samp>
 </h3>
 
