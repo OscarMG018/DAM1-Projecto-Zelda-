@@ -37,7 +37,7 @@
   
  ✌️ &emsp; We are learning to program in python<br/><br/>
  ❤️ &emsp; We enjoyed creating this project and have learned a lot<br/><br/>
- 📧 &emsp; Reach me anytime:  [here](pablovicenteroura@gmail.com)<br/><br/>
+ 📧 &emsp; Reach me anytime: pablovicenteroura2005@gmail.com<br/><br/>
  💬 &emsp; Ask us about anything [here](https://github.com/OscarMG018/DAM1-Projecto-Zelda-/issues)
 
  </p>
