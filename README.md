@@ -98,7 +98,7 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 <div align="right">
 
-<img width="350" src="https://lumenserveis.com/web/image/product.template/9846/image_256" />
+<img width="350" src="https://www.google.com/url?sa=i&url=https%3A%2F%2Faminoapps.com%2Fc%2Fdragon-amino-3%2Fpage%2Fblog%2Fpixel-dragon-100x100 px%2FMN7M_nwTkugD706XlExj60mbnXmPR1eMvW&psig=AOvVaw3AH WdEhNQ1NNBlq9nlaFu&ust=1705768776135000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCIjdof3x6YMDFQAAAAAdAAAAABAD" />
 
 </div>
 
