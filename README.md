@@ -21,10 +21,12 @@
   </samp>
 </p>
 
-
-
+</div>
+        
 <!-- About Section -->
- # About us
+
+
+# About us
 
 <p>
  <img align="right" width="350" src="https://static.wikia.nocookie.net/logopedia/images/5/53/763px-BotW_NA_Logo.png/revision/latest?cb=20160701154320" />
