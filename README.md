@@ -66,9 +66,13 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 </div>
 
+<p align="center">
+  
 <img align="right" src="ReadmeImages/meat.png" width = "30%" height=auto>
 <img align="center" src="ReadmeImages/vegetable.png" width = "30%" height=auto>
 <img align="leftt" src="ReadmeImages/fish.png" width = "30%" height=auto>
+
+</p>
 
 [//]: # "repo main details  -------------------------------------------------------------------------------------------"
 
@@ -80,11 +84,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 
 </div>
 
-<img align="right" src="ReadmeImages/roasted.png" width = "30%" height=auto>
-<img align="center"src="ReadmeImages/salad.png" width = "30%" height=auto>
-<img align="leftt"src="ReadmeImages/pescatarian.png" width = "30%" height=auto>
-
-<p align="center">
+<p backbround-color = "black" align="center">
 
 <img src="ReadmeImages/roasted.png" width = "30%" height=auto>
 <img src="ReadmeImages/salad.png" width = "30%" height=auto>
