@@ -83,9 +83,7 @@ Coded with 💚​ by Óscar Medina, Víctor Valero and Pablo Vicente
 <img width="200px" height="200px" align="right"
 src="https://cdn.discordapp.com/attachments/1184188955915198607/1197944348403310713/ScreenHunter_102_Jan._19_17.42.png?ex=65bd1b9d&is=65aaa69d&hm=922bcdd87461eedf393361c6a26372b2336adff1d475ed00d36e27d709d778ee&" />
 
-</p>
-
-<p>
+<p align="right">
 
 10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  
 tribe. The Sheikah were a tribe of warriors who protected  the Triforce,  
@@ -102,6 +100,8 @@ Ganon. He has taken over the Guardians and filled Hyrule with monsters.
 
 But a young man named 'Link' has just awakened and  
 must reclaim the Guardians to defeat Ganon and save Hyrule.  
+
+</p>
 
 </p>
 
