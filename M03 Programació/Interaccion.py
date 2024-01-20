@@ -133,6 +133,7 @@ def OpenSanctuary():
     sanc = MapSystem.AdjacentEntity(py,px,"Sanctuary")
     MapSystem.OpenSanctuaris[sanc["SanctuaryNumber"]] = True
     Combate.PlayerMaxLife += 1
+    Combate.PlayerLife += 1
     return "You opened the sanctuary"
 
 #Tree
