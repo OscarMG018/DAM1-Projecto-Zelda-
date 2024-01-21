@@ -157,12 +157,12 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 *Terminal commands to show the interfaces*
 
-| Action | Definition                         | 
-|--------|------------------------------------|
-        | Show inventory main| `Shows the main inventory interface` |
-| Show inventory weapons | `Shows the main weapons interface`        |
-| Show inventory food  | `Shows the main interface of the food`     |         
-| Show map | `Shows the map interface.`  |         
+| Action                 | Definition                             | 
+|------------------------|----------------------------------------|
+| Show inventory main    | `Shows the main inventory interface`   |
+| Show inventory weapons | `Shows the main weapons interface`     |
+| Show inventory food    | `Shows the main interface of the food` |         
+| Show map               | `Shows the map interface.`             |         
 
 <br/><br/>
 
