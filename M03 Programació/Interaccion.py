@@ -214,6 +214,8 @@ def CutGrass():
         return "You got a lizard"
     return "You cut the grass, but didn't get anything"
 
+#Eat
+
 def TryEat(food_type):
     if food_type not in ["Vegetable","Salad","Pescatarian","Roasted"]:
         return False, f"{food_type} isn't comestible"
