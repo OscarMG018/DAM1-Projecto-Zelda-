@@ -198,14 +198,5 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 <br/><br/>
 
-<div align="center">
-
-# Gameplay
-
-<img align="right" src="ReadmeImages/enregistrament.webm"/>
-
-</div>
-
-
 
 
