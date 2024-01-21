@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/timeline.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="../shadowPartial.js"></script>
+</head>
+<body>
+
+        <!-- header -->
+<button type="button" id="menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span><span></span>
+</button>
+
+<nav id="menuItem">
+    <a href="../main/main.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path d="M11.47 3.84a.75.75 0 011.06 0l8.69 8.69a.75.75 0 101.06-1.06l-8.689-8.69a2.25 2.25 0 00-3.182 0l-8.69 8.69a.75.75 0 001.061 1.06l8.69-8.69z" />
+            <path d="M12 5.432l8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 01-.75-.75v-4.5a.75.75 0 00-.75-.75h-3a.75.75 0 00-.75.75V21a.75.75 0 01-.75.75H5.625a1.875 1.875 0 01-1.875-1.875v-6.198a2.29 2.29 0 00.091-.086L12 5.43z" />
+        </svg>
+        Home
+    </a>
+
+    <a href="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M12 6.75a5.25 5.25 0 016.775-5.025.75.75 0 01.313 1.248l-3.32 3.319c.063.475.276.934.641 1.299.365.365.824.578 1.3.64l3.318-3.319a.75.75 0 011.248.313 5.25 5.25 0 01-5.472 6.756c-1.018-.086-1.87.1-2.309.634L7.344 21.3A3.298 3.298 0 112.7 16.657l8.684-7.151c.533-.44.72-1.291.634-2.309A5.342 5.342 0 0112 6.75zM4.117 19.125a.75.75 0 01.75-.75h.008a.75.75 0 01.75.75v.008a.75.75 0 01-.75.75h-.008a.75.75 0 01-.75-.75v-.008z" clip-rule="evenodd" />
+            <path d="M10.076 8.64l-2.201-2.2V4.874a.75.75 0 00-.364-.643l-3.75-2.25a.75.75 0 00-.916.113l-.75.75a.75.75 0 00-.113.916l2.25 3.75a.75.75 0 00.643.364h1.564l2.062 2.062 1.575-1.297z" />
+            <path fill-rule="evenodd" d="M12.556 17.329l4.183 4.182a3.375 3.375 0 004.773-4.773l-3.306-3.305a6.803 6.803 0 01-1.53.043c-.394-.034-.682-.006-.867.042a.589.589 0 00-.167.063l-3.086 3.748zm3.414-1.36a.75.75 0 011.06 0l1.875 1.876a.75.75 0 11-1.06 1.06L15.97 17.03a.75.75 0 010-1.06z" clip-rule="evenodd" />
+        </svg>
+        Tutorial
+    </a>
+
+    <a href="../about_us/about_us.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" />
+        </svg> 
+        About Us
+    </a>
+
+    <a href="timeline.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M2.25 13.5a8.25 8.25 0 018.25-8.25.75.75 0 01.75.75v6.75H18a.75.75 0 01.75.75 8.25 8.25 0 01-16.5 0z" clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clip-rule="evenodd" />
+        </svg> 
+        Timeline
+    </a>
+
+    <a href="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M15 3.75a.75.75 0 01.75-.75h4.5a.75.75 0 01.75.75v4.5a.75.75 0 01-1.5 0V5.56l-4.72 4.72a.75.75 0 11-1.06-1.06l4.72-4.72h-2.69a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
+            <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 01-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 006.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 011.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 01-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5z" clip-rule="evenodd" />
+        </svg>
+        Contact Us
+    </a>
+</nav>
+
+<!-- titulo de la pagina -->
+<div class="contenedor-title">
+<div class="time_title">
+    <h2>TIMELINE</h2>
+    <h2>TIMELINE</h2>
+</div>
+</div>
+<div id="bump_bottom_2">
+
+</div>
+
+    <!-- slider -->
+
+    <div class="slider">
+        <!-- list Items -->
+        <div class="list">
+            <div class="item active">
+                <img src="img/totk_wall.jpg" style="width: 100%;">
+                <div class="content">
+                    <p>2023</p>
+                    <h2>The Legend of Zelda: Tears of the Kingdom</h2>
+                    <p>
+                        Join Link in a new adventure where you will not only continue to explore the vast land of Hyrule but in this installment you will go to the sky and beyond. This time Link will have to climb to heights never seen before, in this installment is given a high importance to exploration vertically.
+
+In addition you will have to make use of the new improved version of the paravela where you can fly over Hyrule at high speed and thus cover more territory. 
+
+Once again Link will have to face all the adversities that he finds on his way to try to save the kingdom of Hyrule from the most absolute misfortune.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img/skyward_wall.jpg" style="width: 100%;">
+                <div class="content">
+                    <p>2021</p>
+                    <h2>The Legend of Zelda Skyward Sword HD</h2>
+                    <p>
+                        Discover the origins of the Master Sword in The Legend of Zelda: Skyward Sword HD for Nintendo Switch. This classic adventure was originally released on Wii in 2011 and has been optimised for Nintendo Switch: in addition to smoother motion controls, it's also playable using the buttons.
+
+In the oldest story in the Zelda timeline, Link must travel from a world above the clouds to unknown lands in search of his childhood friend Zelda. Armed with his trusty sword and shield, Link will face formidable foes, solve tricky puzzles and take to the skies on the back of a huge bird known as a pelican.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img/awakening_wall.jpeg" style="width: 100%;">
+                <div class="content">
+                    <p>2019</p>
+                    <h2>The Legend of Zelda: Link's Awakening</h2>
+                    <p>
+                        Due to a terrible storm, Link is shipwrecked and ends up on the shore of the mysterious Koholint Island. If he wants to return home, the brave hero must overcome challenging dungeons and confront terrifying monsters.
+
+This new version includes many of the unique elements that appeared in the original Game Boy game: 2D platforming sections, cameos by some characters from outside The Legend of Zelda series, and much more.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img/cadence_wall.jpg" style="width: 100%;">
+                <div class="content">
+                    <p>2019</p>
+                    <h2>Cadence of Hyrule</h2>
+                    <p>
+                        The King of Hyrule has been plunged into a deep slumber by a fearsome menace whose goal is to spread a veritable cacophony of music throughout the kingdom.
+
+Begin the adventure as Crypt of the NecroDancer's heroine, Cadence; once you're familiar with the basics of the game, you can play as Link or Princess Zelda and continue on your journey. Explore a randomly generated world and dungeons and save Hyrule from destruction in this action-packed adventure with a rhythmic twist.
+                    </p>
+                </div>
+            </div>
+            <div class="item">
+                <img src="img/botw_wall.jpg" style="width: 100%;">
+                <div class="content">
+                    <p>2017</p>
+                    <h2>The Legend of Zelda: Breath of the Wild</h2>
+                    <p>
+                        Forget all the conventions of The Legend of Zelda and enter a huge, open Hyrule, fight fearsome enemies, hunt ferocious beasts and gather ingredients to make food and elixirs for sustenance.
+                        Solve puzzles in over 100 different shrines, navigate your way through traps and collect special objects and items to help you on your journey.
+                        Prepare yourself thoroughly and take advantage of the qualities of various outfits and equipment to adapt to the weather or take advantage of special effects such as being faster or stealthier.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- button arrows -->
+        <div class="arrows">
+            <button id="prev"><</button>
+            <button id="next">></button>
+        </div>
+        <!-- thumbnail -->
+        <div class="thumbnail">
+            <div class="item active">
+                <img id="img00"src="img/port_totk.png">
+                <img id="img11" src="img/link_totk.png">
+
+            </div>
+            <div class="item">
+                <img id="img00"src="img/skyward.png">
+                <img id="img11" src="img/skyward_link.png">
+
+            </div>
+            <div class="item">
+                <img id="img00"src="img/port_link_aw.png">
+                <img id="img11" src="img/awake_link.png">
+
+            </div>
+            <div class="item">
+                <img id="img00"src="img/candance.png">
+                <img id="img11" src="img/cadence_link.png">
+
+            </div>
+            <div class="item">
+                <img id="img00"src="img/port_botw.png">
+                <img id="img11" src="img/botw_link.png" style="height: 150px;">
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+
+<shadow-partial data-html="../footer/footer.html" data-css="../footer/css/footer.css"></shadow-partial>
+
+    <script src="js/timeline.js"></script>
+</body>
+</html>
