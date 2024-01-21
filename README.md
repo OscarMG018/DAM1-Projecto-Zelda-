@@ -159,10 +159,10 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 | Action | Definition                         | 
 |--------|------------------------------------|
-| Show inventory main| `Attacks a nearby entity`   |
-| Show inventory weapons | `Cuts a nearby bush`        |
-| Show inventory food  | `Hits a nearby tree`     |         
-| Show map | `Fishes in a nerby lake`  |         
+        | Show inventory main| `Shows the main inventory interface` |
+| Show inventory weapons | `Shows the main weapons interface`        |
+| Show inventory food  | `Shows the main interface of the food`     |         
+| Show map | `Shows the map interface.`  |         
 
 <br/><br/>
 
@@ -198,9 +198,9 @@ must reclaim the Guardians to defeat Ganon and save Hyrule.
 
 <br/><br/>
 
-# Gameplay
-
 <div align="center">
+
+# Gameplay
 
 </div>
 
