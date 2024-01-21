@@ -1,12 +1,17 @@
 import Guardado
 import Inventario
 import Combate
-import Jugabilidad
+import MapSystem
 import platform
 import os
 import Interaccion
 from menuprincipal.ascii_draws_chosen import draw_chosen
 from datetime import datetime
+import copy
+import Cheats
+from ExecuteQuerry import RunQuery as ExecuteQuerry
+from ExecuteQuerry import connect_db as connect_db
+from ExecuteQuerry import disconnect_db as disconnect_db
 
 PlayerName = ""
 
@@ -138,7 +143,7 @@ def InitializeNewGame(playerName):
     Guardado.NewDBSave(playerName, GameId)
     #Inicializa los sistemas de juego
     Inventario.InvenroryInit()
-    Jugabilidad.InitMap()
+    MapSystem.InitMap()
     Combate.InitCombate()
     PlayerName = playerName
     Guardado.ActiveSave = GameId
@@ -147,7 +152,7 @@ def InitializeNewGame(playerName):
 def LoadSavedGame(GameId):
     global PlayerName
     Inventario.InvenroryInit(invetoryInfo=Guardado.GetInventoryInfo(GameId))
-    Jugabilidad.InitMap(MapInfo=Guardado.GetMapInfo(GameId))
+    MapSystem.InitMap(MapInfo=Guardado.GetMapInfo(GameId))
     Combate.InitCombate(CombateInfo=Guardado.GetCombateInfo(GameId))
     Guardado.ActiveSave = GameId
     PlayerName = Guardado.Saves[GameId]["PlayerName"]
@@ -164,97 +169,79 @@ def main_menu():
 
     # Comprobar si hay una partida guardada e imprimir opciones del menú según
     if len(Guardado.Saves) == 0:
-        print("* New Game, Help, About, Exit " + ("* " * 25))
+        print("* New Game, consultes BD, Help, About, Exit " + ("* " * 18))
     else:
-        print("* Continue, New Game, Help, About, Exit " + ("* " * 20))
+        print("* Continue, New Game, consultes BD, Help, About, Exit " + ("* " * 13))
 
 def new_game_menu_help():
-    print("""
-* Help, new game * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                            *
-*                                                                            *
-*          When asked, type your name and press enter                        *
-*          if 'Link' is fine for you, just press enter                       *
-*                                                                            *
-*          Name must be between 3 and 10 characters long and only            *
-*          letters, numbers and spaces are allowed                           *
-*                                                                            *
-*          Type 'back' now to go back to 'Set your name'                     *
-*                                                                            *
-* Back * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    print(
+"""* Help, new game  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+*          When asked, type your name and press enter                         *
+*          if 'Link' is fine for you, just press enter                        *
+*                                                                             *
+*          Name must be between 3 and 10 characters long and only             *
+*          letters, numbers and spaces are allowed                            *
+*                                                                             *
+*          Type 'back' now to go back to 'Set your name'                      *
+*                                                                             *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
     return ["back"]
 
 def new_game_menu():
-    print("""
-* New game * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                            *
-*                                                                            *
-*                                                                            *
-*                                                                            *
-*          Set your name ?                                                   *
-*                                                                            *
-*                                                                            *
-*                                                                            *
-*          Type 'back' now to go back to the 'Main menu'                     *
-*                                                                            *
-* Back, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    print(
+"""* New game  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*          Set your name ?                                                    *
+*                                                                             *
+*                                                                             *
+*                                                                             *
+*          Type 'back' now to go back to the 'Main menu'                      *
+*                                                                             *
+* Back, Help  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
     return ["back", "help"]
 
-def StartMenu():
-    print ("""
-* Zelda saved  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                            * 
-*                                                                            *
-*                                                                            *
-*                                                                            *
-*       Congratulations, Link has saved Princess Zelda.                      *
-*       Thanks for playing!                                                  *
-*                                                                            *
-*                                                                            *
-*                                                                            *
-*                                                                            *
-* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-""")
-
 def help_menu():
     print(
-"""
-* Help, main menu  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                            *
-*                                                                            *
-* Type 'continue' to continue a saved game                                   *
-* Type 'new game' to start a new game                                        *
-* Type 'about' to see information about the game                             *
-* Type 'exit' to exit the game                                               *
-*                                                                            *
-*                                                                            *
-* Type 'back' now to go back to the 'Main menu'                              *
-*                                                                            *
-* Back * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+"""* Help, main menu * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*                                                                             *
+* Type 'continue' to continue a saved game                                    *
+* Type 'new game' to start a new game                                         *
+* Type 'about' to see information about the game                              *
+* Type 'exit' to exit the game                                                *
+*                                                                             *
+*                                                                             *
+* Type 'back' now to go back to the 'Main menu'                               *
+*                                                                             *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
 
 def about_menu():
-    print("""
-* About  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                            *
-*         Game developed by ‘Team 2, The hometown bugs’ :                    *
-*                                                                            *
-*                                                                            *
-*              Allan Turing                                                  *
-*              Steve Jobs                                                    *
-*              Linus Torvalds                                                *
-*                                                                            *
-*         Type 'back' now to go back to the 'Main menu'                      *
-*                                                                            *
-* Back * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    print(
+"""* About * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                             *
+*         Game developed by ‘Team 1, Zelda Haters’ :                          *
+*                                                                             *
+*                                                                             *
+*              Oscar Medina                                                   *
+*              Pablo Vicente                                                  *
+*              Victor Valero                                                  *
+*                                                                             *
+*         Type 'back' now to go back to the 'Main menu'                       *
+*                                                                             *
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
     return "back"
 
 def Plot():
-    print("""
-* Plot * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    return """* Plot * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                                                                            *
 *                                                                            *
 *   Now history is repeating itself, and Princess Zelda has been captured by *
@@ -265,12 +252,10 @@ def Plot():
 *   must reclaim the Guardians to defeat Ganon and save Hyrule.              *
 *                                                                            *
 *                                                                            *
-* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-""")
+* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def Legend():
-    print("""
-* Legend * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    return """* Legend * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *   10,000 years ago, Hyrule was a land of prosperity thanks to the Sheikah  *
 *   tribe. The Sheikah were a tribe of warriors who protected the Triforce,  *
 *   a sacred relic that granted wishes.                                      *
@@ -281,22 +266,23 @@ def Legend():
 *   The princess, with the help of a heroic young man, managed to defeat     *
 *   Ganondorf and recover the Triforce.                                      *
 *                                                                            *
-* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-""")
+* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def saved_games_menu():
     result = "* Saved games * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\n"
     result += "*                                                                             *\n"
-    for i, save in enumerate(Guardado.Saves.values()):
+    copia = copy.deepcopy(list(Guardado.Saves.values()))
+    copia.sort(key=lambda x: x["SaveDate"], reverse=True)
+    for i, save in enumerate(copia):
         result += f'*  {i}: {save["SaveDate"]} - {save["PlayerName"]}, {save["LastLocation"]}'.ljust(72)+f'♥ {save["PlayerLife"]}/{save["PlayerMaxLife"]} *\n'
     for i in range(len(Guardado.Saves),9):
         result += "*                                                                             *\n"
+    result += "*                                                                             *\n"
     result += "* Play X, Erase X, Help, Back * * * * * * * * * * * * * * * * * * * * * * * * *"
     print(result)
 
 def saved_games_menu_help():
-    print("""
-* Help, saved games * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    print("""* Help, saved games * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                                                                             *
 *                                                                             *
 *       Type 'play X' to continue playing the game 'X'                        *
@@ -307,12 +293,10 @@ def saved_games_menu_help():
 *                                                                             *
 *       Type 'back' now to go back to 'Saved games'                           *
 *                                                                             *
-* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-""")
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
 
 def InventoryHelp():
-    print("""
-* Help, inventory * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    return """* Help, inventory * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *       Type 'show inventory main' to show the main inventory                 *
 *       (main, weapons, Food)                                                 *
 *       Type 'eat X' to eat X, where X is a Food item                         *
@@ -320,8 +304,7 @@ def InventoryHelp():
 *       Type 'equip X' to equip X, where X is a weapon                        *
 *       Type 'unequip X' to unequip X, where X is a weapon                    *
 *       Type 'back' now to go back to the 'Game'                              *
-* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-""")
+* Back  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
 
 def InventoryMain():
     result = " * * * * Inventory *" + "\n"
@@ -355,12 +338,12 @@ def InventoryWeapons():
     else:
         result += "                   *" + "\n"
     result += "Wood Shield" +f"{Inventario.GetItem('Wood Shield')[0]}/{Inventario.GetItem('Wood Shield')[1]} *".rjust(9," ") + "\n"
-    if Inventario.GetEquipedWeapon() == "Wood Shield":
+    if Inventario.GetEquipedShield() == "Wood Shield":
         result += "  (equiped)        *" + "\n"
     else:
         result += "                   *" + "\n"
     result += "Shield" +f"{Inventario.GetItem('Shield')[0]}/{Inventario.GetItem('Shield')[1]} *".rjust(14," ") + "\n"
-    if Inventario.GetEquipedWeapon() == "Shield":
+    if Inventario.GetEquipedShield() == "Shield":
         result += "  (equiped)        *" + "\n"
     else:
         result += "                   *" + "\n"
@@ -383,22 +366,20 @@ def InventoryFood():
     return result
 
 def GameOver():
- return """* Link death * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*       Game Over.                                                            *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-*                                                                             *
-* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"""
+ print("""* Link death * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+*       Game Over.                                                           *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+*                                                                            *
+* Continue * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
 
 def ZeldaSaved():
-    print("""
-* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    print("""* Zelda saved * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 *                                                                             *
 *                                                                             *
 *                                                                             *
@@ -409,13 +390,147 @@ def ZeldaSaved():
 *                                                                             *
 *                                                                             *
 *                                                                             *
-* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* Continue  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *""")
+
+def print_table(query_result,columnNames, n):
+    columnLengths = []
+    for i in range(len(columnNames)):
+        columnLengths.append(len(columnNames[i]))
+    for row in query_result:
+        for i in range(len(row)):
+            if len(str(row[i])) > columnLengths[i]:
+                columnLengths[i] = len(str(row[i]))
+    if n > sum(columnLengths):
+        #distribute equaly
+        n = n - sum(columnLengths)
+        while n > 0:
+            for i in range(len(columnLengths)):
+                if n > 0:
+                    columnLengths[i] += 1
+                    n -= 1
+    print("* ",end="")
+    for i in columnLengths:
+        print("+" + "-" * i, end="")
+    print("+ *")
+    print("* ",end="")
+    for name in columnNames:
+        print("|" + name.center(columnLengths[columnNames.index(name)]), end="")
+    print("| *")
+    print("* ",end="")
+    for i in columnLengths:
+        print("+" + "-" * i, end="")
+    print("+ *")
+    for row in query_result:
+        print("* ",end="")
+        for i in range(len(row)):
+            print("|" + str(row[i]).center(columnLengths[i]), end="")
+        print("| *")
+        print("* ",end="")
+        for i in columnLengths:
+            print("+" + "-" * i, end="")
+        print("+ *")
+
+def dbdata_help():
+    result = "* consultes BD, Help * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
+    result +="*                                                                              *" + "\n"
+    result +="*     Players: Players that have played                                        *" + "\n"
+    result +="*     Player Activity: Number of games played per player                       *" + "\n"
+    result +="*     Weapons: Weapons data for each player                                    *" + "\n"
+    result +="*     Food: Food data for each player                                          *" + "\n"
+    result +="*     Blood Moons: Blood moon data for each player                             *" + "\n"
+    result +="*                                                                              *" + "\n"
+    result += "* Players, Player Activity, Weapons, Food, Blood Moons * * * * * * * * * * * * *"
+    print(result)
+
+def dbdata_players():
+    print("* consultes BD, Players * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT UserName, MAX(LastSaved) AS LastPlayed FROM Game GROUP BY UserName Limit 10;")
+    disconnect_db()
+    print_table(result,["UserName","LastPlayed"],76)
+    print("* Help, Player Activity, Weapons, Food, Blood Moons * * * * * * * * * * * * * * * *")
+    
+def dbdata_player_activity():
+    print("* consultes BD, Player Activity * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("SELECT UserName, COUNT(*) AS PartidasJugadas FROM Game GROUP BY UserName Limit 10;")
+    disconnect_db()
+    print_table(result,["UserName","Number of Games Played"],76)
+    print("* Help, Players, Weapons, Food, Blood Moons * * * * * * * * * * * * * * * * * * * *")
+
+def dbdata_weapons():
+    print("* consultes BD, Weapons * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("""
+SELECT
+    G.UserName,
+    W.WeaponName,
+    max(W.TimesObtained),
+    (SELECT datetable.dateStarted FROM (SELECT g.gameId, g.userName, w.WeaponName, w.timesUsed, g.dateStarted
+        FROM Game g
+        JOIN Weapons w ON g.gameId = w.gameId
+        WHERE g.UserName = G.UserName AND w.weaponName = W.WeaponName
+        ORDER BY w.timesUsed DESC
+        LIMIT 1) AS datetable)
+FROM
+    Game G
+JOIN
+    Weapons W ON G.GameId = W.GameId
+GROUP BY
+    G.UserName, W.WeaponName
+ORDER BY
+    G.UserName, W.WeaponName
+Limit 12;
 """)
+    disconnect_db()
+    print_table(result,["UserName","WeaponName","ObtainedQuantity","DateMostUsed"],76)
+    print("* Help, Players, Player Activity, Food, Blood Moons * * * * * * * * * * * * * * * * *")
+
+def dbdata_food():
+    print("* consultes BD, Food  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result = ExecuteQuerry("""
+SELECT
+    G.UserName,
+    F.FoodName,
+    max(F.TimesObtained),
+    (SELECT datetable.dateStarted FROM (SELECT g.gameId, g.userName, f.FoodName, f.TimesConsumed, g.dateStarted
+        FROM Game g
+        JOIN Food f ON g.gameId = f.gameId
+        WHERE g.UserName = G.UserName AND f.FoodName = F.FoodName
+        ORDER BY f.TimesConsumed DESC
+        LIMIT 1) AS datetable)
+FROM
+    Game G
+JOIN
+    Food F ON G.GameId = F.GameId
+GROUP BY
+    G.UserName, F.FoodName
+ORDER BY
+    G.UserName, F.FoodName
+Limit 12;""")
+    disconnect_db()
+    print_table(result,["UserName","FoodName","ObtainedQuantity","DateMostConsumed"],76)
+    print("* Help, Players, Player Activity, Weapons, Blood Moons  * * * * * * * * * * * * * * *")
+
+
+def dbdata_blood_moons():
+    print("* consultes BD, Blood Moons * * * * * * * * * * * * * * * * * * * * * * * * * * * * *")
+    connect_db()
+    result1 = ExecuteQuerry("SELECT avg(BloodMoonAppearances) from Game;")
+    result2 = ExecuteQuerry("SELECT UserName, DateStarted, LastSaved, BloodMoonAppearances FROM Game ORDER BY BloodMoonAppearances DESC LIMIT 1;")
+    disconnect_db()
+    print_table(result1,["Avarage of Blood Moons"],79)
+    print_table(result2,["UserName","DateStarted","LastSaved","Blood Moon Appearances"],76)
+    print("* Help, Players, Player Activity, Weapons, Food * * * * * * * * * * * * * * * * * * *")
 
 def MainMenuAction(action):
     if action == "new game":
         AddToPropmts(action)
         NewGameMenu()
+    elif action == "consultes bd":
+        AddToPropmts(action)
+        DBdataMenu()
     elif action == "help":
         AddToPropmts(action)
         HelpMenu()
@@ -450,6 +565,34 @@ def MainMenu():
         if MainMenuAction(action) == "Exit":
             break
 
+def DBdataMenu():
+    datashowing = "help"
+    while(True):
+        clear_screen()
+        if datashowing == "help":
+            dbdata_help()
+        elif datashowing == "players":
+            dbdata_players()
+        elif datashowing == "player activity":
+            dbdata_player_activity()
+        elif datashowing == "weapons":
+            dbdata_weapons()
+        elif datashowing == "food":
+            dbdata_food()
+        elif datashowing == "blood moons":
+            dbdata_blood_moons()
+        print("\n## Last Prompts ##")
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        action = input("> ").lower()
+        if action == "back":
+            AddToPropmts(action)
+            break
+        elif action in ["help","players","player activity","weapons","food","blood moons"]:
+            AddToPropmts(action)
+            datashowing = action
+
 def HelpMenu():
     while(True):
         clear_screen()
@@ -481,7 +624,7 @@ def AboutMenu():
             AddToPropmts("Invalid Action")
 
 def ValidName(name):
-    if len(name) < 3 or len(name) > 20:
+    if len(name) < 3 or len(name) > 10:
         return False
     for c in name:
         if not c.isalnum() and c != " ":
@@ -504,8 +647,12 @@ def NewGameMenu():
             AddToPropmts(action)
             NewGameMenuHelp()
         else:
+            if action == "":
+                AddToPropmts(f"Welcome to the game, {'Link'}")
+                LegendPlotMenu("Link")
+                break
             if ValidName(action):
-                AddToPropmts(f"Welcome to the game,{action}")
+                AddToPropmts(f"Welcome to the game, {action}")
                 LegendPlotMenu(action)
                 break
             else:
@@ -535,7 +682,6 @@ def SavedGamesMenuAction(command,args):
             AddToPropmts("Invalid action")
         else:
             index = Guardado.GetSavedGameId(int(args[0]))
-            AddToPropmts(str(index))
             if Guardado.Saves.get(index) == None:
                 AddToPropmts("Invalid action")
             else:
@@ -552,7 +698,6 @@ def SavedGamesMenuAction(command,args):
             if Guardado.Saves.get(index) == None:
                 AddToPropmts("Invalid action")
             else:
-                AddToPropmts(str(index))
                 Guardado.DeleteSaveFromDB(index)
                 del Guardado.Saves[index]
     elif command == "help":
@@ -576,7 +721,18 @@ def SavedGamesMenu():
             break
 
 def SavedGamesMenuHelp():
-    return #TODO
+    while(True):
+        clear_screen()
+        saved_games_menu_help()
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        new_prompt = input("> ").lower()
+        if new_prompt == "back":
+            break
+        else:
+            prompts_list.append("> Invalid Action")
+    clear_screen()
 
 def LegendPlotMenu(PlayerName):
     while(True):
@@ -608,7 +764,7 @@ def LegendPlotMenu(PlayerName):
         else:
             prompts_list.append("> Invalid Action")
     InitializeNewGame(PlayerName)
-    MapMenu("Hyrule")
+    MapMenu("Hyrule",True)
 
 mapConnections = {
     "Hyrule" : ["Gerudo","Death mountain","Castle"],
@@ -618,19 +774,17 @@ mapConnections = {
     "Castle" : []
 }
 
-
-
 def WorldMap():
     result = "* Map * * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     result += "*                                                         *" + "\n"
-    result += "*  Hyrule       " + "S0" + "?"*(not Jugabilidad.OpenSanctuaris[0]) + " "* Jugabilidad.OpenSanctuaris[0] +" "*23+"Death Mountain  *" + "\n"
-    result += "*"+" "*30 + "S2" + "?"*(not Jugabilidad.OpenSanctuaris[2]) + " "* Jugabilidad.OpenSanctuaris[2] + " "*24+"*" + "\n"
-    result += "*"+" "*8 + "S1" + "?"*(not Jugabilidad.OpenSanctuaris[1]) + " "* Jugabilidad.OpenSanctuaris[1] +" "*39 + "S3" + "?"*(not Jugabilidad.OpenSanctuaris[3]) + " "* Jugabilidad.OpenSanctuaris[3] + " "*4+ "*" +"\n"
+    result += "*  Hyrule       " + "S0" + "?"*(not MapSystem.OpenSanctuaris[0]) + " "* MapSystem.OpenSanctuaris[0] +" "*23+"Death Mountain  *" + "\n"
+    result += "*"+" "*30 + "S2" + "?"*(not MapSystem.OpenSanctuaris[2]) + " "* MapSystem.OpenSanctuaris[2] + " "*24+"*" + "\n"
+    result += "*"+" "*8 + "S1" + "?"*(not MapSystem.OpenSanctuaris[1]) + " "* MapSystem.OpenSanctuaris[1] +" "*39 + "S3" + "?"*(not MapSystem.OpenSanctuaris[3]) + " "* MapSystem.OpenSanctuaris[3] + " "*4+ "*" +"\n"
     result += "*                                                         *" + "\n"
     result += "*"+"Castle".center(57," ") +"*"+"\n"
     result += "*                                                         *" + "\n"
-    result += "*" +" "*17 + "S4" + "?"*(not Jugabilidad.OpenSanctuaris[4]) + " "* Jugabilidad.OpenSanctuaris[4]+" "*32 + "S5" + "?"*(not Jugabilidad.OpenSanctuaris[5]) + " "* Jugabilidad.OpenSanctuaris[5] +"  *" + "\n"
-    result += "*  Gerudo" + " "*31 + "S6" + "?"*(not Jugabilidad.OpenSanctuaris[6]) + " "* Jugabilidad.OpenSanctuaris[6] + " "*6 + "Necluda  *" + "\n"
+    result += "*" +" "*17 + "S4" + "?"*(not MapSystem.OpenSanctuaris[4]) + " "* MapSystem.OpenSanctuaris[4]+" "*32 + "S5" + "?"*(not MapSystem.OpenSanctuaris[5]) + " "* MapSystem.OpenSanctuaris[5] +"  *" + "\n"
+    result += "*  Gerudo" + " "*31 + "S6" + "?"*(not MapSystem.OpenSanctuaris[6]) + " "* MapSystem.OpenSanctuaris[6] + " "*6 + "Necluda  *" + "\n"
     result += "*                                                         *" + "\n"
     result += "* Back  * * * * * * * * * * * * * * * * * * * * * * * * * *" + "\n"
     return result
@@ -668,45 +822,65 @@ def GetInventory():
     else:
         return "Error"
 
+def ActionsAvailables():
+    actions = [["Exit",2],["Go",2],["Equip",2],["Unequip",2]]
+    if MapSystem.mapName == "Castle":
+        if Interaccion.TryCutGrass()[0] or Interaccion.TryShakeTree()[0] or Combate.TryAttackGanon():
+            actions.insert(1,["Attack",2])
+    else:
+        if Combate.tryattack()[0] or Interaccion.TryCutGrass()[0] or Interaccion.TryShakeTree()[0]:
+            actions.insert(1,["Attack",2])
+        if Inventario.GetItem("Vegetable")+Inventario.GetItem("Salad")+Inventario.GetItem("Pescatarian")+Inventario.GetItem("Roasted") > 0:
+            actions.append(["Eat",2])
+        for cookable,ingredients in Interaccion.CookingIngredients.items():
+            if Interaccion.TryCook(cookable)[0]:
+                actions.append(["Cook",2])
+                break
+        if Interaccion.TryFishing()[0]:
+            actions.append(["Fish",2])
+        if Interaccion.TryOpenChest()[0] or Interaccion.TryOpenSanctuary()[0]:
+            actions.append(["Open",2])
+    actions.append(["Show",2])
+    return actions
+
+
 def ExecuteMapAction(command,args):
     if command == None:
         AddToPropmts("Invalid action")
         return
     command = command.lower()
     if command == "go":
-        if args[0].isdigit():
-            if len(args) != 2:
-                AddToPropmts("Invalid action")
+        if len(args) == 2 and args[0].isdigit():
             number = int(args[0])
             direction = args[1].lower()
             if direction == "up":
-                message = Jugabilidad.MovePlayerBy(1*number, 0)
+                message = MapSystem.MovePlayerBy(1*number, 0)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             elif direction == "down":
-                message = Jugabilidad.MovePlayerBy(-1*number, 0)
+                message = MapSystem.MovePlayerBy(-1*number, 0)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             elif direction == "left":
-                message = Jugabilidad.MovePlayerBy(0, -1*number)
+                message = MapSystem.MovePlayerBy(0, -1*number)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             elif direction == "right":
-                message = Jugabilidad.MovePlayerBy(0, 1*number)
+                message = MapSystem.MovePlayerBy(0, 1*number)
                 if message != None:
                     AddToPropmts(message)
                 ActionTime()
             else:
                 AddToPropmts("That is not a direction")
-            if Jugabilidad.mapName == "Castle" and Combate.InFrontOfGanon():
+            if MapSystem.mapName == "Castle" and Combate.InFrontOfGanon():
                 AddToPropmts("Ganon's presence hurts you")
                 Combate.PlayerLife -= 1
-        elif args[0].lower() == "by" and args[1].lower() == "the":
+        elif len(args) == 3 and args[0].lower() == "by" and args[1].lower() == "the":
             if args[2].lower() == "water":
-                message = Jugabilidad.MovePlayerNearTerrain("~")
+                message = MapSystem.MovePlayerNearTerrain(["~","-"])
                 if message == "You can't go to ~ from here":
                     AddToPropmts(message)
                     ActionTime()
@@ -716,7 +890,7 @@ def ExecuteMapAction(command,args):
                     ActionTime()
             else:
                 if len(args[2]) == 1:
-                    message = Jugabilidad.MovePlayerNearEntity("symbol",args[2])
+                    message = MapSystem.MovePlayerNearEntity("symbol",args[2])
                     if message == f"You can't go to {args[2]} from here":
                         AddToPropmts(message)
                         ActionTime()
@@ -725,7 +899,7 @@ def ExecuteMapAction(command,args):
                     else:
                         ActionTime()
                 elif args[2][0] == "S":
-                    message = Jugabilidad.MovePlayerNearEntity("SanctuaryNumber",int(args[2][1:]))
+                    message = MapSystem.MovePlayerNearEntity("SanctuaryNumber",int(args[2][1:]))
                     if message == f"You can't go to {args[2][1:]} from here":
                         AddToPropmts(f"You can't go to {args[2]} from here")
                         ActionTime()
@@ -735,23 +909,23 @@ def ExecuteMapAction(command,args):
                         ActionTime()
                 else:
                     AddToPropmts("That is not in this location")
-        elif args[0] == "to":
+        elif len(args) >= 2 and args[0] == "to":
             mapname = (" ".join(args[1:])).capitalize()
             " ".capitalize()
-            if Jugabilidad.mapName == mapname:
+            if MapSystem.mapName == mapname:
                 AddToPropmts("You are already in that location")
 
-            elif Jugabilidad.maps.get(mapname) == None:
+            elif MapSystem.maps.get(mapname) == None:
                 AddToPropmts("That is not a location")
 
-            elif Jugabilidad.mapName == "Castle":
+            elif MapSystem.mapName == "Castle":
                 AddToPropmts("To exit the castle type \"Back\"")
 
-            elif mapname not in mapConnections[Jugabilidad.mapName]:
+            elif mapname not in mapConnections[MapSystem.mapName]:
                 AddToPropmts("You can't go to that location from here")
 
             else:
-                Jugabilidad.LoadMap(mapname)
+                MapSystem.LoadMap(mapname)
                 message = Interaccion.DecideFoxVisibility()
                 AddToPropmts(f"You are now in {mapname}")
                 Interaccion.fished = False
@@ -764,30 +938,33 @@ def ExecuteMapAction(command,args):
     elif command == "fish":
         if len(args) != 0:
             AddToPropmts("Invalid action")
+            return
         message = Interaccion.Fishing()
         AddToPropmts(message)   
         if message == "You Get A Fish" or message == "You don't Get A Fish":
-            SaveData()
             ActionTime()
+            SaveData()
     elif command == "open":
         if len(args) != 1:
             AddToPropmts("Invalid action")
+            return
         if args[0].lower() == "chest":
             message = Interaccion.OpenChest()
             AddToPropmts(message)
             if message[0] == "Y":
-                SaveData()
                 ActionTime()
+                SaveData()
         elif args[0].lower() == "sanctuary":
             message = Interaccion.OpenSanctuary()
             if message[4] != "o":
                 AddToPropmts(message)
             else:
-                SaveData()
                 ActionTime()
+                SaveData()
     elif command == "show":
-        if len(args) > 2:
+        if len(args) not in [1,2]:
             AddToPropmts("Invalid action")
+            return
         if args[0].lower() == "inventory":
             if args[1].lower() in ["main","weapons","food"]:
                 global invetoryToShow
@@ -810,10 +987,10 @@ def ExecuteMapAction(command,args):
             ActionTime()
             SaveData()            
     elif command == "attack":
-        player = Jugabilidad.GetPlayer()
+        player = MapSystem.GetPlayer()
         px = player["x"]
         py = player["y"]
-        if Jugabilidad.AdjacentEntity(py,px,"Tree") != None or Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
+        if MapSystem.AdjacentEntity(py,px,"Tree") != None or MapSystem.AdjacentEntity(py,px,"Broken Tree") != None:
             messages = Interaccion.ShakeTree()
             for message in messages:
                 AddToPropmts(message)
@@ -822,7 +999,17 @@ def ExecuteMapAction(command,args):
                 SaveData()
             elif messages[0] == "The Tree didn't give you anythng":
                 ActionTime()
-        elif Jugabilidad.AdjacentEntity(py,px,"Ganon") != None:
+        elif MapSystem.AdjacentEntity(py,px,"Fox") != None or MapSystem.AdjacentEntity(py,px,"Enemy") != None:
+            if len(args) != 0:
+                AddToPropmts("Invalid action")
+                return
+            messages = Combate.attack()
+            for message in messages:
+                AddToPropmts(message)
+            if not(len(messages) == 1 and messages[0] == "No hay entidades cercanas para atacar."):
+                ActionTime()
+                SaveData()
+        elif MapSystem.AdjacentEntity(py,px,"Ganon") != None:
             messages = Combate.attackGanon()
             for message in messages:
                 AddToPropmts(message)
@@ -832,7 +1019,7 @@ def ExecuteMapAction(command,args):
             elif messages[0] != "No hay armas equipadas para atacar." or messages[0] != "Ganon is out of range":
                 ActionTime()
                 SaveData()
-        elif Jugabilidad.TerrainAt(py,px) == " ":
+        elif MapSystem.TerrainAt(py,px) == " ":
             message = Interaccion.CutGrass()
             if message != None:
                 AddToPropmts(message)
@@ -840,12 +1027,13 @@ def ExecuteMapAction(command,args):
                 ActionTime()
                 SaveData()
     elif command == "equip":
-        if len(args) != 1:
+        if len(args) not in [1,2]:
             AddToPropmts("Invalid action")
-        if "sword" in args[0].lower():
-            message = Inventario.equip_weapon(args[0].title())
-        elif "shield" in args[0].lower():
-            message = Inventario.equip_shield(args[0].title())
+            return
+        if args[0].lower() == "sword" or args[1].lower() == "sword":
+            message = Inventario.equip_weapon(" ".join(args).title())
+        elif args[0].lower() == "shield" or args[1].lower() == "shield":
+            message = Inventario.equip_shield(" ".join(args).title())
         else:
             AddToPropmts("Invalid action")
             return
@@ -854,8 +1042,9 @@ def ExecuteMapAction(command,args):
             ActionTime()
             SaveData()
     elif command == "unequip":
-        if len(args) != 1:
+        if len(args) not in [1,2]:
             AddToPropmts("Invalid action")
+            return
         if "sword" in args[0].lower() or "shield" in args[0].lower():
             message = Inventario.unequip_item(args[0].title())
             AddToPropmts(message)
@@ -865,15 +1054,26 @@ def ExecuteMapAction(command,args):
         else:
             AddToPropmts("Invalid action")
     elif command == "eat":
-        return
+        if len(args) != 1:
+            AddToPropmts("Invalid action")
+            return
+        message = Interaccion.Eat(args[0].capitalize())
+        AddToPropmts(message)
+        if message == f"You ate a {args[0].capitalize()}":
+            ActionTime()
+            SaveData()
     elif command == "cheat":
-        return
+        message = Cheats.makeCheat(args)
+        AddToPropmts(message)
+        SaveData()
     elif command == "back":
-        if Jugabilidad.mapName == "Castle":
+        if MapSystem.mapName == "Castle":
             if len(args) != 0:
                 AddToPropmts("Invalid action")
             else:
-                Jugabilidad.LoadMap(Jugabilidad.previusLocation)
+                MapSystem.LoadMap(MapSystem.previusLocation)
+                message = Interaccion.DecideFoxVisibility()
+                AddToPropmts(message)
                 ActionTime()
                 SaveData()
         else:
@@ -881,21 +1081,26 @@ def ExecuteMapAction(command,args):
     elif command == "exit":
         if len(args) != 0:
             AddToPropmts("Invalid action")
+            return
         return "back"
     else:
         AddToPropmts("Invalid action")
 
 invetoryToShow = "main"
 
-def MapMenu(LastLocation):
+def MapMenu(LastLocation,newGame=False):
     global invetoryToShow
     invetoryToShow = "main"
-    Jugabilidad.LoadMap(LastLocation)
-    Interaccion.DecideFoxVisibility()
+    MapSystem.LoadMap(LastLocation)
+    if newGame:
+        MapSystem.MovePlayerBy(0,1)
+    message = Interaccion.DecideFoxVisibility()
+    AddToPropmts(message)
+    MapSystem.AnimateWater()
     while(True):
         clear_screen()
-        mapstr = Jugabilidad.MapToStr()
-        menus = [[Jugabilidad.mapName,1],["Exit",2]]
+        mapstr = MapSystem.MapToStr()
+        menus = [[MapSystem.mapName,1]] + ActionsAvailables()
         mapstr = WithFrame(mapstr,Menus=menus)
         inventorystr = GetInventory()
         UI = concathorizontal(mapstr,inventorystr)
@@ -907,14 +1112,21 @@ def MapMenu(LastLocation):
         action = input("> ")
         command,args = parse_input(action)
         if ExecuteMapAction(command,args) == "back":
-            break 
+            break
+        if len(MapSystem.GetAllEntiiesWithName("Ganon")) == 1 and len(MapSystem.GetAllEntiiesWithName("GanonHeart")) == 0:
+            Combate.PlayerLife = Combate.PlayerMaxLife
+            SaveData()
+            ZeldaSavedMenu()
+            break
         if Combate.PlayerLife <= 0:
+            Combate.PlayerLife = Combate.PlayerMaxLife
+            SaveData()
             GameOverMenu()
             break
 
 
-
 def GameOverMenu():
+    AddToPropmts("Nice try, you died, game is over")
     while(True):
         clear_screen()
         GameOver()
@@ -923,39 +1135,58 @@ def GameOverMenu():
             print(p)
         print("- - - - -\nWhat to do now?")
         action = input("> ").lower()
-        if action == "back":
+        if action == "continue":
             AddToPropmts(action)
-            LegendPlotMenu(action)
             break
         else:
             AddToPropmts("Invalid Action")
 
+def ZeldaSavedMenu():
+    AddToPropmts("You saved Zelda, you won the game")
+    while(True):
+        clear_screen()
+        ZeldaSaved()
+        print("\n## Last Prompts ##")
+        for p in prompts_list:
+            print(p)
+        print("- - - - -\nWhat to do now?")
+        action = input("> ").lower()
+        if action == "continue":
+            AddToPropmts(action)
+            break
+        else:
+            AddToPropmts("Invalid Action")
 
 def ActionTime():
+    #Animar el agua
+    MapSystem.AnimateWater()
     #Broken trees regen -=1
-    btrees = Jugabilidad.GetAllEntiiesWithName("Broken Tree")
+    btrees = MapSystem.GetAllEntiiesWithName("Broken Tree")
     for tree in btrees:
         tree["regen"] -= 1
         if tree["regen"] <= 0:
             tree["name"] = "Tree"
             del tree["regen"]
     #Reclose ches if condition
-    if len(Jugabilidad.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
+    if len(MapSystem.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
         Interaccion.RecloseChest()
     #Blood Moon
     Combate.BloodMoon += 1
     if Combate.BloodMoon >= 25:
         Combate.BloodMoon = 0
         Combate.BloodMoonAppearances += 1
-        Jugabilidad.RespawnEnemies()
+        MapSystem.RespawnEnemies()
 
 def SaveData():
+    global PlayerName
     ActiveSave = Guardado.ActiveSave
     Inventario.SaveInventory(ActiveSave)
-    Jugabilidad.SaveMapInfo(ActiveSave)
+    MapSystem.SaveMapInfo(ActiveSave)
     Combate.SaveCombate(ActiveSave)
     Guardado.Saves[ActiveSave]["SaveDate"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     Guardado.SaveToDB(ActiveSave)
+    PlayerName = Guardado.Saves[ActiveSave]["PlayerName"]
 
 Guardado.LoadFromDB()
 MainMenu()
+

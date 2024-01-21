@@ -1,21 +1,20 @@
-import Jugabilidad
+import MapSystem
 import random
 import Inventario
 import Combate
 import Guardado
-from datetime import datetime
 
 #Pesca
 
 fished = False
 
 def TryFishing():
-    playerIndex = Jugabilidad.GetPlayerIndex()
-    px = Jugabilidad.GetEntityByIndex(playerIndex)["x"]
-    py = Jugabilidad.GetEntityByIndex(playerIndex)["y"]
+    playerIndex = MapSystem.GetPlayerIndex()
+    px = MapSystem.GetEntityByIndex(playerIndex)["x"]
+    py = MapSystem.GetEntityByIndex(playerIndex)["y"]
     if fished:
         return False,"You have already fished in this loacation"
-    if not Jugabilidad.AdjacentTerrain(py,px,"~"):
+    if not (MapSystem.AdjacentTerrain(py,px,"~") or  MapSystem.AdjacentTerrain(py,px,"-")):
         return False, "There isn't water near you"
     return True,None
 
@@ -33,16 +32,21 @@ def Fishing():
 #Fox
 
 def DecideFoxVisibility():
-    foxlist = Jugabilidad.GetAllEntiiesWithName("Fox")
-    if len(foxlist) == 0:
-        return
-    fox = foxlist[0]
-    if random.random() < 0.5:
-        fox["visible"] = True
+    foxlist = MapSystem.GetAllEntiiesWithName("Fox",location=None)
+    if len(foxlist) > 0:
+        MapSystem.RemoveEntity(MapSystem.GetIndexOfEntity(foxlist[0]))
+    if random.random() <= 0.5:
+        if MapSystem.mapName == "Hyrule":
+            MapSystem.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 50, "y" : 8})
+        if MapSystem.mapName == "Death mountain":
+            MapSystem.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 29, "y" : 1})
+        if MapSystem.mapName == "Gerudo":
+            MapSystem.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 47, "y" : 7})
+        if MapSystem.mapName == "Necluda":
+            MapSystem.AddEntity({"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6})
         return "You see a Fox"
-        return
-    fox["visible"] = False
-    return "You don't see a Fox"
+    else:
+        return "You don't see a Fox"
 
 #Cocinar
 
@@ -53,16 +57,16 @@ CookingIngredients =  {
 }
 
 def TryCook(name):
-    player = Jugabilidad.GetPlayer()
+    player = MapSystem.GetPlayer()
     px = player["x"]
     py = player["y"]
-    if Jugabilidad.AdjacentEntity(py,px,"Cuina") == None:
+    if MapSystem.AdjacentEntity(py,px,"Cuina") == None:
         return False, "There isn't a cooking pot here"
     if name not in CookingIngredients:
         return False, "This recipe doesn't exist"
     insuficientIngredients = []
     for ingridient in CookingIngredients[name]:
-        if Inventario.GetItem(ingridient[0],category="Food") < ingridient[1]:
+        if Inventario.GetItem(ingridient[0]) < ingridient[1]:
             insuficientIngredients.append(ingridient[0])
     if len(insuficientIngredients) > 0:
         return False, "You don't have enough "+" and ".join(insuficientIngredients)
@@ -72,18 +76,18 @@ def Cook(name):
     if not TryCook(name)[0]:
         return TryCook(name)[1]
     for ingridient in CookingIngredients[name]:
-        Inventario.RemoveItem(ingridient[0],ingridient[1],category="Food")
-    Inventario.AddItem(name,1,category="Food")
+        Inventario.RemoveItem(ingridient[0],ingridient[1])
+    Inventario.AddItem(name,1)
     return f"You cooked a {name}"
 
 #Cofres
 
 def TryOpenChest():
-    playerIndex = Jugabilidad.GetPlayerIndex()
-    px = Jugabilidad.GetEntityByIndex(playerIndex)["x"]
-    py = Jugabilidad.GetEntityByIndex(playerIndex)["y"]
-    if Jugabilidad.AdjacentEntity(py,px,"Closed Chest") == None:
-        if Jugabilidad.AdjacentEntity(py,px,"Open Chest") != None:
+    playerIndex = MapSystem.GetPlayerIndex()
+    px = MapSystem.GetEntityByIndex(playerIndex)["x"]
+    py = MapSystem.GetEntityByIndex(playerIndex)["y"]
+    if MapSystem.AdjacentEntity(py,px,"Closed Chest") == None:
+        if MapSystem.AdjacentEntity(py,px,"Open Chest") != None:
             return False, "This chest is already open"
         else:
             return False, "There isn't a closed chest here"
@@ -92,17 +96,17 @@ def TryOpenChest():
 def OpenChest():
     if not TryOpenChest()[0]:
         return TryOpenChest()[1]
-    playerIndex = Jugabilidad.GetPlayerIndex()
-    px = Jugabilidad.GetEntityByIndex(playerIndex)["x"]
-    py = Jugabilidad.GetEntityByIndex(playerIndex)["y"]
-    chest = Jugabilidad.AdjacentEntity(py,px,"Closed Chest")
+    playerIndex = MapSystem.GetPlayerIndex()
+    px = MapSystem.GetEntityByIndex(playerIndex)["x"]
+    py = MapSystem.GetEntityByIndex(playerIndex)["y"]
+    chest = MapSystem.AdjacentEntity(py,px,"Closed Chest")
     Inventario.AddItem(chest["item"],1)
     chest["name"] = "Open Chest"
     chest["symbol"] = "W"
     return f"You got a {chest['item']}"
 
 def RecloseChest():
-    chests = Jugabilidad.GetAllEntiiesWithName("Open Chest")
+    chests = MapSystem.GetAllEntiiesWithName("Open Chest")
     for chest in chests:
         chest["name"] = "Closed Chest"
         chest["symbol"] = "M"
@@ -110,42 +114,43 @@ def RecloseChest():
 #Sanctuary
 
 def TryOpenSanctuary():
-    player = Jugabilidad.GetPlayer()
+    player = MapSystem.GetPlayer()
     px = player["x"]
     py = player["y"]
-    sanc = Jugabilidad.AdjacentEntity(py,px,"Sanctuary")
+    sanc = MapSystem.AdjacentEntity(py,px,"Sanctuary")
     if sanc == None:
         return False, "There isn't a sanctuary here"
-    elif Jugabilidad.OpenSanctuaris[sanc["SanctuaryNumber"]] == True:
+    elif MapSystem.OpenSanctuaris[sanc["SanctuaryNumber"]] == True:
         return False, "You already opened this sanctuary"
     return True,None
 
 def OpenSanctuary():
     if not TryOpenSanctuary()[0]:
         return TryOpenSanctuary()[1]
-    player = Jugabilidad.GetPlayer()
+    player = MapSystem.GetPlayer()
     px = player["x"]
     py = player["y"]
-    sanc = Jugabilidad.AdjacentEntity(py,px,"Sanctuary")
-    Jugabilidad.OpenSanctuaris[sanc["SanctuaryNumber"]] = True
-    Inventario.PlayerMaxLife += 1
+    sanc = MapSystem.AdjacentEntity(py,px,"Sanctuary")
+    MapSystem.OpenSanctuaris[sanc["SanctuaryNumber"]] = True
+    Combate.PlayerMaxLife += 1
+    Combate.PlayerLife += 1
     return "You opened the sanctuary"
 
 #Tree
 
 def TryShakeTree():
-    player = Jugabilidad.GetPlayer()
+    player = MapSystem.GetPlayer()
     px = player["x"]
     py = player["y"]
-    if Jugabilidad.AdjacentEntity(py,px,"Tree") == None:
-        if Jugabilidad.AdjacentEntity(py,px,"Broken Tree") != None:
-            return False, "The tree is not ready yet"
-        return False, "There isn't a tree here"
+    if MapSystem.AdjacentEntity(py,px,"Tree") == None:
+        if MapSystem.AdjacentEntity(py,px,"Broken Tree") != None:
+            return False, ["The tree is not ready yet"]
+        return False, ["There isn't a tree here"]
     return True,None
 
 def ShakeTree():
-    #if not TryShakeTree()[0]:
-        #return TryShakeTree()[1]
+    if not TryShakeTree()[0]:
+        return TryShakeTree()[1]
     messages = []
     r = random.random()
     if Inventario.GetEquipedWeapon() == None:
@@ -163,14 +168,11 @@ def ShakeTree():
         else:
             return ["The Tree didn't give you anythng"]
     else:
-        player = Jugabilidad.GetPlayer()
+        player = MapSystem.GetPlayer()
         px = player["x"]
         py = player["y"]
-        tree = Jugabilidad.AdjacentEntity(py,px,"Tree")
+        tree = MapSystem.AdjacentEntity(py,px,"Tree")
         tree["hits"] += 1
-        message = Inventario.UseWeapon()
-        if message != None:
-            messages.append(message)
         if tree["hits"] >= 5:
             tree["hits"] = 0
             tree["name"] = "Broken Tree"
@@ -186,6 +188,9 @@ def ShakeTree():
             messages.append("You got an apple")
         else:
             messages.append("The Tree didn't give you anythng")
+        message = Inventario.UseWeapon()
+        if message != None:
+            messages.append(message)
         return messages
 
 #Gespa
@@ -193,70 +198,48 @@ def ShakeTree():
 def TryCutGrass():
     if Inventario.GetEquipedWeapon() == None:
         return False,"No Weapon Equiped"
-    player = Jugabilidad.GetPlayer()
+    player = MapSystem.GetPlayer()
     px = player["x"]
     py = player["y"]
-    if Jugabilidad.TerrainAt(py,px) != " ":
+    if MapSystem.TerrainAt(py,px) != " ":
         return False,None
     return True,None
 
 def CutGrass():
-    #if not TryCutGrass()[0]:
-        #return TryCutGrass()[1] 
+    if not TryCutGrass()[0]:
+        return TryCutGrass()[1] 
     r = random.random()
-    if r < 1:
+    if r < 0.1:
         Inventario.AddItem("Meat",1)
         return "You got a lizard"
+    return "You cut the grass, but didn't get anything"
 
-#Time and saving
+#Eat
 
-def ActionTime():
-    #Broken trees regen -=1
-    btrees = Jugabilidad.GetAllEntiiesWithName("Broken Tree")
-    for tree in btrees:
-        tree["regen"] -= 1
-        if tree["regen"] <= 0:
-            tree["name"] = "Tree"
-            del tree["regen"]
-    #Reclose ches if condition
-    if len(Jugabilidad.GetAllEntiiesWithName("Closed Chest")) == 0 and Inventario.GetItem("Wood Sword")[1] == 0 and Inventario.GetItem("Sword")[1] == 0:
-        RecloseChest()
-    #Blood Moon
-    Combate.BloodMoon += 1
-    if Combate.BloodMoon >= 25:
-        Combate.BloodMoon = 0
-        Combate.BloodMoonAppearances += 1
-        Jugabilidad.RespawnEnemies()
-    Inventario.BloodMoon += 1
-    if Inventario.BloodMoon >= 25:
-        Inventario.BloodMoon = 0
+def TryEat(food_type):
+    if food_type not in ["Vegetable","Salad","Pescatarian","Roasted"]:
+        return False, f"{food_type} isn't comestible"
+    if Inventario.inventario[food_type] != 0:
+        if Combate.PlayerLife != Combate.PlayerMaxLife:
+            return True, None
+        else:
+            return False, "You're not hungry now"
+    else:
+        return False, f"You don't have '{food_type}' to eat"
 
-def test():
-    Jugabilidad.InitMap()
-    Jugabilidad.LoadMap("Hyrule")
-    while(True):
-        print(Jugabilidad.MapToStr())
-        print(Inventario.inventario_armas)
-        print(Inventario.inventario)
-        print(fished)
-        action = input().split(" ")
-        if action[0] == "fishing":
-            print(Fishing())
-        if action[0] == "go":
-            Jugabilidad.MovePlayerBy(int(action[1]),int(action[2]))
-        if action[0] == "goto":
-            Jugabilidad.MovePlayerNearEntity("symbol",action[1])
-        if action[0] == "open":
-            if action[1] == "chest":
-                print(OpenChest())
-            elif action[1] == "sanctuary":
-                print(OpenSanctuary())
-test()
-
-def SaveData():
-    ActiveSave = Guardado.ActiveSave
-    Inventario.SaveInventory(ActiveSave)
-    Jugabilidad.SaveMapInfo(ActiveSave)
-    Guardado.SaveFiles[ActiveSave]["SaveDate"] = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    Guardado.SaveToFile() #Cambiar por Guardado.SaveToDB() cuando este lista
-
+def Eat(food_type):
+    if not TryEat(food_type)[0]:
+        return TryEat(food_type)[1]
+    Guardado.Saves[Guardado.ActiveSave]["FoodConsumed"][food_type] += 1
+    if food_type == "Vegetable":
+        Combate.PlayerLife += 1
+    if food_type == "Salad":
+        Combate.PlayerLife += 2
+    if food_type == "Pescatarian":
+        Combate.PlayerLife += 3
+    if food_type == "Roasted":
+        Combate.PlayerLife += 4
+    Inventario.inventario[food_type] -= 1
+    if Combate.PlayerLife > Combate.PlayerMaxLife:
+        Combate.PlayerLife = Combate.PlayerMaxLife
+    return f"You ate a {food_type.capitalize()}"

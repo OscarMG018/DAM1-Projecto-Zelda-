@@ -3,7 +3,7 @@ import random
 from collections import deque
 import Guardado
 
-mapName = "map1"
+mapName = "Hyrule"
 previusLocation = "Hyrule"
 
 OpenSanctuaris = [False,False,False,False,False,False,False]
@@ -34,8 +34,7 @@ OriginalMaps = {
             {"name" : "Enemy" , "symbol" : "E", "x" : 20, "y" : 8, "life" : 1,"EnemyNumber" : 1},
             {"name" : "Sanctuary" , "symbol" : "S", "x" : 28, "y" : 8, "SanctuaryNumber" : 1},
             {"name" : "Closed Chest" , "symbol" : "M", "x" : 46, "y" : 8, "item" : "Sword"},
-            {"name" : "Tree" , "symbol" : "T", "x" : 44, "y" : 8, "hits" : 0},
-            {"name" : "Fox" , "symbol" : "F", "x" : 50, "y" : 8, "visible" : False}
+            {"name" : "Tree" , "symbol" : "T", "x" : 44, "y" : 8, "hits" : 0}
         ]
     },
     "Death mountain" : {
@@ -59,7 +58,6 @@ OriginalMaps = {
             {"name" : "Tree" , "symbol" : "T", "x" : 17, "y" : 8, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 17, "y" : 7, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 18, "y" : 6, "hits" : 0},
-            {"name" : "Fox" , "symbol" : "F", "x" : 29, "y" : 1, "visible" : False},
             {"name" : "Closed Chest" , "symbol" : "M", "x" : 35, "y" : 7, "item" : "Shield"},
             {"name" : "Sanctuary" , "symbol" : "S", "x" : 48, "y" : 8, "SanctuaryNumber" : 3},
             {"name" : "Enemy" , "symbol" : "E", "x" : 50, "y" : 2, "life" : 2,"EnemyNumber" : 1}
@@ -90,9 +88,8 @@ OriginalMaps = {
             {"name" : "Tree" , "symbol" : "T", "x" : 30, "y" : 2, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 31, "y" : 2, "hits" : 0},
             {"name" : "Enemy" , "symbol" : "E", "x" : 37, "y" : 5, "life" : 2,"EnemyNumber" : 1},
-            {"name" : "Fox" , "symbol" : "F", "x" : 47, "y" : 7, "visible" : False},
             {"name" : "Sanctuary" , "symbol" : "S", "x" : 45, "y" : 2, "SanctuaryNumber" : 4},
-            {"name" : "Closed Chest" , "symbol" : "M", "x" : 51, "y" : 0, "item" : "Sword"},
+            {"name" : "Closed Chest" , "symbol" : "M", "x" : 51, "y" : 0, "item" : "Sword"}
         ]
     },
     "Necluda" : {
@@ -110,7 +107,6 @@ OriginalMaps = {
         ],
         "entities" : [
             {"name" : "Player" , "symbol" : "X", "x" : 1, "y" : 1},
-            {"name" : "Fox" , "symbol" : "F", "x" : 5, "y" : 6, "visible" : False},
             {"name" : "Enemy" , "symbol" : "E", "x" : 9, "y" : 1, "life" : 1,"EnemyNumber" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 13, "y" : 6, "hits" : 0},
             {"name" : "Tree" , "symbol" : "T", "x" : 14, "y" : 5, "hits" : 0},
@@ -152,7 +148,7 @@ OriginalMaps = {
             {"name" : "GanonHeart" , "symbol" : "♥", "x" : 51, "y" :2, "hits" : 0},
             {"name" : "GanonHeart" , "symbol" : "♥", "x" : 52, "y" :2, "hits" : 0},
             {"name" : "GanonHeart" , "symbol" : "♥", "x" : 53, "y" :2, "hits" : 0},
-            {"name" : "Ganon" , "symbol" : "G", "x" : 20, "y" :8},
+            {"name" : "Ganon" , "symbol" : " ", "x" : 20, "y" :8},
             {"name" : "InvisibleWall" , "symbol" : " ", "x" : 0, "y" :7},
             {"name" : "InvisibleWall" , "symbol" : " ", "x" : 1, "y" :7},
             {"name" : "InvisibleWall" , "symbol" : " ", "x" : 2, "y" :7},
@@ -194,7 +190,7 @@ def TerrainAt(y,x):
     return map[y][x]
     
 def IsBlocked(y,x):
-    if TerrainAt(y,x) == "O" or TerrainAt(y,x) == "~" or TerrainAt(y,x) == "A":
+    if TerrainAt(y,x) == "O" or TerrainAt(y,x) == "~" or TerrainAt(y,x) == "A" or TerrainAt(y,x) == "-":
         return True
     if GetIndexByPosition(y,x) != -1:
         return True
@@ -227,10 +223,16 @@ def MoveEntityBy(entityIndex,moveY,moveX):
         entities[entityIndex]["x"] = x
         return True
 
-def RemoveEntity(entityIndex):
-    if entityIndex >= len(entities) or entityIndex < 0:
-        raise IndexError("Attempted to remove an entity out of range")
-    entities.pop(entityIndex)
+def RemoveEntity(entityIndex,location=None):
+    if location != None:
+        if entityIndex >= len(maps[location]["entities"]) or entityIndex < 0:
+            raise IndexError("Attempted to remove an entity out of range in an unloaded map")
+        maps[location]["entities"].pop(entityIndex)
+        return
+    else:
+        if entityIndex >= len(entities) or entityIndex < 0:
+            raise IndexError("Attempted to remove an entity out of range")
+        entities.pop(entityIndex)
 
 def AddEntity(entity):
     if "x" not in entity or "y" not in entity:
@@ -243,10 +245,16 @@ def AddEntity(entity):
         raise ValueError("Attempted to add an entity on a blocked tile")
     entities.append(entity)
 
-def GetIndexOfEntity(entity):
-    if entity in entities:
-        return entities.index(entity)
+def GetIndexOfEntity(entity,location=None):
+    if location == None:
+        for i in range(len(entities)):
+            if entities[i] == entity:
+                return i
+        return -1
     else:
+        for i in range(len(maps[location]["entities"])):
+            if maps[location]["entities"][i] == entity:
+                return i
         return -1
 
 def GetIndexByPosition(y,x):
@@ -303,15 +311,16 @@ def AdjacentEntity(y,x,entityToFind,PropertySearching="name"):
                 return GetEntityByPosition(y2,x2)
     return None
 
-def NearestTerrain(y, x, terrainToFind):
+def NearestTerrain(y, x, terrainsToFind):
     visited = [[False for _ in range(len(map[0]))] for _ in range(len(map))]
     queue = deque([(y, x, 0)])  # (y, x, distance)
     visited[y][x] = True
 
     while queue:
         y, x, dist = queue.popleft()
-        if TerrainAt(y, x) == terrainToFind:
-            return (y, x)
+        for terrainToFind in terrainsToFind:
+            if TerrainAt(y, x) == terrainToFind:
+                return (y, x)
 
         for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:  # up, down, left, right
             ny, nx = y + dy, x + dx
@@ -359,11 +368,6 @@ def MapToStr():
                         mapstr += "T" + str(entity["regen"])
                     else:
                         mapstr += entity["symbol"] 
-                elif entity["name"] == "Fox":
-                    if entity["visible"]:
-                        mapstr += entity["symbol"]
-                    else:
-                        mapstr += map[y][x]
                 elif entity["name"] == "Sanctuary":
                     if OpenSanctuaris[entity["SanctuaryNumber"]]:
                         if ValidPosition(y,x+1) and GetEntityByPosition(y,x+1) == None:
@@ -392,7 +396,7 @@ def MapToStr():
 #print(MapToStr())
 
 def InitMap(MapInfo=None):
-    global maps
+    global maps, OpenSanctuaris
     maps = copy.deepcopy(OriginalMaps)
     if MapInfo != None:
         mapName = MapInfo[1]
@@ -404,7 +408,7 @@ def InitMap(MapInfo=None):
                 if enemySaved == None:
                     raise ValueError("Error: Could not Initialize Map, Enemy in map has no conterpart in SaveFile ")
                 if enemySaved["life"] == 0:
-                    RemoveEntity(GetIndexOfEntity(enemy))
+                    RemoveEntity(GetIndexOfEntity(enemy,location=mapName),location=mapName)
                 else:
                     enemy["life"] = enemySaved["life"]
                     enemy["x"] = enemySaved["x"]
@@ -418,7 +422,18 @@ def InitMap(MapInfo=None):
                 if chestSaved["opened"]:
                     chest["name"] = "Open Chest"
                     chest["symbol"] = "W"
-        
+
+def AnimateWater():
+    for y in range(len(map)):
+        for x in range(len(map[0])):
+            if TerrainAt(y,x) == "~":
+                r = random.random()
+                if r < 0.5:
+                    map[y][x] = "-"
+            elif TerrainAt(y,x) == "-":
+                r = random.random()
+                if r < 0.5:
+                    map[y][x] = "~"
                 
 """-------------Jugador-----------"""
 
@@ -470,15 +485,15 @@ def MovePlayerNearEntity(EntityProperty,EntityValue): #
         radius += 1
     pos = random.choice(posiblePositions)
     MoveEntityTo(playerIndex,pos[0],pos[1])
-    return f"You can't go to {EntityValue} from here"*(radius-2 != 0)
+    return f"You can't go to {EntityValue} from here"*(radius-1 != 0)
 
-def MovePlayerNearTerrain(terrain):
+def MovePlayerNearTerrain(terrains):
     playerIndex = GetPlayerIndex()
     px = GetEntityByIndex(playerIndex)["x"]
     py = GetEntityByIndex(playerIndex)["y"]
-    terrainPosition = NearestTerrain(py,px,terrain)
+    terrainPosition = NearestTerrain(py,px,terrains)
     if terrainPosition == (-1,-1):
-        return f"There is no {terrain} near you"
+        return f"There is no {terrains[0]} near you"
 
     posiblePositions = []
     radius = 1
@@ -492,7 +507,7 @@ def MovePlayerNearTerrain(terrain):
         radius += 1
     pos = random.choice(posiblePositions)
     MoveEntityTo(playerIndex,pos[0],pos[1])
-    return f"You can't go to {terrain} from here"*(radius-2 != 0)
+    return f"You can't go to {terrains[0]} from here"*(radius-1 != 0)
 
 """-------------Enemy-----------"""
 
