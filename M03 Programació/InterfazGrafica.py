@@ -669,7 +669,6 @@ def NewGameMenuHelp():
         action = input("> ").lower()
         if action == "back":
             AddToPropmts(action)
-            LegendPlotMenu(action)
             break
         else:
             AddToPropmts("Invalid Action")
