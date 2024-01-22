@@ -12,7 +12,8 @@ def equip_weapon(type):
         if inventario_armas[type][2] == True:
             return f"You already have {type} equipped'"
         else:
-            inventario_armas[GetEquipedWeapon()][2] = False
+            if GetEquipedWeapon() != None:
+                inventario_armas[GetEquipedWeapon()][2] = False
             inventario_armas[type][2] = True
             return f"You have equipped '{type}'"
     else:
@@ -24,7 +25,8 @@ def equip_shield(type):
         if inventario_armas[type][2] == True:
             return f"You already have {type} equipped'"
         else:
-            inventario_armas[GetEquipedShield()][2] = False
+            if GetEquipedWeapon() != None:
+                inventario_armas[GetEquipedShield()][2] = False
             inventario_armas[type][2] = True
             return f"You have equipped '{type}'"
     else:
