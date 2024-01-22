@@ -156,17 +156,7 @@ body {
     background-size: cover;
 }
 
-#brown {
-    position: absolute;
-    background: url(../img/pattern-circles-brown-2x.png);
-    height: 90vh;
-    background-size: cover;
-    width: 90vw;
-    mask: url(../img/The_Legend_of_Zelda_-_Breath_of_the_Wild.svg);
-    mask-repeat: no-repeat;
-    mask-position: center;
-    opacity: 0.25;
-}
+
 
 #promo {
     height: 100%;
@@ -980,4 +970,17 @@ p span::before {
 
 /* FOOTER */
 
+@media screen and (max-width: 770px) {
+    #hero {
+        flex-direction: column;
+        height: 70vh;
+}
+    #promo {
+        width: auto;
+    }
+
+    .hexagon {
+        margin-bottom: 100px;
+    }
+}
 
