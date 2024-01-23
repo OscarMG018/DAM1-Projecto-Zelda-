@@ -71,9 +71,10 @@ def attack():
     elif entity["name"] == "Fox":
         # Attack fox
         MapSystem.RemoveEntity(entityIndex)
+
         message = [Inventario.UseWeapon()]
         Inventario.AddItem("Meat",1)
-        if len(message) > 0:
+        if message[0] != None:
             return ["You got meat"] + message
         return [f"You got meat"]
     
