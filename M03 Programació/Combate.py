@@ -14,7 +14,7 @@ def tryattack():
     fox = MapSystem.AdjacentEntity(player["y"],player["x"],"Fox")
     if enemy != None:
         return True, MapSystem.GetIndexOfEntity(enemy)
-    elif (fox != None and fox["visible"]):
+    elif (fox != None):
         return True, MapSystem.GetIndexOfEntity(fox)
     return False, -1
 
